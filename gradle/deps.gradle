@@ -1,0 +1,55 @@
+ext {
+    androidx_base = [
+            dependencies.create("androidx.core:core-ktx:$core_ktx_version"),
+            dependencies.create("androidx.appcompat:appcompat:$appcompat_version"),
+            dependencies.create("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime_ktx_version"),
+            dependencies.create("com.google.android.material:material:$material_version"),
+            dependencies.create("androidx.constraintlayout:constraintlayout:$constraintlayout_version"),
+            dependencies.create("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"),
+            dependencies.create("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"),
+            dependencies.create("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"),
+            dependencies.create("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"),
+    ]
+
+    koin = [
+            dependencies.create("io.insert-koin:koin-core:$koin_version"),
+            dependencies.create("io.insert-koin:koin-android:$koin_version"),
+            dependencies.create("io.insert-koin:koin-android-compat:$koin_version"),
+            dependencies.create("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")
+    ]
+
+    compose = [
+
+            dependencies.create("androidx.compose.ui:ui:$compose_version"),
+            dependencies.create("androidx.compose.ui:ui-tooling-preview:$compose_version"),
+            dependencies.create("androidx.compose.foundation:foundation:$compose_version"),
+            dependencies.create("androidx.compose.material:material:$compose_version"),
+            dependencies.create("androidx.lifecycle:lifecycle-viewmodel-compose:$compose_viewmodel_version"),
+            dependencies.create("androidx.compose.runtime:runtime-livedata:$compose_version"),
+            dependencies.create("androidx.navigation:navigation-compose:$compose_navigation_version"),
+            dependencies.create("androidx.constraintlayout:constraintlayout-compose:$compose_constraint_version"),
+            dependencies.create("androidx.compose.material:material-icons-core:$compose_version"),
+            dependencies.create("androidx.compose.material:material-icons-extended:$compose_version"),
+            dependencies.create("androidx.activity:activity-compose:$compose_activity_version"),
+            dependencies.create("com.valentinilk.shimmer:compose-shimmer:$compose_shimmer_version"),
+            dependencies.create("com.google.accompanist:accompanist-placeholder-material:$accompanist_placeholder_version"),
+    ]
+
+    okhttp3 = [
+            dependencies.create("com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version")
+    ]
+
+    retrofit = [
+            dependencies.create("com.squareup.retrofit2:retrofit:$retrofit_version"),
+            dependencies.create("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    ]
+
+    coroutines = [
+            dependencies.create("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    ]
+
+    orbit = [
+            dependencies.create("org.orbit-mvi:orbit-viewmodel:$orbit_version"),
+            dependencies.create("org.orbit-mvi:orbit-compose:$orbit_version")
+    ]
+}
