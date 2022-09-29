@@ -11,7 +11,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core_android" />
+            <option value="$PROJECT_DIR$/core_network" />
             <option value="$PROJECT_DIR$/core_ui" />
+            <option value="$PROJECT_DIR$/data_auth" />
           </set>
         </option>
       </GradleProjectSettings>

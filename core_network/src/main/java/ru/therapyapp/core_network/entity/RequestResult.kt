@@ -1,4 +1,4 @@
-package ru.therapyapp.core_network
+package ru.therapyapp.core_network.entity
 
 sealed class RequestResult<out T : Any?> {
     data class Success<out T : Any?>(val data: T) : RequestResult<T>()

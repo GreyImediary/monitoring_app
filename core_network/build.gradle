@@ -4,3 +4,10 @@ plugins {
 }
 
 apply from: rootProject.file('gradle/common-module-setup.gradle')
+
+dependencies {
+    implementation coroutines
+    implementation retrofit
+    implementation okhttp3
+    implementation koin
+}
