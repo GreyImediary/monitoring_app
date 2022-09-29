@@ -1,2 +1,5 @@
 include ':app'
 include ':core_ui'
+include ':core_network'
+include ':core_android'
+include ':data_auth'
