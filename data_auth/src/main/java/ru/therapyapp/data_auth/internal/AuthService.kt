@@ -4,7 +4,7 @@ import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import ru.therapyapp.core_network.entity.User
+import ru.therapyapp.data_auth.api.entity.User
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
 
 interface AuthService {

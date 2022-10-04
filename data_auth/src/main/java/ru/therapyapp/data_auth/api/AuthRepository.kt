@@ -1,7 +1,7 @@
 package ru.therapyapp.data_auth.api
 
 import ru.therapyapp.core_network.entity.RequestResult
-import ru.therapyapp.core_network.entity.User
+import ru.therapyapp.data_auth.api.entity.User
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
 
 interface AuthRepository {

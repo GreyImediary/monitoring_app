@@ -9,6 +9,7 @@ apply from: rootProject.file('gradle/common-module-setup.gradle')
 
 dependencies {
     implementation project(":core_network")
+    implementation project(":data_core")
 
     implementation androidx_base
     implementation koin

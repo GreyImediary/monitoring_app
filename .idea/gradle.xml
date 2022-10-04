@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/core_network" />
             <option value="$PROJECT_DIR$/core_ui" />
             <option value="$PROJECT_DIR$/data_auth" />
+            <option value="$PROJECT_DIR$/data_core" />
             <option value="$PROJECT_DIR$/data_doctor" />
             <option value="$PROJECT_DIR$/data_patient" />
             <option value="$PROJECT_DIR$/feature_auth_api" />

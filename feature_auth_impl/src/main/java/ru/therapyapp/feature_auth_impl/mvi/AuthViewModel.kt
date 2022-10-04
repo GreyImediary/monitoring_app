@@ -6,7 +6,7 @@ import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.data_auth.api.AuthRepository
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
-import ru.therapyapp.core_network.entity.UserType
+import ru.therapyapp.data_auth.api.entity.UserType
 
 class AuthViewModel(
     private val authRepository: AuthRepository
