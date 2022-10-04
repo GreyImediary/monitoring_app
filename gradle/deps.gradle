@@ -9,6 +9,10 @@ ext {
             dependencies.create("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"),
             dependencies.create("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"),
             dependencies.create("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"),
+
+            dependencies.create('junit:junit:4.13.2'),
+            dependencies.create('androidx.test.ext:junit:1.1.3'),
+            dependencies.create('androidx.test.espresso:espresso-core:3.4.0')
     ]
 
     koin = [
@@ -33,6 +37,12 @@ ext {
             dependencies.create("androidx.activity:activity-compose:$compose_activity_version"),
             dependencies.create("com.valentinilk.shimmer:compose-shimmer:$compose_shimmer_version"),
             dependencies.create("com.google.accompanist:accompanist-placeholder-material:$accompanist_placeholder_version"),
+            dependencies.create("androidx.compose.material:material-icons-extended:$compose_version"),
+
+            dependencies.create("androidx.compose.ui:ui-tooling:$compose_version"),
+            dependencies.create("androidx.compose.ui:ui-test-manifest:$compose_version"),
+            dependencies.create("androidx.compose.ui:ui-test-junit4:$compose_version")
+
     ]
 
     okhttp3 = [

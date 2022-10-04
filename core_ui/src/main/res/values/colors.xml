@@ -8,5 +8,12 @@
     <color name="secondary_25">#2596C2D9</color>
 
     <color name="icon_color">#1F343F</color>
-    <color name="font_color">132026</color>
+    <color name="font_color">#132026</color>
+
+    <color name="main_background_color">#FAFAFA</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <color name="textfield_unfocused_color">#79747E</color>
+
+    <color name="transparent_color">@android:color/transparent</color>
 </resources>

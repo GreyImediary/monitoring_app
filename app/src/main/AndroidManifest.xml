@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ru.therapyapp.monitoringapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".App"
+        android:networkSecurityConfig="@xml/security_config"
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,13 +16,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MonitoringApp"
-        tools:targetApi="31">
+        android:theme="@style/MonitoringAppTheme"
+        tools:targetApi="33">
+        <meta-data android:name="android.security.net.config"
+            android:resource="@xml/security_config" />
         <activity
-            android:name=".MainActivity"
+            android:name="ru.therapyapp.feature_auth_impl.AuthActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MonitoringApp">
+            android:theme="@style/MonitoringAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

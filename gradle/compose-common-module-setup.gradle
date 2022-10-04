@@ -4,7 +4,6 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "ru.therapyapp.monitoringapp"
         minSdk 21
         targetSdk 33
         versionCode 1

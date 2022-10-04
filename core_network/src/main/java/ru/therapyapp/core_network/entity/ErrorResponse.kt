@@ -1,9 +1,11 @@
 package ru.therapyapp.core_network.entity
 
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import retrofit2.HttpException
 
 data class ErrorResponse(
+    @SerializedName("text")
     val errorText: String
 )
 

@@ -8,7 +8,7 @@ import ru.therapyapp.data_auth.api.AuthRepository
 import ru.therapyapp.data_auth.api.entity.User
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
 
-class AuthRepositoryImpl(
+internal class AuthRepositoryImpl(
     private val service: AuthService,
     private val dispatcher: CoroutineDispatcher,
 ) : AuthRepository {
