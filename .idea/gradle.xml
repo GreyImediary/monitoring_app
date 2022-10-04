@@ -17,6 +17,8 @@
             <option value="$PROJECT_DIR$/data_auth" />
             <option value="$PROJECT_DIR$/feature_auth_api" />
             <option value="$PROJECT_DIR$/feature_auth_impl" />
+            <option value="$PROJECT_DIR$/feature_user_data_api" />
+            <option value="$PROJECT_DIR$/feature_user_data_impl" />
           </set>
         </option>
       </GradleProjectSettings>
