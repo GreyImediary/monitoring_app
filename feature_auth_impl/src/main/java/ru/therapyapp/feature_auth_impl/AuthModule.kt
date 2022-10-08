@@ -9,7 +9,9 @@ class AuthModule {
     val module = module {
         viewModel {
             AuthViewModel(
-                authRepository = get()
+                authRepository = get(),
+                doctorRepository = get(),
+                patientRepository = get(),
             )
         }
     }

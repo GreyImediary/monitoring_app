@@ -7,12 +7,12 @@ import retrofit2.http.POST
 import ru.therapyapp.data_auth.api.entity.User
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
 
-interface AuthService {
+internal interface AuthService {
 
     @FormUrlEncoded
     @POST("api/v1/auth")
     suspend fun auth(@Field("login") login: String, @Field("password") password: String): User
 
-    @POST("/api/v1/register")
+    @POST("api/v1/register")
     suspend fun register(@Body userRequestBody: UserRequestBody): User
 }

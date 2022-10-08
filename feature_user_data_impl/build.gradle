@@ -11,8 +11,13 @@ dependencies {
     implementation project(":core_ui")
     implementation project(":core_android")
     implementation project(":core_network")
+    implementation project(":data_core")
     implementation project(":data_auth")
     implementation project(":data_patient")
+    implementation project(":data_doctor")
+
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
 
     implementation androidx_base

@@ -5,7 +5,10 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.therapyapp.core_network.RetrofitModule
 import ru.therapyapp.data_auth.DataAuthModule
+import ru.therapyapp.data_doctor.DataDoctorModule
+import ru.therapyapp.data_patient.DataPatientModule
 import ru.therapyapp.feature_auth_impl.AuthModule
+import ru.therapyapp.feature_user_data_impl.screen.UserDataModule
 
 class App : Application() {
     private val modules by lazy {
@@ -13,6 +16,9 @@ class App : Application() {
             RetrofitModule().module,
             DataAuthModule().module,
             AuthModule().module,
+            UserDataModule().module,
+            DataDoctorModule().module,
+            DataPatientModule().module
         )
     }
     override fun onCreate() {

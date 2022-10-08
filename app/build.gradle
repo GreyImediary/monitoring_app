@@ -68,8 +68,12 @@ dependencies {
     implementation project(":core_network")
     implementation project(":core_ui")
     implementation project(":data_auth")
+    implementation project(":data_doctor")
+    implementation project(":data_patient")
     implementation project(":feature_auth_api")
     implementation project(":feature_auth_impl")
+    implementation project(":feature_user_data_api")
+    implementation project(":feature_user_data_impl")
 
     implementation androidx_base
     implementation compose

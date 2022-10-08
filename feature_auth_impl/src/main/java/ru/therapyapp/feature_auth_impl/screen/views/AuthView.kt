@@ -35,6 +35,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.AppOutlinedButton
@@ -45,12 +46,14 @@ import ru.therapyapp.feature_auth_impl.mvi.AuthSideEffect
 import ru.therapyapp.feature_auth_impl.mvi.AuthViewModel
 import ru.therapyapp.feature_auth_impl.screen.configs.getButtonsHorizontalPadding
 import ru.therapyapp.feature_auth_impl.screen.configs.getScreenHorizontalPadding
+import ru.therapyapp.feature_user_data_api.UserDataRouter
 
 
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel,
-    onEvent: (AuthEvent) -> Unit
+    onEvent: (AuthEvent) -> Unit,
+    userDataRouter: UserDataRouter = get(),
 ) {
     val navController = rememberNavController()
     val activity = LocalContext.current as AppCompatActivity
@@ -61,27 +64,31 @@ fun AuthScreen(
     }
 
     viewModel.collectSideEffect(sideEffect = {
-        handleSideEffect(it, navController, activity)
+        handleSideEffect(it, navController, userDataRouter, activity)
     })
 }
 
 private fun handleSideEffect(
     sideEffect: AuthSideEffect,
     navController: NavController,
-    context: Context,
+    userDataRouter: UserDataRouter,
+    activity: AppCompatActivity,
 ) {
     when (sideEffect) {
-        is AuthSideEffect.OpenMainScreen -> {
-            //TODO
-        }
         AuthSideEffect.ShowRegisterView -> {
             navController.navigate("register")
         }
         is AuthSideEffect.ShowMessage -> {
-            Toast.makeText(context, sideEffect.text, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, sideEffect.text, Toast.LENGTH_SHORT).show()
         }
         is AuthSideEffect.OpenUserDataScreen -> {
-            //TODO()
+            userDataRouter.openUserDataScreen(activity, sideEffect.user)
+        }
+        is AuthSideEffect.OpenDoctorScreen -> {
+
+        }
+        is AuthSideEffect.OpenPatientScreen -> {
+
         }
     }
 }
@@ -276,12 +283,12 @@ private fun isFieldsValid(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PhonePreview() {
+private fun PhonePreview() {
     AuthView(onEvent = {})
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.TABLET)
 @Composable
-fun TabletPreview() {
+private fun TabletPreview() {
     AuthView(onEvent = {})
 }

@@ -271,7 +271,7 @@ fun RegisterView(
                         selected = isSelectedItem(UserType.DOCTOR),
                         onClick = null,
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.main)
+                            selectedColor = colorResource(id = R.color.secondary)
                         )
                     )
                     Text(
@@ -295,7 +295,7 @@ fun RegisterView(
                         selected = isSelectedItem(UserType.PATIENT),
                         onClick = null,
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.main)
+                            selectedColor = colorResource(id = R.color.secondary)
                         )
                     )
                     Text(

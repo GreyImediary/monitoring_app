@@ -41,8 +41,10 @@ ext {
 
             dependencies.create("androidx.compose.ui:ui-tooling:$compose_version"),
             dependencies.create("androidx.compose.ui:ui-test-manifest:$compose_version"),
-            dependencies.create("androidx.compose.ui:ui-test-junit4:$compose_version")
+            dependencies.create("androidx.compose.ui:ui-test-junit4:$compose_version"),
 
+            dependencies.create("io.github.vanpra.compose-material-dialogs:core:0.8.1-rc"),
+            dependencies.create("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
     ]
 
     okhttp3 = [

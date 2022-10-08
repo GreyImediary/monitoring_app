@@ -1,8 +1,11 @@
 package ru.therapyapp.data_patient.api.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import ru.therapyapp.data_core.entity.Sex
 import java.util.*
 
+@Parcelize
 data class Patient(
     val id: Int,
     val userId: Int,
@@ -15,4 +18,4 @@ data class Patient(
     val email: String?,
     val birthDate: Date,
     val patientCardNumber: String,
-)
+) : Parcelable
