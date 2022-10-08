@@ -5,7 +5,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
-import ru.therapyapp.data_auth.api.entity.User
+import ru.therapyapp.data_core.entity.User
 import ru.therapyapp.data_doctor.api.DoctorRepository
 import ru.therapyapp.data_doctor.api.entity.DoctorRequestBody
 import ru.therapyapp.data_patient.api.PatientRepository

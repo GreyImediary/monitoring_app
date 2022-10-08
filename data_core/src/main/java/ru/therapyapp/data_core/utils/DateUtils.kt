@@ -1,4 +1,4 @@
-package ru.therapyapp.data_core.entity.utils
+package ru.therapyapp.data_core.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

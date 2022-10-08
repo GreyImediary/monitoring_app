@@ -1,4 +1,4 @@
-package ru.therapyapp.data_auth.api.entity
+package ru.therapyapp.data_core.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

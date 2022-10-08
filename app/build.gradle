@@ -74,6 +74,10 @@ dependencies {
     implementation project(":feature_auth_impl")
     implementation project(":feature_user_data_api")
     implementation project(":feature_user_data_impl")
+    implementation project(":feature_doctor_screen_api")
+    implementation project(":feature_doctor_screen_impl")
+    implementation project(":feature_patient_screen_api")
+    implementation project(":feature_patient_screen_impl")
 
     implementation androidx_base
     implementation compose

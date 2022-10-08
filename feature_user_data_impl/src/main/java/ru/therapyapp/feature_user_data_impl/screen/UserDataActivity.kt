@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.parameter.parametersOf
-import ru.therapyapp.data_auth.api.entity.User
+import ru.therapyapp.data_core.entity.User
 import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataViewModel
 import ru.therapyapp.feature_user_data_impl.screen.view.UserDataScreen
 

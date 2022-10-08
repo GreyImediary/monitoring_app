@@ -36,7 +36,7 @@ import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.MaskVisualTransformation
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.core_ui.textFieldColors
-import ru.therapyapp.data_core.entity.utils.getStringDateRepresentation
+import ru.therapyapp.data_core.utils.getStringDateRepresentation
 import ru.therapyapp.data_patient.api.entity.PatientRequestBody
 import ru.therapyapp.feature_user_data_impl.screen.config.NumberMask.INPUT_LENGTH
 import ru.therapyapp.feature_user_data_impl.screen.config.NumberMask.MASK

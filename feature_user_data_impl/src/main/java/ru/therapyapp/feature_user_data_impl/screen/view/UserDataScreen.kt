@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
-import ru.therapyapp.data_auth.api.entity.UserType
+import ru.therapyapp.data_core.entity.UserType
 import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataSideEffect
 import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataViewModel
 
