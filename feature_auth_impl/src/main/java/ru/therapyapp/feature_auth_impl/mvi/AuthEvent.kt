@@ -1,6 +1,6 @@
 package ru.therapyapp.feature_auth_impl.mvi
 
-import ru.therapyapp.data_auth.api.entity.UserType
+import ru.therapyapp.data_core.entity.UserType
 
 sealed class AuthEvent {
     object OnRegisterButtonClick : AuthEvent()

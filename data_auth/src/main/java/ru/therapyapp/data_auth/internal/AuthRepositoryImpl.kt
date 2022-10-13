@@ -5,8 +5,8 @@ import kotlinx.coroutines.withContext
 import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.core_network.entity.getErrorMessage
 import ru.therapyapp.data_auth.api.AuthRepository
-import ru.therapyapp.data_auth.api.entity.User
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
+import ru.therapyapp.data_core.entity.User
 
 internal class AuthRepositoryImpl(
     private val service: AuthService,

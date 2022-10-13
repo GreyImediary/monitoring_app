@@ -439,16 +439,32 @@ fun PatientDataView(
                         .fillMaxWidth()
                         .padding(start = buttonPadding, end = buttonPadding),
                     onClick = {
-
-                        /*if (isFieldsValid(
-                            name.value,
-                            isNameError,
-                            password.value,
-                            isPasswordError
-                        )
-                    ) {
-                        onEvent(AuthEvent.OnLoginClick(name.value, password.value))
-                    }*/
+                        if (isFieldValid(
+                                name = name.value,
+                                isNameError = isNameError,
+                                surname = surname.value,
+                                isSurnameError = isSurnameError,
+                                phone = phoneNumber.value,
+                                isPhoneNumberError = isPhoneNumberError,
+                                date = birthDateString.value,
+                                isDateError = isDateError,
+                            )
+                        ) {
+                            onEvent(UserDataEvent.OnPatientDone(
+                                PatientRequestBody(
+                                    userId = userId,
+                                    name = name.value.trim(),
+                                    surname = surname.value.trim(),
+                                    patronymic = patronymic.value.trim(),
+                                    sex = RequestDataMapper.mapSexToSexEnum(selectedOptionText.value),
+                                    phoneNumber = phoneNumber.value.trim(),
+                                    additionalPhoneNumber = additionalPhoneNumber.value.trim(),
+                                    email = email.value.trim(),
+                                    birthDate = birthDate,
+                                    patientCardNumber = cardNumber.value.trim()
+                                )
+                            ))
+                        }
                     }
                 ) {
                     Text(
@@ -870,15 +886,15 @@ fun PatientDataView(
                             onEvent(UserDataEvent.OnPatientDone(
                                 PatientRequestBody(
                                     userId = userId,
-                                    name = name.value,
-                                    surname = surname.value,
-                                    patronymic = patronymic.value,
+                                    name = name.value.trim(),
+                                    surname = surname.value.trim(),
+                                    patronymic = patronymic.value.trim(),
                                     sex = RequestDataMapper.mapSexToSexEnum(selectedOptionText.value),
-                                    phoneNumber = phoneNumber.value,
-                                    additionalPhoneNumber = additionalPhoneNumber.value,
-                                    email = email.value,
+                                    phoneNumber = phoneNumber.value.trim(),
+                                    additionalPhoneNumber = additionalPhoneNumber.value.trim(),
+                                    email = email.value.trim(),
                                     birthDate = birthDate,
-                                    patientCardNumber = cardNumber.value
+                                    patientCardNumber = cardNumber.value.trim()
                                 )
                             ))
                         }

@@ -1,6 +1,6 @@
 package ru.therapyapp.feature_auth_impl.mvi
 
-import ru.therapyapp.data_auth.api.entity.User
+import ru.therapyapp.data_core.entity.User
 import ru.therapyapp.data_doctor.api.entity.Doctor
 import ru.therapyapp.data_patient.api.entity.Patient
 

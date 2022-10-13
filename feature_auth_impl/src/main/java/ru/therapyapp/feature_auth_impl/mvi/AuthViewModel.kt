@@ -1,14 +1,13 @@
 package ru.therapyapp.feature_auth_impl.mvi
 
-import org.orbitmvi.orbit.syntax.simple.SimpleSyntax
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.data_auth.api.AuthRepository
-import ru.therapyapp.data_auth.api.entity.User
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
-import ru.therapyapp.data_auth.api.entity.UserType
+import ru.therapyapp.data_core.entity.User
+import ru.therapyapp.data_core.entity.UserType
 import ru.therapyapp.data_doctor.api.DoctorRepository
 import ru.therapyapp.data_patient.api.PatientRepository
 
@@ -32,9 +31,10 @@ class AuthViewModel(
                 is RequestResult.Success -> {
                     val user = loginResult.data
                     if (user.userType == UserType.PATIENT) {
-                        getDoctor(user)
-                    } else if (user.userType == UserType.DOCTOR) {
                         getPatient(user)
+
+                    } else if (user.userType == UserType.DOCTOR) {
+                        getDoctor(user)
                     }
                 }
                 is RequestResult.Error -> {

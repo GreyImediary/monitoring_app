@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.core_ui.textFieldColors
-import ru.therapyapp.data_auth.api.entity.UserType
+import ru.therapyapp.data_core.entity.UserType
 import ru.therapyapp.feature_auth_impl.mvi.AuthEvent
 import ru.therapyapp.feature_auth_impl.screen.configs.getButtonsHorizontalPadding
 import ru.therapyapp.feature_auth_impl.screen.configs.getScreenHorizontalPadding
@@ -199,8 +199,8 @@ fun RegisterView(
                             ) {
                                 onEvent(
                                     AuthEvent.OnRegister(
-                                        login.value,
-                                        password.value,
+                                        login.value.trim(),
+                                        password.value.trim(),
                                         selectedRole.value,
                                     )
                                 )
@@ -320,8 +320,8 @@ fun RegisterView(
                     ) {
                         onEvent(
                             AuthEvent.OnRegister(
-                                login.value,
-                                password.value,
+                                login.value.trim(),
+                                password.value.trim(),
                                 selectedRole.value,
                             )
                         )

@@ -1,6 +1,5 @@
 package ru.therapyapp.feature_auth_impl.screen.views
 
-import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -46,6 +45,8 @@ import ru.therapyapp.feature_auth_impl.mvi.AuthSideEffect
 import ru.therapyapp.feature_auth_impl.mvi.AuthViewModel
 import ru.therapyapp.feature_auth_impl.screen.configs.getButtonsHorizontalPadding
 import ru.therapyapp.feature_auth_impl.screen.configs.getScreenHorizontalPadding
+import ru.therapyapp.feature_doctor_screen_api.DoctorScreenRouter
+import ru.therapyapp.feature_patient_screen_api.PatientScreenRouter
 import ru.therapyapp.feature_user_data_api.UserDataRouter
 
 
@@ -54,6 +55,8 @@ fun AuthScreen(
     viewModel: AuthViewModel,
     onEvent: (AuthEvent) -> Unit,
     userDataRouter: UserDataRouter = get(),
+    doctorScreenRouter: DoctorScreenRouter = get(),
+    patientScreenRouter: PatientScreenRouter = get(),
 ) {
     val navController = rememberNavController()
     val activity = LocalContext.current as AppCompatActivity
@@ -64,7 +67,14 @@ fun AuthScreen(
     }
 
     viewModel.collectSideEffect(sideEffect = {
-        handleSideEffect(it, navController, userDataRouter, activity)
+        handleSideEffect(
+            it,
+            navController,
+            userDataRouter,
+            doctorScreenRouter,
+            patientScreenRouter,
+            activity
+        )
     })
 }
 
@@ -72,6 +82,8 @@ private fun handleSideEffect(
     sideEffect: AuthSideEffect,
     navController: NavController,
     userDataRouter: UserDataRouter,
+    doctorScreenRouter: DoctorScreenRouter,
+    patientScreenRouter: PatientScreenRouter,
     activity: AppCompatActivity,
 ) {
     when (sideEffect) {
@@ -85,10 +97,10 @@ private fun handleSideEffect(
             userDataRouter.openUserDataScreen(activity, sideEffect.user)
         }
         is AuthSideEffect.OpenDoctorScreen -> {
-
+            doctorScreenRouter.openDoctorScreen(activity, sideEffect.doctor)
         }
         is AuthSideEffect.OpenPatientScreen -> {
-
+            patientScreenRouter.openPatientScreen(activity, sideEffect.patient)
         }
     }
 }

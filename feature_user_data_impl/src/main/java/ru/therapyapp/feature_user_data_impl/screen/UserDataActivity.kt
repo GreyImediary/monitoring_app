@@ -9,12 +9,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.parameter.parametersOf
 import ru.therapyapp.data_core.entity.User
+import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataEvent
 import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataViewModel
 import ru.therapyapp.feature_user_data_impl.screen.view.UserDataScreen
 
 class UserDataActivity : AppCompatActivity(), KoinComponent {
     private val viewModel: UserDataViewModel by viewModel {
-        parametersOf(intent.getParcelableExtra(KEY_USER, User::class.java))
+        parametersOf(intent?.getParcelableExtra<User>(KEY_USER))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,7 @@ class UserDataActivity : AppCompatActivity(), KoinComponent {
         setContent {
             UserDataScreen(viewModel = viewModel)
         }
+        viewModel.dispatch(UserDataEvent.FetchData)
     }
 
     companion object {

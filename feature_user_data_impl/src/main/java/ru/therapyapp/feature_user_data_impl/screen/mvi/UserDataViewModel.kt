@@ -12,7 +12,7 @@ import ru.therapyapp.data_patient.api.PatientRepository
 import ru.therapyapp.data_patient.api.entity.PatientRequestBody
 
 class UserDataViewModel(
-    private val user: User,
+    private val user: User?,
     private val patientRepository: PatientRepository,
     private val doctorRepository: DoctorRepository
 ) : MviViewModel<UserDataEvent, UserDataState, UserDataSideEffect>(initialState = UserDataState()) {

@@ -8,4 +8,5 @@ apply from: rootProject.file('gradle/common-module-setup.gradle')
 dependencies {
     implementation androidx_base
 
+    implementation project(":data_doctor")
 }

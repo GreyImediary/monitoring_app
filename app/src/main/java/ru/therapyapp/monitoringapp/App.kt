@@ -8,6 +8,8 @@ import ru.therapyapp.data_auth.DataAuthModule
 import ru.therapyapp.data_doctor.DataDoctorModule
 import ru.therapyapp.data_patient.DataPatientModule
 import ru.therapyapp.feature_auth_impl.AuthModule
+import ru.therapyapp.feature_doctor_screen_impl.DoctorScreenModule
+import ru.therapyapp.feature_patient_screen_impl.PatientScreenModule
 import ru.therapyapp.feature_user_data_impl.screen.UserDataModule
 
 class App : Application() {
@@ -18,7 +20,9 @@ class App : Application() {
             AuthModule().module,
             UserDataModule().module,
             DataDoctorModule().module,
-            DataPatientModule().module
+            DataPatientModule().module,
+            PatientScreenModule().module,
+            DoctorScreenModule().module,
         )
     }
     override fun onCreate() {
