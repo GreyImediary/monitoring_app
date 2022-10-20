@@ -7,6 +7,7 @@ import ru.therapyapp.core_network.RetrofitModule
 import ru.therapyapp.data_auth.DataAuthModule
 import ru.therapyapp.data_doctor.DataDoctorModule
 import ru.therapyapp.data_patient.DataPatientModule
+import ru.therapyapp.data_request.DataRequestModule
 import ru.therapyapp.feature_auth_impl.AuthModule
 import ru.therapyapp.feature_doctor_screen_impl.DoctorScreenModule
 import ru.therapyapp.feature_patient_screen_impl.PatientScreenModule
@@ -21,6 +22,7 @@ class App : Application() {
             UserDataModule().module,
             DataDoctorModule().module,
             DataPatientModule().module,
+            DataRequestModule().module,
             PatientScreenModule().module,
             DoctorScreenModule().module,
         )

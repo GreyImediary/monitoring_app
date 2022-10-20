@@ -32,4 +32,14 @@ internal class PatientRepositoryImpl(
             }
         }
     }
+
+    override suspend fun getPatients(): RequestResult<List<Patient>> {
+        return withContext(dispatcher) {
+            try {
+                RequestResult.Success(patientService.getAllPatients())
+            } catch (e: Exception) {
+                RequestResult.Error(e.getErrorMessage())
+            }
+        }
+    }
 }

@@ -37,6 +37,10 @@ ext {
             dependencies.create("androidx.activity:activity-compose:$compose_activity_version"),
             dependencies.create("com.valentinilk.shimmer:compose-shimmer:$compose_shimmer_version"),
             dependencies.create("com.google.accompanist:accompanist-placeholder-material:$accompanist_placeholder_version"),
+            dependencies.create("com.google.accompanist:accompanist-swiperefresh:$accompanist_swipetorefresh_version"),
+            dependencies.create("androidx.compose.material3:material3:1.0.0-rc01"),
+            dependencies.create("androidx.compose.material3:material3-window-size-class:1.0.0-rc01"),
+
             dependencies.create("androidx.compose.material:material-icons-extended:$compose_version"),
 
             dependencies.create("androidx.compose.ui:ui-tooling:$compose_version"),

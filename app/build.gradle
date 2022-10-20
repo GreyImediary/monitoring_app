@@ -70,6 +70,7 @@ dependencies {
     implementation project(":data_auth")
     implementation project(":data_doctor")
     implementation project(":data_patient")
+    implementation project(":data_request")
     implementation project(":feature_auth_api")
     implementation project(":feature_auth_impl")
     implementation project(":feature_user_data_api")

@@ -4,23 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import ru.therapyapp.data_doctor.api.entity.Doctor
+import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
+import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenViewModel
+import ru.therapyapp.feature_doctor_screen_impl.view.DoctorScreen
 
 class DoctorScreenActivity : AppCompatActivity() {
+    private val viewModel: DoctorScreenViewModel by viewModel {
+        parametersOf(intent?.getParcelableExtra(KEY_DOCTOR))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "DoctorScreen", modifier = Modifier.align(Alignment.Center))
-            }
+            DoctorScreen(viewModel = viewModel)
         }
+
+        viewModel.dispatch(DoctorScreenEvent.FetchData)
     }
 
     companion object {
