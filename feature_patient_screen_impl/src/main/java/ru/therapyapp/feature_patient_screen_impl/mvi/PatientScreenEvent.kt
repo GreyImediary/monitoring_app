@@ -4,5 +4,6 @@ import ru.therapyapp.data_request.api.entity.RequestUpdateBody
 
 sealed class PatientScreenEvent {
     object FetchData : PatientScreenEvent()
+    object OnBasdaiClick : PatientScreenEvent()
     data class OnUpdateRequest(val updateRequestBody: RequestUpdateBody) : PatientScreenEvent()
 }

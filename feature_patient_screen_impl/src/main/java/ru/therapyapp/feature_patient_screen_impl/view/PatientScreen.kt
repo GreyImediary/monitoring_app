@@ -23,23 +23,32 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.feature_basdai_api.BasdaiRouter
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenSideEffect
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenViewModel
+import ru.therapyapp.feature_patient_screen_impl.view.routes.IndexesRoute
 import ru.therapyapp.feature_patient_screen_impl.view.routes.RequestRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PatientScreen(
     viewModel: PatientScreenViewModel,
+    basdaiRouter: BasdaiRouter = get(),
 ) {
     val context = LocalContext.current as AppCompatActivity
     val state = viewModel.collectAsState().value
     viewModel.collectSideEffect(sideEffect = {
-        handleSideEffects(context, it)
+        handleSideEffects(
+            context,
+            state.patient?.id ?: -1,
+            basdaiRouter,
+            it
+        )
     })
 
     val patient = state.patient
@@ -143,9 +152,12 @@ fun PatientScreen(
         NavHost(navController = navController,
             startDestination = PatientScreenViewRoute.INDEXES.title) {
             composable(PatientScreenViewRoute.INDEXES.title) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Text(text = "индексы")
-                }
+                IndexesRoute(
+                    onMenuClick = { scope.launch { drawerState.open() } },
+                    onEvent = {
+                        viewModel.dispatch(it)
+                    },
+                )
             }
             composable(PatientScreenViewRoute.REQUESTS.title) {
                 RequestRoute(
@@ -168,11 +180,16 @@ fun PatientScreen(
 
 private fun handleSideEffects(
     activity: AppCompatActivity,
+    patientId: Int,
+    basdaiRouter: BasdaiRouter,
     effect: PatientScreenSideEffect,
 ) {
     when (effect) {
         is PatientScreenSideEffect.ShowToast -> {
             Toast.makeText(activity, effect.message, Toast.LENGTH_SHORT).show()
+        }
+        PatientScreenSideEffect.OpenBasdaiScreen -> {
+            basdaiRouter.openBasdaiScreen(activity, patientId)
         }
     }
 }

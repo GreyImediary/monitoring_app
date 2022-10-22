@@ -72,6 +72,7 @@ dependencies {
     implementation project(":data_doctor")
     implementation project(":data_patient")
     implementation project(":data_request")
+    implementation project(":data_basdai")
     implementation project(":feature_auth_api")
     implementation project(":feature_auth_impl")
     implementation project(":feature_user_data_api")
@@ -80,6 +81,8 @@ dependencies {
     implementation project(":feature_doctor_screen_impl")
     implementation project(":feature_patient_screen_api")
     implementation project(":feature_patient_screen_impl")
+    implementation project(":feature_basdai_api")
+    implementation project(":feature_basdai_impl")
 
     implementation androidx_base
     implementation compose

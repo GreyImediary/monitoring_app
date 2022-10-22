@@ -6,7 +6,6 @@ plugins {
 apply from: rootProject.file('gradle/compose-common-module-setup.gradle')
 
 dependencies {
-    implementation project(":feature_user_data_api")
 
     implementation project(":core_ui")
     implementation project(":core_android")
@@ -15,7 +14,7 @@ dependencies {
     implementation project(":data_patient")
     implementation project(":data_doctor")
     implementation project(":data_request")
-    implementation project(":feature_patient_screen_api")
+    implementation project(":data_basdai")
     implementation project(":feature_basdai_api")
 
 

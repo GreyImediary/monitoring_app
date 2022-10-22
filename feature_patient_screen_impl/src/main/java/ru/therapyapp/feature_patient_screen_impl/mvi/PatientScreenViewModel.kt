@@ -19,6 +19,7 @@ class PatientScreenViewModel(
         when (event) {
             PatientScreenEvent.FetchData -> fetchData()
             is PatientScreenEvent.OnUpdateRequest -> updateRequest(event.updateRequestBody)
+            PatientScreenEvent.OnBasdaiClick -> openBasdai()
         }
     }
 
@@ -51,6 +52,12 @@ class PatientScreenViewModel(
                     }, isRefreshing = false) }
                 }
             }
+        }
+    }
+
+    private fun openBasdai() {
+        intent {
+            postSideEffect(PatientScreenSideEffect.OpenBasdaiScreen)
         }
     }
 }
