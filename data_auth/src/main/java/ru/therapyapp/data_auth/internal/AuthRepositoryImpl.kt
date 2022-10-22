@@ -32,4 +32,14 @@ internal class AuthRepositoryImpl(
             }
         }
     }
+
+    override suspend fun getUserById(usedId: Int): RequestResult<User> {
+        return withContext(dispatcher) {
+            try {
+                RequestResult.Success(service.getUserById(usedId))
+            } catch (e: Exception) {
+                RequestResult.Error(message = "Ошибка авторизации. Проверьте логин и пароль")
+            }
+        }
+    }
 }

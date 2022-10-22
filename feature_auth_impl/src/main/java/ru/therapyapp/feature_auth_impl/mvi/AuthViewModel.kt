@@ -4,6 +4,7 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
+import ru.therapyapp.core_prefs.SharedPrefsRepository
 import ru.therapyapp.data_auth.api.AuthRepository
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
 import ru.therapyapp.data_core.entity.User
@@ -15,6 +16,7 @@ class AuthViewModel(
     private val authRepository: AuthRepository,
     private val doctorRepository: DoctorRepository,
     private val patientRepository: PatientRepository,
+    private val prefsRepository: SharedPrefsRepository,
 ) : MviViewModel<AuthEvent, AuthState, AuthSideEffect>(initialState = AuthState()) {
 
     override fun dispatch(event: AuthEvent) {
@@ -22,6 +24,29 @@ class AuthViewModel(
             is AuthEvent.OnLoginClick -> onLogin(event.login, event.password)
             AuthEvent.OnRegisterButtonClick -> onRegisterButtonClick()
             is AuthEvent.OnRegister -> onRegister(event.login, event.password, event.userType)
+            AuthEvent.CheckLogin -> checkLogin()
+        }
+    }
+
+    private fun checkLogin() {
+        if (prefsRepository.isLoggedIn) {
+            intent {
+                when (val userResult = authRepository.getUserById(prefsRepository.userId)) {
+                    is RequestResult.Error -> {
+                        postSideEffect(AuthSideEffect.ShowMessage(userResult.message ?: ""))
+                    }
+                    is RequestResult.Success -> {
+                        when (prefsRepository.userType) {
+                            UserType.DOCTOR.name -> {
+                                getDoctor(userResult.data)
+                            }
+                            UserType.PATIENT.name -> {
+                                getPatient(userResult.data)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -48,6 +73,11 @@ class AuthViewModel(
         intent {
             when (val doctorResult = doctorRepository.getDoctorByUserId(user.id)) {
                 is RequestResult.Success -> {
+                    prefsRepository.apply {
+                        userId = user.id
+                        userType = user.userType.name
+                        isLoggedIn = true
+                    }
                     postSideEffect(AuthSideEffect.OpenDoctorScreen(doctorResult.data))
                 }
                 is RequestResult.Error -> {
@@ -62,6 +92,11 @@ class AuthViewModel(
         intent {
             when (val patientResult = patientRepository.getPatientByUserId(user.id)) {
                 is RequestResult.Success -> {
+                    prefsRepository.apply {
+                        userId = user.id
+                        userType = user.userType.name
+                        isLoggedIn = true
+                    }
                     postSideEffect(AuthSideEffect.OpenPatientScreen(patientResult.data))
                 }
                 is RequestResult.Error -> {

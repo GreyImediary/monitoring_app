@@ -12,6 +12,7 @@ class AuthModule {
                 authRepository = get(),
                 doctorRepository = get(),
                 patientRepository = get(),
+                prefsRepository = get(),
             )
         }
     }

@@ -67,6 +67,7 @@ dependencies {
     implementation project(":core_android")
     implementation project(":core_network")
     implementation project(":core_ui")
+    implementation project(":core_prefs")
     implementation project(":data_auth")
     implementation project(":data_doctor")
     implementation project(":data_patient")

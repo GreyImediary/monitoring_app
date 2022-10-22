@@ -7,4 +7,5 @@ import ru.therapyapp.data_core.entity.User
 interface AuthRepository {
     suspend fun register(userRequestBody: UserRequestBody): RequestResult<User>
     suspend fun auth(login: String, password: String): RequestResult<User>
+    suspend fun getUserById(usedId: Int): RequestResult<User>
 }

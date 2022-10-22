@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.therapyapp.core_network.RetrofitModule
+import ru.therapyapp.core_prefs.CorePrefsModule
 import ru.therapyapp.data_auth.DataAuthModule
 import ru.therapyapp.data_doctor.DataDoctorModule
 import ru.therapyapp.data_patient.DataPatientModule
@@ -25,6 +26,7 @@ class App : Application() {
             DataRequestModule().module,
             PatientScreenModule().module,
             DoctorScreenModule().module,
+            CorePrefsModule().module,
         )
     }
     override fun onCreate() {

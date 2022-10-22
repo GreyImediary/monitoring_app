@@ -5,6 +5,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
+import ru.therapyapp.core_prefs.SharedPrefsRepository
 import ru.therapyapp.data_core.entity.User
 import ru.therapyapp.data_doctor.api.DoctorRepository
 import ru.therapyapp.data_doctor.api.entity.DoctorRequestBody
@@ -14,7 +15,8 @@ import ru.therapyapp.data_patient.api.entity.PatientRequestBody
 class UserDataViewModel(
     private val user: User?,
     private val patientRepository: PatientRepository,
-    private val doctorRepository: DoctorRepository
+    private val doctorRepository: DoctorRepository,
+    private val prefsRepository: SharedPrefsRepository,
 ) : MviViewModel<UserDataEvent, UserDataState, UserDataSideEffect>(initialState = UserDataState()) {
 
     override fun dispatch(event: UserDataEvent) {
@@ -38,6 +40,11 @@ class UserDataViewModel(
         intent {
             when (val doctorResult = doctorRepository.createDoctor(doctorRequestBody)) {
                 is RequestResult.Success -> {
+                    prefsRepository.apply {
+                        userId = user?.id ?: -1
+                        userType = user?.userType?.name ?: ""
+                        isLoggedIn = true
+                    }
                     postSideEffect(UserDataSideEffect.OpenDoctorScreen(doctorResult.data))
                 }
                 is RequestResult.Error -> {
@@ -52,6 +59,11 @@ class UserDataViewModel(
         intent {
             when (val patientResult = patientRepository.createPatient(patientRequestBody)) {
                 is RequestResult.Success -> {
+                    prefsRepository.apply {
+                        userId = user?.id ?: -1
+                        userType = user?.userType?.name ?: ""
+                        isLoggedIn = true
+                    }
                     postSideEffect(UserDataSideEffect.OpenPatientScreen(patientResult.data))
                 }
                 is RequestResult.Error -> {

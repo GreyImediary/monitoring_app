@@ -1,9 +1,6 @@
 package ru.therapyapp.data_auth.internal
 
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 import ru.therapyapp.data_auth.api.entity.UserRequestBody
 import ru.therapyapp.data_core.entity.User
 
@@ -15,4 +12,7 @@ internal interface AuthService {
 
     @POST("api/v1/register")
     suspend fun register(@Body userRequestBody: UserRequestBody): User
+
+    @GET("api/v1/user/{id}")
+    suspend fun getUserById(@Path("id") userId: Int): User
 }
