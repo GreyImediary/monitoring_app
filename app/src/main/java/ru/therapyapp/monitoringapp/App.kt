@@ -1,6 +1,10 @@
 package ru.therapyapp.monitoringapp
 
 import android.app.Application
+import com.example.data_asdas.DataAsdasModule
+import com.example.data_bvas.DataBvasModule
+import com.example.feature_asdas_impl.AsdasModule
+import com.example.feature_bvas_impl.BvasModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.therapyapp.core_network.RetrofitModule
@@ -27,10 +31,15 @@ class App : Application() {
             DataPatientModule().module,
             DataRequestModule().module,
             DataBasdaiModule().module,
+            DataAsdasModule().module,
+            DataBvasModule().module,
             PatientScreenModule().module,
             DoctorScreenModule().module,
             CorePrefsModule().module,
-            BasdaiModule().module
+            BasdaiModule().module,
+            AsdasModule().module,
+            BvasModule().module,
+
         )
     }
     override fun onCreate() {

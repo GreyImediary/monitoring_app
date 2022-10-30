@@ -17,9 +17,11 @@ class PatientScreenViewModel(
 
     override fun dispatch(event: PatientScreenEvent) {
         when (event) {
-            PatientScreenEvent.FetchData -> fetchData()
             is PatientScreenEvent.OnUpdateRequest -> updateRequest(event.updateRequestBody)
+            PatientScreenEvent.FetchData -> fetchData()
             PatientScreenEvent.OnBasdaiClick -> openBasdai()
+            PatientScreenEvent.OnAsdasClick -> openAsdas()
+            PatientScreenEvent.OnBvasClick -> openBvas()
         }
     }
 
@@ -58,6 +60,18 @@ class PatientScreenViewModel(
     private fun openBasdai() {
         intent {
             postSideEffect(PatientScreenSideEffect.OpenBasdaiScreen)
+        }
+    }
+
+    private fun openAsdas() {
+        intent {
+            postSideEffect(PatientScreenSideEffect.OpenAsdasScreen)
+        }
+    }
+
+    private fun openBvas() {
+        intent {
+            postSideEffect(PatientScreenSideEffect.OpenBvasScreen)
         }
     }
 }

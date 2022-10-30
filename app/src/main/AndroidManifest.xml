@@ -36,6 +36,8 @@
         <activity android:name="ru.therapyapp.feature_doctor_screen_impl.DoctorScreenActivity" />
         <activity android:name="ru.therapyapp.feature_patient_screen_impl.PatientScreenActivity" />
         <activity android:name="ru.therapyapp.feature_basdai_impl.BasdaiActivity" />
+        <activity android:name="com.example.feature_asdas_impl.AsdasActivity"/>
+        <activity android:name="com.example.feature_bvas_impl.BvasActivity" />
     </application>
 
 </manifest>

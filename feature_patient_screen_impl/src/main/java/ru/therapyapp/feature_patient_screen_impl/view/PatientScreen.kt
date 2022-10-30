@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ModalDrawer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Description
@@ -22,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.feature_asdas_api.AsdasRouter
+import com.example.feature_bvas_api.BvasRouter
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectAsState
@@ -39,6 +40,8 @@ import ru.therapyapp.feature_patient_screen_impl.view.routes.RequestRoute
 fun PatientScreen(
     viewModel: PatientScreenViewModel,
     basdaiRouter: BasdaiRouter = get(),
+    asdasRouter: AsdasRouter = get(),
+    bvasRouter: BvasRouter = get(),
 ) {
     val context = LocalContext.current as AppCompatActivity
     val state = viewModel.collectAsState().value
@@ -47,6 +50,8 @@ fun PatientScreen(
             context,
             state.patient?.id ?: -1,
             basdaiRouter,
+            asdasRouter,
+            bvasRouter,
             it
         )
     })
@@ -182,6 +187,8 @@ private fun handleSideEffects(
     activity: AppCompatActivity,
     patientId: Int,
     basdaiRouter: BasdaiRouter,
+    asdasRouter: AsdasRouter,
+    bvasRouter: BvasRouter,
     effect: PatientScreenSideEffect,
 ) {
     when (effect) {
@@ -190,6 +197,12 @@ private fun handleSideEffects(
         }
         PatientScreenSideEffect.OpenBasdaiScreen -> {
             basdaiRouter.openBasdaiScreen(activity, patientId)
+        }
+        PatientScreenSideEffect.OpenAsdasScreen -> {
+            asdasRouter.openAsdasScreen(activity, patientId)
+        }
+        PatientScreenSideEffect.OpenBvasScreen -> {
+            bvasRouter.openBvasScreen(activity, patientId)
         }
     }
 }

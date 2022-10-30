@@ -17,6 +17,8 @@ dependencies {
     implementation project(":data_request")
     implementation project(":feature_patient_screen_api")
     implementation project(":feature_basdai_api")
+    implementation project(":feature_asdas_api")
+    implementation project(":feature_bvas_api")
 
 
 

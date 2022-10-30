@@ -47,7 +47,7 @@ fun BasdaiView(state: BasdaiState, onEvent: (BasdaiEvent) -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             QuestionView(
-                modifier = Modifier.padding(bottom = 20.dp),
+                modifier = Modifier.padding(bottom = 16.dp),
                 titleText = "1. Как бы Вы расценили уровень общей слабости (утомляемости) за последнюю неделю?",
                 onValueChangeFinished = {
                     onEvent(BasdaiEvent.SendAnswer(QuestionNumber.ONE, it))

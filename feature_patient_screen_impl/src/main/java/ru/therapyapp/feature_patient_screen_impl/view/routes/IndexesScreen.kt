@@ -3,10 +3,7 @@ package ru.therapyapp.feature_patient_screen_impl.view.routes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -54,10 +51,35 @@ fun IndexesRoute(
         ) {
             item {
                 IndexCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
                     title = "BASDAI",
                     questionCount = 6,
                     onClick = {
                         onEvent(PatientScreenEvent.OnBasdaiClick)
+                    }
+                )
+
+                IndexCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    title = "ASDAS",
+                    questionCount = 5,
+                    onClick = {
+                        onEvent(PatientScreenEvent.OnAsdasClick)
+                    }
+                )
+
+                IndexCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    title = "BVAS",
+                    questionCount = 9,
+                    onClick = {
+                        onEvent(PatientScreenEvent.OnBvasClick)
                     }
                 )
             }
@@ -82,7 +104,7 @@ private fun IndexCard(
             .background(color = colorResource(id = R.color.main_50))
             .padding(12.dp)
     ) {
-        Text(text = title)
+        Text(text = "Индекс $title")
         Text(text = "Количество вопросов: $questionCount")
         TextButton(
             modifier = Modifier.padding(top = 16.dp),

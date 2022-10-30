@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+apply from: rootProject.file('gradle/compose-common-module-setup.gradle')
+
+dependencies {
+
+    implementation project(":core_ui")
+    implementation project(":core_android")
+    implementation project(":core_network")
+    implementation project(":data_core")
+    implementation project(":data_patient")
+    implementation project(":data_doctor")
+    implementation project(":data_request")
+    implementation project(":data_bvas")
+    implementation project(":feature_bvas_api")
+
+
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
+
+
+    implementation androidx_base
+    implementation koin
+    implementation compose
+    implementation orbit
+
+    debugImplementation "androidx.customview:customview-poolingcontainer:1.0.0"
+
+}
