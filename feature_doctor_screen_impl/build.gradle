@@ -17,6 +17,7 @@ dependencies {
     implementation project(":data_request")
 
     implementation project(":feature_doctor_screen_api")
+    implementation project(":feature_current_patient_api")
 
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'

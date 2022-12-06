@@ -75,6 +75,7 @@ dependencies {
     implementation project(":data_basdai")
     implementation project(":data_asdas")
     implementation project(":data_bvas")
+    implementation project(":data_comments")
     implementation project(":feature_auth_api")
     implementation project(":feature_auth_impl")
     implementation project(":feature_user_data_api")
@@ -89,6 +90,8 @@ dependencies {
     implementation project(":feature_asdas_impl")
     implementation project(":feature_bvas_api")
     implementation project(":feature_bvas_impl")
+    implementation project(":feature_current_patient_api")
+    implementation project(":feature_current_patient_impl")
 
     implementation androidx_base
     implementation compose

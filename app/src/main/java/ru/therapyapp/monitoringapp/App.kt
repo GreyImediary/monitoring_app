@@ -11,11 +11,13 @@ import ru.therapyapp.core_network.RetrofitModule
 import ru.therapyapp.core_prefs.CorePrefsModule
 import ru.therapyapp.data_auth.DataAuthModule
 import ru.therapyapp.data_basdai.DataBasdaiModule
+import ru.therapyapp.data_comments.CommentModule
 import ru.therapyapp.data_doctor.DataDoctorModule
 import ru.therapyapp.data_patient.DataPatientModule
 import ru.therapyapp.data_request.DataRequestModule
 import ru.therapyapp.feature_auth_impl.AuthModule
 import ru.therapyapp.feature_basdai_impl.BasdaiModule
+import ru.therapyapp.feature_current_patient_impl.CurrentPatientModule
 import ru.therapyapp.feature_doctor_screen_impl.DoctorScreenModule
 import ru.therapyapp.feature_patient_screen_impl.PatientScreenModule
 import ru.therapyapp.feature_user_data_impl.screen.UserDataModule
@@ -39,7 +41,8 @@ class App : Application() {
             BasdaiModule().module,
             AsdasModule().module,
             BvasModule().module,
-
+            CurrentPatientModule().module,
+            CommentModule().module,
         )
     }
     override fun onCreate() {

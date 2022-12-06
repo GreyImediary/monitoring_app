@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_doctor.api.entity.Doctor
@@ -139,7 +140,7 @@ fun RequestsRoute(
                         }
                     },
                     confirmButton = {
-                        Button(
+                        AppButton(
                             onClick = {
                                 selectedPatient?.let {
                                     onEvent(DoctorScreenEvent.CreateRequest(
@@ -152,23 +153,16 @@ fun RequestsRoute(
                                     onEvent(DoctorScreenEvent.OnRequestDialogDismissClick)
                                 }
                             },
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = colorResource(id = R.color.secondary),
-                                contentColor = colorResource(id = R.color.color_white)
-                            )
                         ) {
                             Text("Создать")
                         }
                     },
                     dismissButton = {
-                        Button(
+                        AppButton(
                             onClick = {
                                 onEvent(DoctorScreenEvent.OnRequestDialogDismissClick)
                             },
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = colorResource(id = R.color.secondary),
-                                contentColor = colorResource(id = R.color.color_white)
-                            )) {
+                        ) {
                             Text("Отменить")
                         }
                     }

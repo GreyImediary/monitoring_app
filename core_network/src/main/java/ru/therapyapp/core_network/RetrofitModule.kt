@@ -24,7 +24,7 @@ private fun provideOkHttp(): OkHttpClient {
 
 private fun provideRetrofitBuilder(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl("http://192.168.0.14:8080/")
         .addConverterFactory(
             GsonConverterFactory.create(
                 GsonBuilder()

@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/data_auth" />
             <option value="$PROJECT_DIR$/data_basdai" />
             <option value="$PROJECT_DIR$/data_bvas" />
+            <option value="$PROJECT_DIR$/data_comments" />
             <option value="$PROJECT_DIR$/data_core" />
             <option value="$PROJECT_DIR$/data_doctor" />
             <option value="$PROJECT_DIR$/data_patient" />
@@ -31,6 +32,8 @@
             <option value="$PROJECT_DIR$/feature_basdai_impl" />
             <option value="$PROJECT_DIR$/feature_bvas_api" />
             <option value="$PROJECT_DIR$/feature_bvas_impl" />
+            <option value="$PROJECT_DIR$/feature_current_patient_api" />
+            <option value="$PROJECT_DIR$/feature_current_patient_impl" />
             <option value="$PROJECT_DIR$/feature_doctor_screen_api" />
             <option value="$PROJECT_DIR$/feature_doctor_screen_impl" />
             <option value="$PROJECT_DIR$/feature_patient_screen_api" />

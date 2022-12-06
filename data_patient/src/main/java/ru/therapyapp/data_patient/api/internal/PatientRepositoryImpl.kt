@@ -1,4 +1,4 @@
-package ru.therapyapp.data_patient.internal
+package ru.therapyapp.data_patient.api.internal
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

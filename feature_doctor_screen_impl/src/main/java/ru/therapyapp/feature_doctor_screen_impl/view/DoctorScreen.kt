@@ -13,18 +13,17 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.R
+import ru.therapyapp.feature_current_patient_api.CurrentPatientRouter
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenSideEffect
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenViewModel
@@ -34,12 +33,13 @@ import ru.therapyapp.feature_doctor_screen_impl.view.routes.RequestsRoute
 @Composable
 fun DoctorScreen(
     viewModel: DoctorScreenViewModel,
+    currentPatientRouter: CurrentPatientRouter = get(),
 ) {
 
     val state = viewModel.collectAsState().value
     val context = LocalContext.current as AppCompatActivity
     viewModel.collectSideEffect(sideEffect = {
-        handleSideEffects(context, it)
+        handleSideEffects(context, it, currentPatientRouter)
     })
 
     var selectedItem by remember { mutableStateOf(DoctorScreenViewRoute.PATIENTS) }
@@ -139,10 +139,11 @@ fun DoctorScreen(
 private fun handleSideEffects(
     activity: AppCompatActivity,
     effect: DoctorScreenSideEffect,
+    currentPatientRouter: CurrentPatientRouter,
 ) {
     when (effect) {
         is DoctorScreenSideEffect.OpenPatientDataScreen -> {
-            //TODO: OpenPatientDataScreen
+            currentPatientRouter.openCurrentPatientScreen(activity, effect.patient)
         }
         is DoctorScreenSideEffect.ShowToast -> {
             Toast.makeText(activity, effect.message, Toast.LENGTH_SHORT).show()

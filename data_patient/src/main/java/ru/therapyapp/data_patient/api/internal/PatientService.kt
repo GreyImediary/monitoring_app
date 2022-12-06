@@ -1,4 +1,4 @@
-package ru.therapyapp.data_patient.internal
+package ru.therapyapp.data_patient.api.internal
 
 import retrofit2.http.Body
 import retrofit2.http.GET
