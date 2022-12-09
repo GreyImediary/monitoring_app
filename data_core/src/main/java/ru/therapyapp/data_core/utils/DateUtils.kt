@@ -9,3 +9,17 @@ fun Date.getStringDateRepresentation(): String {
     calendar.time = this
     return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(calendar.time)
 }
+
+fun Date.getStringDateWithHour(): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    return SimpleDateFormat("dd.MM.yyyy HH", Locale.getDefault()).format(calendar.time)
+}
+
+fun getStringDateFromLong(date: Long): String {
+    return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(date))
+}
+
+fun getDateFromString(date: String): Date? {
+    return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(date)
+}

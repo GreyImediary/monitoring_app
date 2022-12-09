@@ -10,6 +10,8 @@ ext {
             dependencies.create("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"),
             dependencies.create("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"),
 
+            dependencies.create("com.github.PhilJay:MPAndroidChart:v3.1.0"),
+
             dependencies.create('junit:junit:4.13.2'),
             dependencies.create('androidx.test.ext:junit:1.1.3'),
             dependencies.create('androidx.test.espresso:espresso-core:3.4.0')

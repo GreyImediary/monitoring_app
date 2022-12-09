@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MonitoringAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="MonitoringAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:statusBarColor">@color/main</item>

@@ -2,20 +2,18 @@
 
 package ru.therapyapp.feature_current_patient_impl.view
 
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
@@ -30,21 +28,31 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.google.android.material.datepicker.MaterialDatePicker
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.entity.Sex
+import ru.therapyapp.data_core.utils.getStringDateFromLong
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
 import ru.therapyapp.data_patient.api.entity.Patient
-import ru.therapyapp.feature_current_patient_impl.mvi.CurrentPatientEvent
-import ru.therapyapp.feature_current_patient_impl.mvi.CurrentPatientSideEffect
-import ru.therapyapp.feature_current_patient_impl.mvi.CurrentPatientViewModel
+import ru.therapyapp.feature_current_patient_impl.mvi.*
+import java.util.*
 
 @Composable
 fun PatientScreen(
     viewModel: CurrentPatientViewModel,
-    onEvent: (CurrentPatientEvent) -> Unit
+    onEvent: (CurrentPatientEvent) -> Unit,
 ) {
     val state = viewModel.collectAsState().value
     val context = LocalContext.current as AppCompatActivity
@@ -55,7 +63,8 @@ fun PatientScreen(
     state.patient?.let {
         PatientView(
             patient = it,
-            comments = state.comments,
+            state,
+            context,
             onEvent = onEvent
         )
     }
@@ -65,7 +74,7 @@ private fun handleSideEffects(
     activity: AppCompatActivity,
     effect: CurrentPatientSideEffect,
 ) {
-    when(effect) {
+    when (effect) {
         CurrentPatientSideEffect.Finish -> {
             activity.finish()
         }
@@ -78,10 +87,13 @@ private fun handleSideEffects(
 @Composable
 private fun PatientView(
     patient: Patient,
-    comments: List<String>,
+    state: CurrentPatientState,
+    activity: AppCompatActivity,
     onEvent: (CurrentPatientEvent) -> Unit,
 ) {
     val viewHeight = (LocalConfiguration.current.screenHeightDp / 3).dp
+
+    var chosenDateString by remember { mutableStateOf("") }
 
     val patientName = if (patient.patronymic != null) {
         "${patient.surname} ${patient.name.first()}. ${patient.patronymic?.first()}."
@@ -123,23 +135,255 @@ private fun PatientView(
                     modifier = Modifier
                         .height(viewHeight)
                         .weight(1f),
-                    comments = comments,
+                    comments = state.comments,
                     onEvent = onEvent
                 )
             }
-            Row(
-                modifier = Modifier.padding(top = 20.dp)
+            Column(
+                Modifier.padding(top = 20.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Top
             ) {
-                Box(modifier = Modifier
-                    .height(viewHeight)
-                    .weight(1f)
-                    .background(Color.Red)
-                )
-                Box(modifier = Modifier
-                    .height(viewHeight)
-                    .weight(1f)
-                    .background(Color.Green)
-                )
+                Row(
+                    modifier = Modifier.padding(bottom = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    var expanded by remember { mutableStateOf(false) }
+                    Box(
+                        modifier = Modifier.padding(end = 18.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .background(
+                                    color = colorResource(id = R.color.secondary),
+                                    shape = RoundedCornerShape(16.dp)
+                                )
+                                .clickable(
+                                    onClick = { expanded = true },
+                                    interactionSource = MutableInteractionSource(),
+                                    indication = rememberRipple()
+                                )
+                                .padding(horizontal = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(end = 8.dp),
+                                text = state.currentIndex.name,
+                                color = colorResource(id = R.color.color_white)
+                            )
+                            Icon(
+                                imageVector = if (expanded)
+                                    Icons.Filled.ArrowDropUp
+                                else
+                                    Icons.Filled.ArrowDropDown,
+                                contentDescription = "",
+                                tint = colorResource(id = R.color.color_white)
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                        ) {
+                            IndexType.values().forEach { indexType ->
+                                androidx.compose.material3.DropdownMenuItem(
+                                    text = { Text(text = indexType.name) },
+                                    onClick = {
+                                        onEvent(CurrentPatientEvent.ChangeIndex(indexType))
+                                        expanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .background(
+                                color = colorResource(id = R.color.secondary),
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                            .clickable(
+                                onClick = {
+                                    val builder = MaterialDatePicker.Builder.dateRangePicker()
+                                    val now = Calendar.getInstance()
+                                    builder
+                                        .setSelection(androidx.core.util.Pair(now.timeInMillis,
+                                            now.timeInMillis))
+                                    val picker = builder.build()
+                                    picker.addOnPositiveButtonClickListener {
+                                        val startDate = getStringDateFromLong(it.first)
+                                        val endDate = getStringDateFromLong(it.second)
+
+                                        onEvent(CurrentPatientEvent.ChangeDataPeriod(it.first,
+                                            it.second))
+                                        chosenDateString = "$startDate-$endDate"
+                                    }
+                                    picker.show(activity.supportFragmentManager, picker.toString())
+                                },
+                                interactionSource = MutableInteractionSource(),
+                                indication = rememberRipple()
+                            )
+                            .padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(end = 8.dp),
+                            text = chosenDateString.ifEmpty {
+                                "Выбрать дату"
+                            },
+                            color = colorResource(id = R.color.color_white)
+                        )
+                        Icon(
+                            imageVector = if (expanded)
+                                Icons.Filled.ArrowDropUp
+                            else
+                                Icons.Filled.ArrowDropDown,
+                            contentDescription = "",
+                            tint = colorResource(id = R.color.color_white)
+                        )
+
+                        if (chosenDateString.isNotEmpty()) {
+                            Icon(
+                                modifier = Modifier
+                                    .clickable(
+                                        indication = rememberRipple(),
+                                        interactionSource = MutableInteractionSource(),
+                                        onClick = {
+                                            onEvent(CurrentPatientEvent.OnDeleteDateRange)
+                                            chosenDateString = ""
+                                        },
+                                    ),
+                                imageVector = Icons.Filled.Cancel,
+                                contentDescription = "",
+                                tint = colorResource(id = R.color.color_white)
+                            )
+                        }
+                    }
+                }
+                Row {
+                    AndroidView(
+                        modifier = Modifier
+                            .height(viewHeight + 50.dp)
+                            .weight(1f),
+                        factory = { context ->
+                            val chart = LineChart(context)
+
+                            val entries = when (state.currentIndex) {
+                                IndexType.BVAS -> {
+                                    state.bvasIndexes.map {
+                                        Entry(
+                                            it.date.time.toFloat(),
+                                            it.sumValue.toFloat()
+                                        )
+                                    }
+                                }
+                                IndexType.BASDAI -> {
+                                    state.basdaiIndexes.map {
+                                        Entry(
+                                            it.date.time.toFloat(),
+                                            it.sumValue.toFloat()
+                                        )
+                                    }
+                                }
+                                IndexType.ASDAS -> {
+                                    state.asdasIndexes.map {
+                                        Entry(
+                                            it.date.time.toFloat(),
+                                            it.sumValue.toFloat()
+                                        )
+                                    }
+                                }
+                            }
+
+                            val dataset = LineDataSet(entries, state.currentIndex.name)
+                            dataset.color = R.color.font_color
+                            dataset.valueTextColor = R.color.font_color
+                            chart.data = LineData(dataset)
+                            chart.xAxis.valueFormatter = MyXAxisFormatter()
+
+                            chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                                override fun onValueSelected(e: Entry?, h: Highlight?) {
+                                    e?.let {
+                                        val date = Date(it.x.toLong())
+                                        onEvent(CurrentPatientEvent.SelectIndexDataByDate(date))
+                                    } ?: onEvent(CurrentPatientEvent.SelectIndexDataByDate(null))
+                                }
+
+                                override fun onNothingSelected() {
+                                    onEvent(CurrentPatientEvent.SelectIndexDataByDate(null))
+                                }
+
+                            })
+
+                            chart.invalidate()
+                            chart
+
+                        },
+                        update = { view ->
+                            val entries = when (state.currentIndex) {
+                                IndexType.BVAS -> {
+                                    state.bvasIndexes.map {
+                                        Entry(
+                                            it.date.time.toFloat(),
+                                            it.sumValue.toFloat()
+                                        )
+                                    }
+                                }
+                                IndexType.BASDAI -> {
+                                    state.basdaiIndexes.map {
+                                        Entry(
+                                            it.date.time.toFloat(),
+                                            it.sumValue.toFloat()
+                                        )
+                                    }
+                                }
+                                IndexType.ASDAS -> {
+                                    state.asdasIndexes.map {
+                                        Entry(
+                                            it.date.time.toFloat(),
+                                            it.sumValue.toFloat()
+                                        )
+                                    }
+                                }
+                            }
+
+                            val dataset = LineDataSet(entries, state.currentIndex.name)
+                            dataset.color = R.color.font_color
+                            dataset.valueTextColor = R.color.font_color
+                            view.data = LineData(dataset)
+                            view.invalidate()
+                        }
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(viewHeight)
+                            .background(color = colorResource(id = R.color.main_dark))
+                            .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        when (state.currentIndex) {
+                            IndexType.BVAS -> {
+                                state.selectedBvasIndex?.let {
+                                    BvasIndexData(bvasIndex = it)
+                                }
+                            }
+                            IndexType.BASDAI -> {
+                                state.selectedBasdaiIndex?.let {
+                                    BasdaiIndexData(basdaiIndex = it)
+                                }
+                            }
+                            IndexType.ASDAS -> {
+                                state.selectedAsdasIndex?.let {
+                                    AsdasIndexData(asdasIndex = it)
+                                }
+                            }
+                        }
+                    }
+
+                }
             }
 
             Row {
@@ -223,7 +467,7 @@ private fun CommentsView(
     var comment by remember { mutableStateOf("") }
 
 
-        if (isDialogOpened) {
+    if (isDialogOpened) {
         AlertDialog(
             onDismissRequest = { isDialogOpened = false },
             title = { Text(text = "Добавить комментарий") },
@@ -251,7 +495,7 @@ private fun CommentsView(
             confirmButton = {
                 AppButton(
                     onClick = {
-                        if(comment.isEmpty()) {
+                        if (comment.isEmpty()) {
                             onEvent(CurrentPatientEvent.OnMessageShow("Введите текст. Поле не может быть пустым"))
                         } else {
                             onEvent(CurrentPatientEvent.AddComment(comment))
@@ -325,7 +569,7 @@ private fun CommentsView(
 @Composable
 private fun CommentView(
     modifier: Modifier = Modifier,
-    comment: String
+    comment: String,
 ) {
     Text(
         modifier = modifier
@@ -336,4 +580,11 @@ private fun CommentView(
             .padding(horizontal = 16.dp, vertical = 8.dp),
         text = comment
     )
+}
+
+
+class MyXAxisFormatter : ValueFormatter() {
+    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+        return getStringDateFromLong(value.toLong())
+    }
 }

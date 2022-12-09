@@ -1,6 +1,7 @@
 package com.example.data_asdas.model
 
 import ru.therapyapp.data_patient.api.entity.Patient
+import java.util.Date
 
 data class AsdasIndex(
     val patient: Patient,
@@ -10,6 +11,6 @@ data class AsdasIndex(
     val question4: Int,
     val srbSoeType: SrbSoeType,
     val srbSoeValue: Double,
-    val date: String,
+    val date: Date,
     val sumValue: Double
 )

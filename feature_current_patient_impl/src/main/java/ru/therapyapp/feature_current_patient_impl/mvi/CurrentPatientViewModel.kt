@@ -1,6 +1,5 @@
 package ru.therapyapp.feature_current_patient_impl.mvi
 
-import android.util.Log
 import com.example.data_asdas.AsdasRepository
 import com.example.data_asdas.model.AsdasIndex
 import com.example.data_bvas.BvasRepository
@@ -13,7 +12,9 @@ import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.data_basdai.BasdaiRepository
 import ru.therapyapp.data_basdai.model.BasdaiIndex
 import ru.therapyapp.data_comments.CommentRepository
+import ru.therapyapp.data_core.utils.getStringDateWithHour
 import ru.therapyapp.data_patient.api.entity.Patient
+import java.util.*
 
 class CurrentPatientViewModel(
     patient: Patient?,
@@ -37,6 +38,38 @@ class CurrentPatientViewModel(
             is CurrentPatientEvent.ChangeIndex -> changeIndex(event.chosenIndex)
             CurrentPatientEvent.OnBackClick -> backClick()
             is CurrentPatientEvent.OnMessageShow -> showToastMessage(event.message)
+            is CurrentPatientEvent.SelectIndexDataByDate -> selectIndexDataByDate(event.date)
+        }
+    }
+
+    private fun selectIndexDataByDate(date: Date?) {
+        intent {
+            when (state.currentIndex) {
+                IndexType.BVAS -> {
+                    val indexData = bvasIndexes.find {
+                        it.date.getStringDateWithHour() == date?.getStringDateWithHour()
+                    }
+
+                    indexData?.let {
+                        reduce { state.copy(selectedBvasIndex = it) }
+                    } ?: reduce { state.copy(selectedBvasIndex = bvasIndexes.last()) }
+                }
+                IndexType.BASDAI -> {
+                    val indexData = basdaiIndexes.find { it.date == date }
+
+                    indexData?.let {
+                        reduce { state.copy(selectedBasdaiIndex = it) }
+                    } ?: reduce { state.copy(selectedBasdaiIndex = basdaiIndexes.last()) }
+                }
+                IndexType.ASDAS -> {
+                    val indexData = asdasIndexes.find { it.date == date }
+
+                    indexData?.let {
+                        reduce { state.copy(selectedAsdasIndex = it) }
+                    } ?: reduce { state.copy(selectedAsdasIndex = asdasIndexes.last()) }
+
+                }
+            }
         }
     }
 
@@ -57,27 +90,27 @@ class CurrentPatientViewModel(
         intent { postSideEffect(CurrentPatientSideEffect.ShowMessage(message)) }
     }
 
-    private fun changeDataPeriod(startDate: String, endDate: String) {
+    private fun changeDataPeriod(startDate: Long, endDate: Long) {
         intent {
             when (state.currentIndex) {
                 IndexType.BVAS -> {
                     reduce {
                         state.copy(
-                            bvasIndexes = bvasIndexes.filter { it.date in startDate..endDate }
+                            bvasIndexes = bvasIndexes.filter { it.date.time in startDate..endDate }
                         )
                     }
                 }
                 IndexType.BASDAI -> {
                     reduce {
                         state.copy(
-                            basdaiIndexes = basdaiIndexes.filter { it.date in startDate..endDate }
+                            basdaiIndexes = basdaiIndexes.filter { it.date.time in startDate..endDate }
                         )
                     }
                 }
                 IndexType.ASDAS -> {
                     reduce {
                         state.copy(
-                            asdasIndexes = asdasIndexes.filter { it.date in startDate..endDate }
+                            asdasIndexes = asdasIndexes.filter { it.date.time in startDate..endDate }
                         )
                     }
                 }
@@ -156,7 +189,7 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     bvasIndexes = result.data
-                    reduce { state.copy(bvasIndexes = result.data) }
+                    reduce { state.copy(bvasIndexes = result.data, selectedBvasIndex = result.data.last()) }
                 }
             }
         }
@@ -173,7 +206,7 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     basdaiIndexes = result.data
-                    reduce { state.copy(basdaiIndexes = result.data) }
+                    reduce { state.copy(basdaiIndexes = result.data, selectedBasdaiIndex = result.data.last()) }
                 }
             }
         }
@@ -190,7 +223,7 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     asdasIndexes = result.data
-                    reduce { state.copy(asdasIndexes = result.data) }
+                    reduce { state.copy(asdasIndexes = result.data, selectedAsdasIndex = result.data.last()) }
                 }
             }
         }

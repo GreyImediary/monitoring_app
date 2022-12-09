@@ -1,6 +1,7 @@
 package com.example.data_bvas.model
 
 import ru.therapyapp.data_patient.api.entity.Patient
+import java.util.Date
 
 data class BvasIndex(
     val patient: Patient,
@@ -13,7 +14,7 @@ data class BvasIndex(
     val question7: List<QuestionAnswer>,
     val question8: List<QuestionAnswer>,
     val question9: List<QuestionAnswer>,
-    val date: String,
+    val date: Date,
     val sumValue: Int,
 ) {
     data class QuestionAnswer(
