@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.feature_asdas_api.AsdasRouter
-import com.example.feature_bvas_api.BvasRouter
+import ru.therapyapp.feature_asdas_api.AsdasRouter
+import ru.therapyapp.feature_bvas_api.BvasRouter
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectAsState

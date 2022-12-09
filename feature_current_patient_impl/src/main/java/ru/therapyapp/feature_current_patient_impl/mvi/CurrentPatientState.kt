@@ -1,7 +1,7 @@
 package ru.therapyapp.feature_current_patient_impl.mvi
 
-import com.example.data_asdas.model.AsdasIndex
-import com.example.data_bvas.model.BvasIndex
+import ru.therapyapp.data_asdas.model.AsdasIndex
+import ru.therapyapp.data_bvas.model.BvasIndex
 import ru.therapyapp.data_basdai.model.BasdaiIndex
 import ru.therapyapp.data_patient.api.entity.Patient
 

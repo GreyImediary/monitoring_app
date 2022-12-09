@@ -1,9 +1,8 @@
 package ru.therapyapp.feature_current_patient_impl.mvi
 
-import com.example.data_asdas.AsdasRepository
-import com.example.data_asdas.model.AsdasIndex
-import com.example.data_bvas.BvasRepository
-import com.example.data_bvas.model.BvasIndex
+import ru.therapyapp.data_asdas.model.AsdasIndex
+import ru.therapyapp.data_bvas.BvasRepository
+import ru.therapyapp.data_bvas.model.BvasIndex
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -20,7 +19,7 @@ class CurrentPatientViewModel(
     patient: Patient?,
     private val bvasRepository: BvasRepository,
     private val basdaiRepository: BasdaiRepository,
-    private val asdasRepository: AsdasRepository,
+    private val asdasRepository: ru.therapyapp.data_asdas.AsdasRepository,
     private val commentRepository: CommentRepository,
 ) : MviViewModel<CurrentPatientEvent, CurrentPatientState, CurrentPatientSideEffect>(
     initialState = CurrentPatientState(patient = patient)

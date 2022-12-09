@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data_asdas.model.AsdasIndex
-import com.example.data_asdas.model.SrbSoeType
-import com.example.data_bvas.model.BvasIndex
+import ru.therapyapp.data_asdas.model.AsdasIndex
+import ru.therapyapp.data_asdas.model.SrbSoeType
+import ru.therapyapp.data_bvas.model.BvasIndex
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_basdai.model.BasdaiIndex
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
