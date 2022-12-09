@@ -76,6 +76,8 @@ dependencies {
     implementation project(":data_asdas")
     implementation project(":data_bvas")
     implementation project(":data_comments")
+    implementation project(":data_questionnaire")
+    implementation project(":data_questionnaire_answered")
     implementation project(":feature_auth_api")
     implementation project(":feature_auth_impl")
     implementation project(":feature_user_data_api")

@@ -13,6 +13,8 @@ import ru.therapyapp.data_basdai.DataBasdaiModule
 import ru.therapyapp.data_comments.CommentModule
 import ru.therapyapp.data_doctor.DataDoctorModule
 import ru.therapyapp.data_patient.DataPatientModule
+import ru.therapyapp.data_questionnaire.QuestionnaireModule
+import ru.therapyapp.data_questionnaire_answered.QuestionnaireAnsweredModule
 import ru.therapyapp.data_request.DataRequestModule
 import ru.therapyapp.feature_auth_impl.AuthModule
 import ru.therapyapp.feature_basdai_impl.BasdaiModule
@@ -42,6 +44,8 @@ class App : Application() {
             BvasModule().module,
             CurrentPatientModule().module,
             CommentModule().module,
+            QuestionnaireModule().module,
+            QuestionnaireAnsweredModule().module
         )
     }
     override fun onCreate() {
