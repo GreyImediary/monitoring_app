@@ -21,6 +21,7 @@ import ru.therapyapp.feature_basdai_impl.BasdaiModule
 import ru.therapyapp.feature_current_patient_impl.CurrentPatientModule
 import ru.therapyapp.feature_doctor_screen_impl.DoctorScreenModule
 import ru.therapyapp.feature_patient_screen_impl.PatientScreenModule
+import ru.therapyapp.feature_questionnaire_add_impl.QuestionnaireAddModule
 import ru.therapyapp.feature_user_data_impl.screen.UserDataModule
 
 class App : Application() {
@@ -45,7 +46,8 @@ class App : Application() {
             CurrentPatientModule().module,
             CommentModule().module,
             QuestionnaireModule().module,
-            QuestionnaireAnsweredModule().module
+            QuestionnaireAnsweredModule().module,
+            QuestionnaireAddModule().module,
         )
     }
     override fun onCreate() {

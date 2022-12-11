@@ -26,6 +26,11 @@ class DoctorScreenActivity : AppCompatActivity() {
         viewModel.dispatch(DoctorScreenEvent.FetchData)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.dispatch(DoctorScreenEvent.FetchData)
+    }
+
     companion object {
         private const val KEY_DOCTOR = "KEY_DOCTOR"
 

@@ -9,6 +9,7 @@ import ru.therapyapp.data_doctor.api.entity.Doctor
 import ru.therapyapp.data_doctor.api.entity.DoctorRequestBody
 import ru.therapyapp.data_patient.api.PatientRepository
 import ru.therapyapp.data_patient.api.entity.Patient
+import ru.therapyapp.data_questionnaire.QuestionnaireRepository
 import ru.therapyapp.data_request.api.RequestRepository
 import ru.therapyapp.data_request.api.entity.RequestCreationBody
 
@@ -16,6 +17,7 @@ class DoctorScreenViewModel(
     private val doctor: Doctor?,
     private val requestRepository: RequestRepository,
     private val patientRepository: PatientRepository,
+    private val questionnaireRepository: QuestionnaireRepository,
 ) : MviViewModel<DoctorScreenEvent, DoctorScreenState, DoctorScreenSideEffect>
     (initialState = DoctorScreenState(doctor)) {
 
@@ -27,6 +29,18 @@ class DoctorScreenViewModel(
             is DoctorScreenEvent.OnPatientClick -> openPatientScreen((event.patient))
             DoctorScreenEvent.OnRequestAddClick -> openCreateRequestDialog()
             DoctorScreenEvent.OnRequestDialogDismissClick -> dismissCreateRequestDialog()
+            DoctorScreenEvent.OnQuestionnaireAddClick -> openQuestionnaireAddScreen()
+        }
+    }
+
+    private fun openQuestionnaireAddScreen() {
+        intent {
+            postSideEffect(
+                DoctorScreenSideEffect.OpenQuestionnaireAddScreen(
+                    patients = state.doctor?.patients ?: emptyList(),
+                    doctorId = state.doctor?.id ?: -1
+                )
+            )
         }
     }
 
@@ -35,6 +49,7 @@ class DoctorScreenViewModel(
             reduce { state.copy(isRefreshing = true) }
             val requestsResult = requestRepository.getDoctorRequests(state.doctor?.id ?: -1)
             val patientsResult = patientRepository.getPatients()
+            val questionnairesResult = questionnaireRepository.getQuestionnairesByDoctor(doctor?.id ?: -1)
 
             when {
                 requestsResult is RequestResult.Error -> {
@@ -45,11 +60,19 @@ class DoctorScreenViewModel(
                     reduce { state.copy(isRefreshing = false) }
                     postSideEffect(DoctorScreenSideEffect.ShowToast(patientsResult.message ?: ""))
                 }
-                requestsResult is RequestResult.Success && patientsResult is RequestResult.Success -> {
+
+                questionnairesResult is RequestResult.Error -> {
+                    reduce { state.copy(isRefreshing = false) }
+                    postSideEffect(DoctorScreenSideEffect.ShowToast(questionnairesResult.message ?: ""))
+                }
+                requestsResult is RequestResult.Success &&
+                        patientsResult is RequestResult.Success &&
+                        questionnairesResult is RequestResult.Success -> {
                     reduce {
                         state.copy(
                             requests = requestsResult.data,
                             allPatients = patientsResult.data,
+                            questionnaires = questionnairesResult.data,
                             isRefreshing = false
                         )
                     }

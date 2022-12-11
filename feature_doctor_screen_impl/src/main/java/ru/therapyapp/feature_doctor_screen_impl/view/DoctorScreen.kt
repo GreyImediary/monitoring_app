@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Add
@@ -28,22 +29,25 @@ import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenSideEffect
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenViewModel
 import ru.therapyapp.feature_doctor_screen_impl.view.routes.PatientRoute
+import ru.therapyapp.feature_doctor_screen_impl.view.routes.QuestionnairesRoute
 import ru.therapyapp.feature_doctor_screen_impl.view.routes.RequestsRoute
+import ru.therapyapp.feature_questionnaire_add_api.QuestionnaireAddScreenRouter
 
 @Composable
 fun DoctorScreen(
     viewModel: DoctorScreenViewModel,
     currentPatientRouter: CurrentPatientRouter = get(),
+    questionnaireAddScreenRouter: QuestionnaireAddScreenRouter = get(),
 ) {
 
     val state = viewModel.collectAsState().value
     val context = LocalContext.current as AppCompatActivity
     viewModel.collectSideEffect(sideEffect = {
-        handleSideEffects(context, it, currentPatientRouter)
+        handleSideEffects(context, it, currentPatientRouter, questionnaireAddScreenRouter)
     })
 
     var selectedItem by remember { mutableStateOf(DoctorScreenViewRoute.PATIENTS) }
-    val icons = listOf(Icons.Filled.Person, Icons.Filled.Description)
+    val icons = listOf(Icons.Filled.Person, Icons.Filled.Description, Icons.Filled.Article)
     val navController = rememberNavController()
 
     Row(
@@ -62,6 +66,9 @@ fun DoctorScreen(
                         }
                         DoctorScreenViewRoute.REQUESTS -> {
                             viewModel.dispatch(DoctorScreenEvent.OnRequestAddClick)
+                        }
+                        DoctorScreenViewRoute.QUESTIONNAIRES -> {
+                            viewModel.dispatch(DoctorScreenEvent.OnQuestionnaireAddClick)
                         }
                     }
                 },
@@ -132,6 +139,22 @@ fun DoctorScreen(
                     isRefreshing = state.isRefreshing
                 )
             }
+
+            composable(DoctorScreenViewRoute.QUESTIONNAIRES.title) {
+                QuestionnairesRoute(
+                    questionnaires = state.questionnaires,
+                    patients = state.doctor?.patients ?: emptyList(),
+                    isRefreshing = state.isRefreshing,
+                    onBackClick = {
+                        navController.popBackStack(
+                            DoctorScreenViewRoute.PATIENTS.title,
+                            inclusive = true
+                        )
+                        selectedItem = DoctorScreenViewRoute.PATIENTS
+                    },
+                    onEvent = { viewModel.dispatch(it) },
+                )
+            }
         }
     }
 }
@@ -140,6 +163,7 @@ private fun handleSideEffects(
     activity: AppCompatActivity,
     effect: DoctorScreenSideEffect,
     currentPatientRouter: CurrentPatientRouter,
+    questionnaireAddScreenRouter: QuestionnaireAddScreenRouter,
 ) {
     when (effect) {
         is DoctorScreenSideEffect.OpenPatientDataScreen -> {
@@ -147,6 +171,13 @@ private fun handleSideEffects(
         }
         is DoctorScreenSideEffect.ShowToast -> {
             Toast.makeText(activity, effect.message, Toast.LENGTH_SHORT).show()
+        }
+        is DoctorScreenSideEffect.OpenQuestionnaireAddScreen -> {
+            questionnaireAddScreenRouter.openQuestionnaireAddScreen(
+                activity,
+                effect.doctorId,
+                effect.patients
+            )
         }
     }
 }

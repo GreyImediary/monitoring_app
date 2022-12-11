@@ -40,6 +40,8 @@
             <option value="$PROJECT_DIR$/feature_doctor_screen_impl" />
             <option value="$PROJECT_DIR$/feature_patient_screen_api" />
             <option value="$PROJECT_DIR$/feature_patient_screen_impl" />
+            <option value="$PROJECT_DIR$/feature_questionnaire_add_api" />
+            <option value="$PROJECT_DIR$/feature_questionnaire_add_impl" />
             <option value="$PROJECT_DIR$/feature_user_data_api" />
             <option value="$PROJECT_DIR$/feature_user_data_impl" />
           </set>

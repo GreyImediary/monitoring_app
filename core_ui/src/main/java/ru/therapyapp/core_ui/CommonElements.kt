@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
 fun AppButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    backgroundColor: Color = colorResource(id = R.color.secondary),
     content:  @Composable RowScope.() -> Unit
 ) {
     Button(
         modifier = modifier,
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.secondary)
+            backgroundColor = backgroundColor
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp,

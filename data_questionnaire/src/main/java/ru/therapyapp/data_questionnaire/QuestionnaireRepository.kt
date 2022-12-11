@@ -7,4 +7,7 @@ interface QuestionnaireRepository {
     suspend fun getQuestionnaires(): RequestResult<List<Questionnaire>>
 
     suspend fun createQuestionnaires(questionnaire: Questionnaire): RequestResult<Unit>
+
+    suspend fun getQuestionnairesByDoctor(doctorId: Int): RequestResult<List<Questionnaire>>
+
 }

@@ -39,6 +39,7 @@
         <activity android:name="ru.therapyapp.feature_asdas_impl.AsdasActivity"/>
         <activity android:name="ru.therapyapp.feature_bvas_impl.BvasActivity" />
         <activity android:name="ru.therapyapp.feature_current_patient_impl.CurrentPatientActivity" />
+        <activity android:name="ru.therapyapp.feature_questionnaire_add_impl.QuestionnaireAddActivity" />
     </application>
 
 </manifest>
