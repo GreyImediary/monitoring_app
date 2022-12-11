@@ -1,0 +1,12 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+apply from: rootProject.file('gradle/common-module-setup.gradle')
+
+dependencies {
+    implementation androidx_base
+
+
+}

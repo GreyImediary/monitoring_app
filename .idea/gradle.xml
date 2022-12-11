@@ -26,6 +26,8 @@
             <option value="$PROJECT_DIR$/data_questionnaire" />
             <option value="$PROJECT_DIR$/data_questionnaire_answered" />
             <option value="$PROJECT_DIR$/data_request" />
+            <option value="$PROJECT_DIR$/feature_answered_questionnaire_api" />
+            <option value="$PROJECT_DIR$/feature_answered_questionnaire_impl" />
             <option value="$PROJECT_DIR$/feature_asdas_api" />
             <option value="$PROJECT_DIR$/feature_asdas_impl" />
             <option value="$PROJECT_DIR$/feature_auth_api" />

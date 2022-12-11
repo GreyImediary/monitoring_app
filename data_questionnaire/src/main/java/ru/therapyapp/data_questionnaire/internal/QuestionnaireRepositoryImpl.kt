@@ -6,6 +6,7 @@ import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.core_network.entity.getErrorMessage
 import ru.therapyapp.data_questionnaire.QuestionnaireRepository
 import ru.therapyapp.data_questionnaire.model.Questionnaire
+import ru.therapyapp.data_questionnaire.model.QuestionnaireRequestBody
 
 class QuestionnaireRepositoryImpl(
     private val questionnaireService: QuestionnaireService,
@@ -21,7 +22,7 @@ class QuestionnaireRepositoryImpl(
         }
     }
 
-    override suspend fun createQuestionnaires(questionnaire: Questionnaire): RequestResult<Unit> {
+    override suspend fun createQuestionnaires(questionnaire: QuestionnaireRequestBody): RequestResult<Unit> {
         return withContext(dispatcher) {
             try {
                 RequestResult.Success(questionnaireService.createQuestionnaires(questionnaire))

@@ -1,6 +1,14 @@
 package ru.therapyapp.data_questionnaire.model
 
 data class Questionnaire(
+    val id: Int,
+    val name: String,
+    val doctorId: Int,
+    val forPatientId: Int?,
+    val questions: List<Question>
+)
+
+data class QuestionnaireRequestBody(
     val name: String,
     val doctorId: Int,
     val forPatientId: Int?,

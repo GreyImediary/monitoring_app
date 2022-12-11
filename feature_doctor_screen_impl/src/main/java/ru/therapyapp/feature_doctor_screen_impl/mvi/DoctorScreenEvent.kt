@@ -8,6 +8,7 @@ sealed class DoctorScreenEvent {
     object OnRequestAddClick : DoctorScreenEvent()
     object OnRequestDialogDismissClick : DoctorScreenEvent()
     object OnQuestionnaireAddClick : DoctorScreenEvent()
+    data class OnQuestionnaireClick(val questionnaireId: Int): DoctorScreenEvent()
     data class DeleteRequest(val requestId: Int) : DoctorScreenEvent()
     data class CreateRequest(val requestCreationBody: RequestCreationBody) : DoctorScreenEvent()
     data class OnPatientClick(val patient: Patient) : DoctorScreenEvent()

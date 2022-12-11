@@ -67,7 +67,7 @@ fun QuestionnairesRoute(
                 items(questionnaires) { questionnaire ->
                     QuestionnaireCard(
                         questionnaire = questionnaire,
-                        patients = patients, onClick = { /*TODO: show answered data*/ })
+                        patients = patients, onClick = { onEvent(DoctorScreenEvent.OnQuestionnaireClick(questionnaire.id)) })
                 }
             }
         }

@@ -24,6 +24,7 @@ import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.R
+import ru.therapyapp.feature_answered_questionnaire_api.QuestionnaireAnsweredScreenRouter
 import ru.therapyapp.feature_current_patient_api.CurrentPatientRouter
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenSideEffect
@@ -38,12 +39,19 @@ fun DoctorScreen(
     viewModel: DoctorScreenViewModel,
     currentPatientRouter: CurrentPatientRouter = get(),
     questionnaireAddScreenRouter: QuestionnaireAddScreenRouter = get(),
+    questionnaireAnsweredScreenRouter: QuestionnaireAnsweredScreenRouter = get(),
 ) {
 
     val state = viewModel.collectAsState().value
     val context = LocalContext.current as AppCompatActivity
     viewModel.collectSideEffect(sideEffect = {
-        handleSideEffects(context, it, currentPatientRouter, questionnaireAddScreenRouter)
+        handleSideEffects(
+            context,
+            it,
+            currentPatientRouter,
+            questionnaireAddScreenRouter,
+            questionnaireAnsweredScreenRouter,
+        )
     })
 
     var selectedItem by remember { mutableStateOf(DoctorScreenViewRoute.PATIENTS) }
@@ -164,6 +172,7 @@ private fun handleSideEffects(
     effect: DoctorScreenSideEffect,
     currentPatientRouter: CurrentPatientRouter,
     questionnaireAddScreenRouter: QuestionnaireAddScreenRouter,
+    questionnaireAnsweredScreenRouter: QuestionnaireAnsweredScreenRouter,
 ) {
     when (effect) {
         is DoctorScreenSideEffect.OpenPatientDataScreen -> {
@@ -177,6 +186,12 @@ private fun handleSideEffects(
                 activity,
                 effect.doctorId,
                 effect.patients
+            )
+        }
+        is DoctorScreenSideEffect.OpenAnsweredQuestionnaireScreen -> {
+            questionnaireAnsweredScreenRouter.openQuestionnaireAnsweredScreen(
+                activity,
+                effect.questionnaireId
             )
         }
     }

@@ -16,6 +16,7 @@ import ru.therapyapp.data_patient.DataPatientModule
 import ru.therapyapp.data_questionnaire.QuestionnaireModule
 import ru.therapyapp.data_questionnaire_answered.QuestionnaireAnsweredModule
 import ru.therapyapp.data_request.DataRequestModule
+import ru.therapyapp.feature_answered_questionnaire_impl.QuestionnaireAnsweredScreenModule
 import ru.therapyapp.feature_auth_impl.AuthModule
 import ru.therapyapp.feature_basdai_impl.BasdaiModule
 import ru.therapyapp.feature_current_patient_impl.CurrentPatientModule
@@ -48,6 +49,7 @@ class App : Application() {
             QuestionnaireModule().module,
             QuestionnaireAnsweredModule().module,
             QuestionnaireAddModule().module,
+            QuestionnaireAnsweredScreenModule().module,
         )
     }
     override fun onCreate() {

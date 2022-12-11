@@ -30,6 +30,13 @@ class DoctorScreenViewModel(
             DoctorScreenEvent.OnRequestAddClick -> openCreateRequestDialog()
             DoctorScreenEvent.OnRequestDialogDismissClick -> dismissCreateRequestDialog()
             DoctorScreenEvent.OnQuestionnaireAddClick -> openQuestionnaireAddScreen()
+            is DoctorScreenEvent.OnQuestionnaireClick -> openQuestionnaireAnsweredScreen(event.questionnaireId)
+        }
+    }
+
+    private fun openQuestionnaireAnsweredScreen(questionnaireId: Int) {
+        intent {
+            postSideEffect(DoctorScreenSideEffect.OpenAnsweredQuestionnaireScreen(questionnaireId))
         }
     }
 

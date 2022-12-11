@@ -35,7 +35,17 @@ class QuestionnaireAnsweredRepositoryImpl(
     override suspend fun getQuestionnairesAnsweredById(patientId: Int): RequestResult<List<QuestionnaireAnswered>> {
         return withContext(dispatcher) {
             try {
-                RequestResult.Success(questionnaireAnsweredService.getQuestionnairesAnsweredById(patientId))
+                RequestResult.Success(questionnaireAnsweredService.getQuestionnairesAnsweredByPatientId(patientId))
+            } catch (e: Exception) {
+                RequestResult.Error(e.getErrorMessage())
+            }
+        }
+    }
+
+    override suspend fun getQuestionnairesAnsweredByQuestionnaireId(questionnaireId: Int): RequestResult<List<QuestionnaireAnswered>> {
+        return withContext(dispatcher) {
+            try {
+                RequestResult.Success(questionnaireAnsweredService.getQuestionnairesAnsweredByQuestionnaireId(questionnaireId))
             } catch (e: Exception) {
                 RequestResult.Error(e.getErrorMessage())
             }

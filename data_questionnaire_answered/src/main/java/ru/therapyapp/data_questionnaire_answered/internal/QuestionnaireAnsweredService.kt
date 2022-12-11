@@ -15,5 +15,8 @@ interface QuestionnaireAnsweredService {
     suspend fun getQuestionnairesAnswered(): List<QuestionnaireAnswered>
 
     @GET("api/v1/questionnaireAnswered/byPatient/{id}")
-    suspend fun getQuestionnairesAnsweredById(@Path("id") patientId: Int): List<QuestionnaireAnswered>
+    suspend fun getQuestionnairesAnsweredByPatientId(@Path("id") patientId: Int): List<QuestionnaireAnswered>
+
+    @GET("api/v1/questionnaireAnswered/byQuestionnaireId/{id}")
+    suspend fun getQuestionnairesAnsweredByQuestionnaireId(@Path("id") questionnaireId: Int): List<QuestionnaireAnswered>
 }
