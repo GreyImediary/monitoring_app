@@ -24,14 +24,13 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_patient.api.entity.Patient
-import ru.therapyapp.data_questionnaire.model.Questionnaire
 import ru.therapyapp.data_questionnaire.model.QuestionnaireRequestBody
 import ru.therapyapp.feature_questionnaire_add_impl.mvi.QuestionnaireAddEvent
 import ru.therapyapp.feature_questionnaire_add_impl.mvi.QuestionnaireAddSideEffect
 import ru.therapyapp.feature_questionnaire_add_impl.mvi.QuestionnaireAddViewModel
 
 @Composable
-fun QuestionnaireScreen(
+fun QuestionnaireAddScreen(
     viewModel: QuestionnaireAddViewModel,
 ) {
     val state = viewModel.collectAsState().value

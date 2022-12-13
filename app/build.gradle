@@ -98,6 +98,8 @@ dependencies {
     implementation project(":feature_questionnaire_add_impl")
     implementation project(":feature_answered_questionnaire_api")
     implementation project(":feature_answered_questionnaire_impl")
+    implementation project(":feature_questionnaire_api")
+    implementation project(":feature_questionnaire_impl")
 
 
     implementation androidx_base

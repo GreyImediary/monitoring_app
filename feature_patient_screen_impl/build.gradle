@@ -19,6 +19,11 @@ dependencies {
     implementation project(":feature_basdai_api")
     implementation project(":feature_asdas_api")
     implementation project(":feature_bvas_api")
+    implementation project(":feature_questionnaire_api")
+
+    implementation project(":data_questionnaire")
+    implementation project(":data_questionnaire_answered")
+
 
 
 

@@ -16,6 +16,7 @@ import ru.therapyapp.data_bvas.model.BvasIndex
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_basdai.model.BasdaiIndex
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.data_core.utils.getStringDateWithTime
 
 @Composable
 fun BvasIndexData(bvasIndex: BvasIndex) {
@@ -24,7 +25,7 @@ fun BvasIndexData(bvasIndex: BvasIndex) {
     ) {
         Text(
             modifier = Modifier.padding(end = 20.dp),
-            text = bvasIndex.date.getStringDateRepresentation(),
+            text = bvasIndex.date.getStringDateWithTime(),
             fontWeight = FontWeight.Bold,
             color = colorResource(id = R.color.color_white)
         )
@@ -163,7 +164,7 @@ fun AsdasIndexData(asdasIndex: AsdasIndex) {
     ) {
         Text(
             modifier = Modifier.padding(end = 20.dp),
-            text = asdasIndex.date.getStringDateRepresentation(),
+            text = asdasIndex.date.getStringDateWithTime(),
             fontWeight = FontWeight.Bold,
             color = colorResource(id = R.color.color_white)
         )
@@ -245,7 +246,7 @@ fun BasdaiIndexData(basdaiIndex: BasdaiIndex) {
     ) {
         Text(
             modifier = Modifier.padding(end = 20.dp),
-            text = basdaiIndex.date.getStringDateRepresentation(),
+            text = basdaiIndex.date.getStringDateWithTime(),
             fontWeight = FontWeight.Bold,
             color = colorResource(id = R.color.color_white)
         )

@@ -16,8 +16,18 @@ fun Date.getStringDateWithHour(): String {
     return SimpleDateFormat("dd.MM.yyyy HH", Locale.getDefault()).format(calendar.time)
 }
 
+fun Date.getStringDateWithTime(): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    return SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(calendar.time)
+}
+
 fun getStringDateFromLong(date: Long): String {
     return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(date))
+}
+
+fun getStringDateWithTimeFromLong(date: Long): String {
+    return SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date(date))
 }
 
 fun getDateFromString(date: String): Date? {

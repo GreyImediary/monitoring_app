@@ -13,7 +13,7 @@ class PatientScreenModule {
             PatientScreenRouterImpl()
         }
 
-        viewModel { (patient: Patient?) -> PatientScreenViewModel(patient, get())}
+        viewModel { (patient: Patient?) -> PatientScreenViewModel(patient, get(), get())}
 
     }
 }

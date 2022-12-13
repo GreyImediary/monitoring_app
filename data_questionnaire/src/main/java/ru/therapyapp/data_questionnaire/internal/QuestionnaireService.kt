@@ -17,4 +17,6 @@ interface QuestionnaireService {
     @GET("api/v1/questionnaire/byDoctor/{id}")
     suspend fun getQuestionnairesByDoctor(@Path("id") doctorId: Int): List<Questionnaire>
 
+    @GET("api/v1/questionnaire/byPatient/{id}")
+    suspend fun getQuestionnairesByPatient(@Path("id") patientId: Int): List<Questionnaire>
 }

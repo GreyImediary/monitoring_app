@@ -23,6 +23,7 @@ import ru.therapyapp.feature_current_patient_impl.CurrentPatientModule
 import ru.therapyapp.feature_doctor_screen_impl.DoctorScreenModule
 import ru.therapyapp.feature_patient_screen_impl.PatientScreenModule
 import ru.therapyapp.feature_questionnaire_add_impl.QuestionnaireAddModule
+import ru.therapyapp.feature_questionnaire_impl.QuestionnaireScreenModule
 import ru.therapyapp.feature_user_data_impl.screen.UserDataModule
 
 class App : Application() {
@@ -50,6 +51,7 @@ class App : Application() {
             QuestionnaireAnsweredModule().module,
             QuestionnaireAddModule().module,
             QuestionnaireAnsweredScreenModule().module,
+            QuestionnaireScreenModule().module,
         )
     }
     override fun onCreate() {

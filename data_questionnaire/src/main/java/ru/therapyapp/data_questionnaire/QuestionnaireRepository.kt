@@ -11,4 +11,6 @@ interface QuestionnaireRepository {
 
     suspend fun getQuestionnairesByDoctor(doctorId: Int): RequestResult<List<Questionnaire>>
 
+    suspend fun getQuestionnairesByPatient(patientId: Int): RequestResult<List<Questionnaire>>
+
 }

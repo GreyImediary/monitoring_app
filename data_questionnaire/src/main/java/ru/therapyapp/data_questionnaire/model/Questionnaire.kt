@@ -1,9 +1,11 @@
 package ru.therapyapp.data_questionnaire.model
 
+import ru.therapyapp.data_doctor.api.entity.Doctor
+
 data class Questionnaire(
     val id: Int,
     val name: String,
-    val doctorId: Int,
+    val doctor: Doctor,
     val forPatientId: Int?,
     val questions: List<Question>
 )

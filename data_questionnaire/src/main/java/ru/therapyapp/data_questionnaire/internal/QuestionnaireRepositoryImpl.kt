@@ -41,4 +41,14 @@ class QuestionnaireRepositoryImpl(
             }
         }
     }
+
+    override suspend fun getQuestionnairesByPatient(patientId: Int): RequestResult<List<Questionnaire>> {
+        return withContext(dispatcher) {
+            try {
+                RequestResult.Success(questionnaireService.getQuestionnairesByPatient(patientId))
+            } catch (e: Exception) {
+                RequestResult.Error(e.getErrorMessage())
+            }
+        }
+    }
 }

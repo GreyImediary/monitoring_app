@@ -6,12 +6,14 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.data_patient.api.entity.Patient
+import ru.therapyapp.data_questionnaire.QuestionnaireRepository
 import ru.therapyapp.data_request.api.RequestRepository
 import ru.therapyapp.data_request.api.entity.RequestUpdateBody
 
 class PatientScreenViewModel(
     private val patient: Patient?,
     private val requestRepository: RequestRepository,
+    private val questionnaireRepository: QuestionnaireRepository,
 ) : MviViewModel<PatientScreenEvent, PatientScreenState, PatientScreenSideEffect>
     (initialState = PatientScreenState(patient = patient)) {
 
@@ -22,6 +24,13 @@ class PatientScreenViewModel(
             PatientScreenEvent.OnBasdaiClick -> openBasdai()
             PatientScreenEvent.OnAsdasClick -> openAsdas()
             PatientScreenEvent.OnBvasClick -> openBvas()
+            is PatientScreenEvent.OnQuestionnaireClick -> openQuestionnaire(event.questionnaireId)
+        }
+    }
+
+    private fun openQuestionnaire(questionnaireId: Int) {
+        intent {
+            postSideEffect(PatientScreenSideEffect.OpenQuestionnaire(questionnaireId, state.patient?.id ?: -1))
         }
     }
 
@@ -35,6 +44,22 @@ class PatientScreenViewModel(
                 }
                 is RequestResult.Success -> {
                     reduce { state.copy(requests = result.data, isRefreshing = false) }
+                    fetchQuestionnaires()
+                }
+            }
+        }
+    }
+
+    private fun fetchQuestionnaires() {
+        intent {
+            reduce { state.copy(isRefreshing = true) }
+            when (val result = questionnaireRepository.getQuestionnairesByPatient(state.patient?.id ?: -1)) {
+                is RequestResult.Error -> {
+                    postSideEffect(PatientScreenSideEffect.ShowToast(result.message ?: "Не удалось получить анкеты"))
+                    reduce { state.copy(isRefreshing = false) }
+                }
+                is RequestResult.Success -> {
+                    reduce { state.copy(questionnaires = result.data, isRefreshing = false) }
                 }
             }
         }

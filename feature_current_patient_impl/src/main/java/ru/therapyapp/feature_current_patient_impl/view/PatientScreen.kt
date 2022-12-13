@@ -45,6 +45,7 @@ import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_core.utils.getStringDateFromLong
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.data_core.utils.getStringDateWithTimeFromLong
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.feature_current_patient_impl.mvi.*
 import java.util.*
@@ -585,6 +586,6 @@ private fun CommentView(
 
 class MyXAxisFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-        return getStringDateFromLong(value.toLong())
+        return getStringDateWithTimeFromLong(value.toLong())
     }
 }

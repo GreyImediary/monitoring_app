@@ -6,10 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BarChart
-import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,7 +30,9 @@ import ru.therapyapp.feature_basdai_api.BasdaiRouter
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenSideEffect
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenViewModel
 import ru.therapyapp.feature_patient_screen_impl.view.routes.IndexesRoute
+import ru.therapyapp.feature_patient_screen_impl.view.routes.QuestionnaireRoute
 import ru.therapyapp.feature_patient_screen_impl.view.routes.RequestRoute
+import ru.therapyapp.feature_questionnaire_api.QuestionnaireScreenRouter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +41,7 @@ fun PatientScreen(
     basdaiRouter: BasdaiRouter = get(),
     asdasRouter: AsdasRouter = get(),
     bvasRouter: BvasRouter = get(),
+    questionnaireScreenRouter: QuestionnaireScreenRouter = get(),
 ) {
     val context = LocalContext.current as AppCompatActivity
     val state = viewModel.collectAsState().value
@@ -52,6 +52,7 @@ fun PatientScreen(
             basdaiRouter,
             asdasRouter,
             bvasRouter,
+            questionnaireScreenRouter,
             it
         )
     })
@@ -60,7 +61,7 @@ fun PatientScreen(
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var selectedItem by rememberSaveable { mutableStateOf(PatientScreenViewRoute.INDEXES) }
-    val icons = listOf(Icons.Filled.BarChart, Icons.Filled.Description, Icons.Filled.Person)
+    val icons = listOf(Icons.Filled.BarChart, Icons.Filled.Description, Icons.Filled.Article, Icons.Filled.Person)
     val navController = rememberNavController()
 
     ModalNavigationDrawer(
@@ -120,36 +121,38 @@ fun PatientScreen(
                 }
                 Spacer(Modifier.height(12.dp))
                 PatientScreenViewRoute.values().forEachIndexed { index, patientScreenViewRoute ->
-                    val selected = selectedItem == patientScreenViewRoute
-                    NavigationDrawerItem(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                        label = {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    modifier = Modifier.padding(end = 8.dp),
-                                    imageVector = icons[index],
-                                    contentDescription = null,
-                                    tint = colorResource(id = R.color.color_white)
-                                )
-                                Text(
-                                    text = patientScreenViewRoute.title,
-                                    color = colorResource(id = R.color.color_white)
-                                )
-                            }
-                        },
-                        selected = selected,
-                        onClick = {
-                            selectedItem = patientScreenViewRoute
-                            navController.navigate(patientScreenViewRoute.title)
-                            scope.launch { drawerState.close() }
-                        },
-                        colors = NavigationDrawerItemDefaults.colors(
-                            selectedContainerColor = colorResource(id = R.color.main_dark),
-                            unselectedContainerColor = colorResource(id = R.color.main)
+                    if (index != PatientScreenViewRoute.values().size - 1) {
+                        val selected = selectedItem == patientScreenViewRoute
+                        NavigationDrawerItem(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                            label = {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        modifier = Modifier.padding(end = 8.dp),
+                                        imageVector = icons[index],
+                                        contentDescription = null,
+                                        tint = colorResource(id = R.color.color_white)
+                                    )
+                                    Text(
+                                        text = patientScreenViewRoute.title,
+                                        color = colorResource(id = R.color.color_white)
+                                    )
+                                }
+                            },
+                            selected = selected,
+                            onClick = {
+                                selectedItem = patientScreenViewRoute
+                                navController.navigate(patientScreenViewRoute.title)
+                                scope.launch { drawerState.close() }
+                            },
+                            colors = NavigationDrawerItemDefaults.colors(
+                                selectedContainerColor = colorResource(id = R.color.main_dark),
+                                unselectedContainerColor = colorResource(id = R.color.main)
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
@@ -164,6 +167,7 @@ fun PatientScreen(
                     },
                 )
             }
+
             composable(PatientScreenViewRoute.REQUESTS.title) {
                 RequestRoute(
                     isRefreshing = state.isRefreshing,
@@ -174,6 +178,15 @@ fun PatientScreen(
                     }
                 )
             }
+
+            composable(PatientScreenViewRoute.QUESTIONNAIRES.title) {
+                QuestionnaireRoute(isRefreshing = state.isRefreshing,
+                    questionnaires = state.questionnaires,
+                    onMenuClick = { scope.launch { drawerState.open() } },
+                    onEvent = { viewModel.dispatch(it) }
+                )
+            }
+
             composable(PatientScreenViewRoute.DOCTORS.title) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text(text = "врачи")
@@ -189,6 +202,7 @@ private fun handleSideEffects(
     basdaiRouter: BasdaiRouter,
     asdasRouter: AsdasRouter,
     bvasRouter: BvasRouter,
+    questionnaireScreenRouter: QuestionnaireScreenRouter,
     effect: PatientScreenSideEffect,
 ) {
     when (effect) {
@@ -203,6 +217,13 @@ private fun handleSideEffects(
         }
         PatientScreenSideEffect.OpenBvasScreen -> {
             bvasRouter.openBvasScreen(activity, patientId)
+        }
+        is PatientScreenSideEffect.OpenQuestionnaire -> {
+            questionnaireScreenRouter.openQuestionnaireScreen(
+                activity,
+                effect.patientId,
+                effect.questionnaireId
+            )
         }
     }
 }

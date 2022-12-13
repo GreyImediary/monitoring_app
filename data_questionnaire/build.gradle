@@ -11,6 +11,7 @@ dependencies {
     implementation project(":core_network")
     implementation project(":data_core")
     implementation project(":data_patient")
+    implementation project(":data_doctor")
 
     implementation androidx_base
     implementation koin

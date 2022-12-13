@@ -676,7 +676,6 @@ fun PatientDataView(
                                     interactionSource = MutableInteractionSource(),
                                     indication = rememberRipple(),
                                     onClick = {
-                                        Log.d("AAAAAAAAAAAAA", "AAAAAAAAA")
                                         dialogState.show()
                                     }
                                 ),

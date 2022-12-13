@@ -27,7 +27,7 @@ class QuestionnaireAnsweredViewModel(
                     postSideEffect(QuestionnaireAnsweredSideEffect.ShowMessage(result.message ?: "Ошибка при получении анкет"))
                 }
                 is RequestResult.Success -> {
-                    reduce { state.copy(questionnairesAnswered = result.data) }
+                    reduce { state.copy(questionnairesAnswered = result.data.reversed()) }
                 }
             }
         }

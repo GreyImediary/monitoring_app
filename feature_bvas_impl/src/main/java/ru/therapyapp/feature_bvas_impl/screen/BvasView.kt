@@ -67,7 +67,7 @@ fun BvasView(state: BvasState, onEvent: (BvasEvent) -> Unit) {
                 QuestionView(
                     modifier = Modifier.padding(bottom = 4.dp),
                     questionAnswer = BvasIndex.QuestionAnswer(
-                        title = "Лихорадка (<38,5°C)",
+                        title = "Лихорадка (<38.5°C)",
                         value = 1,
                     ),
                     questionNumber = QuestionNumber.ONE,
@@ -76,7 +76,7 @@ fun BvasView(state: BvasState, onEvent: (BvasEvent) -> Unit) {
                 QuestionView(
                     modifier = Modifier.padding(bottom = 4.dp),
                     questionAnswer = BvasIndex.QuestionAnswer(
-                        title = "Лихорадка (>38,5°C)",
+                        title = "Лихорадка (>38.5°C)",
                         value = 2
                     ),
                     questionNumber = QuestionNumber.ONE,
@@ -457,7 +457,7 @@ fun BvasView(state: BvasState, onEvent: (BvasEvent) -> Unit) {
                 QuestionView(
                     modifier = Modifier.padding(bottom = 4.dp),
                     questionAnswer = BvasIndex.QuestionAnswer(
-                        title = "Протеинурия (>1г или >0,2 г/с)",
+                        title = "Протеинурия (>1г или >0.2 г/с)",
                         value = 4,
                     ),
                     questionNumber = QuestionNumber.EIGHT,
@@ -466,7 +466,7 @@ fun BvasView(state: BvasState, onEvent: (BvasEvent) -> Unit) {
                 QuestionView(
                     modifier = Modifier.padding(bottom = 4.dp),
                     questionAnswer = BvasIndex.QuestionAnswer(
-                        title = "Гематурия (>1эр. или >0,2 эр./мл)",
+                        title = "Гематурия (>1эр. или >0.2 эр./мл)",
                         value = 8,
                     ),
                     questionNumber = QuestionNumber.EIGHT,

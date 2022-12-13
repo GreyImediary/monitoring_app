@@ -8,4 +8,5 @@ sealed class PatientScreenEvent {
     object OnAsdasClick : PatientScreenEvent()
     object OnBvasClick : PatientScreenEvent()
     data class OnUpdateRequest(val updateRequestBody: RequestUpdateBody) : PatientScreenEvent()
+    data class OnQuestionnaireClick(val questionnaireId: Int) : PatientScreenEvent()
 }

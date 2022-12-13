@@ -54,14 +54,18 @@ class CurrentPatientViewModel(
                     } ?: reduce { state.copy(selectedBvasIndex = bvasIndexes.last()) }
                 }
                 IndexType.BASDAI -> {
-                    val indexData = basdaiIndexes.find { it.date == date }
+                    val indexData = basdaiIndexes.find {
+                        it.date.getStringDateWithHour() == date?.getStringDateWithHour()
+                    }
 
                     indexData?.let {
                         reduce { state.copy(selectedBasdaiIndex = it) }
                     } ?: reduce { state.copy(selectedBasdaiIndex = basdaiIndexes.last()) }
                 }
                 IndexType.ASDAS -> {
-                    val indexData = asdasIndexes.find { it.date == date }
+                    val indexData = asdasIndexes.find {
+                        it.date.getStringDateWithHour() == date?.getStringDateWithHour()
+                    }
 
                     indexData?.let {
                         reduce { state.copy(selectedAsdasIndex = it) }
