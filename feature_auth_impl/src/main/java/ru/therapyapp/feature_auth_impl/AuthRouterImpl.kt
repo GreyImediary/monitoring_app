@@ -8,7 +8,7 @@ class AuthRouterImpl : AuthRouter {
     override fun showAuthScreen(activity: AppCompatActivity) {
         activity.startActivity(
             Intent(activity, AuthActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
         )
     }
