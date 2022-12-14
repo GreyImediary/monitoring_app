@@ -12,6 +12,6 @@ class DoctorScreenModule {
             DoctorScreenRouterImpl()
         }
 
-        viewModel { (doctor: Doctor?) -> DoctorScreenViewModel(doctor, get(), get(), get())}
+        viewModel { (doctor: Doctor?) -> DoctorScreenViewModel(doctor, get(), get(), get(), get())}
     }
 }

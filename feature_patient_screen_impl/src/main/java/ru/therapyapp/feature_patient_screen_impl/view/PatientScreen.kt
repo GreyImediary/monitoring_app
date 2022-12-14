@@ -1,5 +1,6 @@
 package ru.therapyapp.feature_patient_screen_impl.view
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -26,7 +27,9 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.feature_auth_api.AuthRouter
 import ru.therapyapp.feature_basdai_api.BasdaiRouter
+import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenEvent
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenSideEffect
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenViewModel
 import ru.therapyapp.feature_patient_screen_impl.view.routes.IndexesRoute
@@ -42,6 +45,7 @@ fun PatientScreen(
     asdasRouter: AsdasRouter = get(),
     bvasRouter: BvasRouter = get(),
     questionnaireScreenRouter: QuestionnaireScreenRouter = get(),
+    authRouter: AuthRouter = get()
 ) {
     val context = LocalContext.current as AppCompatActivity
     val state = viewModel.collectAsState().value
@@ -53,6 +57,7 @@ fun PatientScreen(
             asdasRouter,
             bvasRouter,
             questionnaireScreenRouter,
+            authRouter,
             it
         )
     })
@@ -88,7 +93,9 @@ fun PatientScreen(
                     ) {
                         Text(text = "${patient?.surname} ${patient?.name}",
                             color = colorResource(id = R.color.color_white))
-                        IconButton(onClick = { /*TODO: logout*/ }) {
+                        IconButton(onClick = {
+                            viewModel.dispatch(PatientScreenEvent.Logout)
+                        }) {
                             Icon(
                                 imageVector = Icons.Filled.ExitToApp,
                                 contentDescription = null,
@@ -203,6 +210,7 @@ private fun handleSideEffects(
     asdasRouter: AsdasRouter,
     bvasRouter: BvasRouter,
     questionnaireScreenRouter: QuestionnaireScreenRouter,
+    authRouter: AuthRouter,
     effect: PatientScreenSideEffect,
 ) {
     when (effect) {
@@ -224,6 +232,9 @@ private fun handleSideEffects(
                 effect.patientId,
                 effect.questionnaireId
             )
+        }
+        PatientScreenSideEffect.ShowStartScreen -> {
+            authRouter.showAuthScreen(activity)
         }
     }
 }

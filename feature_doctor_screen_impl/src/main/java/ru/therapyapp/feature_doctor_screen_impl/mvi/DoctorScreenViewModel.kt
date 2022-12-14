@@ -5,6 +5,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
+import ru.therapyapp.core_prefs.SharedPrefsRepository
 import ru.therapyapp.data_doctor.api.entity.Doctor
 import ru.therapyapp.data_doctor.api.entity.DoctorRequestBody
 import ru.therapyapp.data_patient.api.PatientRepository
@@ -18,6 +19,7 @@ class DoctorScreenViewModel(
     private val requestRepository: RequestRepository,
     private val patientRepository: PatientRepository,
     private val questionnaireRepository: QuestionnaireRepository,
+    private val sharedPrefsRepository: SharedPrefsRepository,
 ) : MviViewModel<DoctorScreenEvent, DoctorScreenState, DoctorScreenSideEffect>
     (initialState = DoctorScreenState(doctor)) {
 
@@ -31,6 +33,14 @@ class DoctorScreenViewModel(
             DoctorScreenEvent.OnRequestDialogDismissClick -> dismissCreateRequestDialog()
             DoctorScreenEvent.OnQuestionnaireAddClick -> openQuestionnaireAddScreen()
             is DoctorScreenEvent.OnQuestionnaireClick -> openQuestionnaireAnsweredScreen(event.questionnaireId)
+            DoctorScreenEvent.Logout -> logout()
+        }
+    }
+
+    private fun logout() {
+        intent {
+            sharedPrefsRepository.clearAll()
+            postSideEffect(DoctorScreenSideEffect.ShowAuthScreen)
         }
     }
 

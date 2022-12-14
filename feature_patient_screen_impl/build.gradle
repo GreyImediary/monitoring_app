@@ -11,6 +11,7 @@ dependencies {
     implementation project(":core_ui")
     implementation project(":core_android")
     implementation project(":core_network")
+    implementation project(":core_prefs")
     implementation project(":data_core")
     implementation project(":data_patient")
     implementation project(":data_doctor")
@@ -20,6 +21,7 @@ dependencies {
     implementation project(":feature_asdas_api")
     implementation project(":feature_bvas_api")
     implementation project(":feature_questionnaire_api")
+    implementation project(":feature_auth_api")
 
     implementation project(":data_questionnaire")
     implementation project(":data_questionnaire_answered")

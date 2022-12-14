@@ -11,11 +11,13 @@ dependencies {
     implementation project(":core_ui")
     implementation project(":core_android")
     implementation project(":core_network")
+    implementation project(":core_prefs")
     implementation project(":data_core")
     implementation project(":data_patient")
     implementation project(":data_doctor")
     implementation project(":data_request")
     implementation project(":data_questionnaire")
+    implementation project(":feature_auth_api")
 
     implementation project(":feature_doctor_screen_api")
     implementation project(":feature_current_patient_api")

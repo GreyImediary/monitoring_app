@@ -85,6 +85,7 @@ private fun handleSideEffects(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PatientView(
     patient: Patient,
@@ -386,19 +387,6 @@ private fun PatientView(
 
                 }
             }
-
-            Row {
-                Box(modifier = Modifier
-                    .height(viewHeight)
-                    .weight(1f)
-                    .background(Color.Green)
-                )
-                Box(modifier = Modifier
-                    .height(viewHeight)
-                    .weight(1f)
-                    .background(Color.Red)
-                )
-            }
         }
     }
 
@@ -586,6 +574,6 @@ private fun CommentView(
 
 class MyXAxisFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-        return getStringDateWithTimeFromLong(value.toLong())
+        return getStringDateFromLong(value.toLong())
     }
 }

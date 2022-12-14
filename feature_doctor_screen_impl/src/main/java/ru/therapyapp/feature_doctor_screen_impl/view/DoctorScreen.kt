@@ -3,6 +3,7 @@ package ru.therapyapp.feature_doctor_screen_impl.view
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,9 +11,11 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -25,6 +28,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.feature_answered_questionnaire_api.QuestionnaireAnsweredScreenRouter
+import ru.therapyapp.feature_auth_api.AuthRouter
 import ru.therapyapp.feature_current_patient_api.CurrentPatientRouter
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenSideEffect
@@ -40,6 +44,7 @@ fun DoctorScreen(
     currentPatientRouter: CurrentPatientRouter = get(),
     questionnaireAddScreenRouter: QuestionnaireAddScreenRouter = get(),
     questionnaireAnsweredScreenRouter: QuestionnaireAnsweredScreenRouter = get(),
+    authRouter: AuthRouter = get(),
 ) {
 
     val state = viewModel.collectAsState().value
@@ -51,6 +56,7 @@ fun DoctorScreen(
             currentPatientRouter,
             questionnaireAddScreenRouter,
             questionnaireAnsweredScreenRouter,
+            authRouter
         )
     })
 
@@ -111,6 +117,21 @@ fun DoctorScreen(
                     selectedContentColor = colorResource(id = R.color.color_white),
                     unselectedContentColor = colorResource(id = R.color.icon_color)
                 )
+            }
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    modifier = Modifier.padding(top = 40.dp),
+                    onClick = {
+                        viewModel.dispatch(DoctorScreenEvent.Logout)
+                    }) {
+                    Icon(
+                        imageVector = Icons.Filled.ExitToApp,
+                        contentDescription = null,
+                        tint = colorResource(id = R.color.icon_color),
+                    )
+                }
+                Text(text = "Выйти", color = colorResource(id = R.color.icon_color))
             }
         }
         NavHost(
@@ -173,6 +194,7 @@ private fun handleSideEffects(
     currentPatientRouter: CurrentPatientRouter,
     questionnaireAddScreenRouter: QuestionnaireAddScreenRouter,
     questionnaireAnsweredScreenRouter: QuestionnaireAnsweredScreenRouter,
+    authRouter: AuthRouter,
 ) {
     when (effect) {
         is DoctorScreenSideEffect.OpenPatientDataScreen -> {
@@ -193,6 +215,9 @@ private fun handleSideEffects(
                 activity,
                 effect.questionnaireId
             )
+        }
+        DoctorScreenSideEffect.ShowAuthScreen -> {
+            authRouter.showAuthScreen(activity)
         }
     }
 }

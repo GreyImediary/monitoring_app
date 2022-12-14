@@ -44,6 +44,7 @@ fun RequestRoute(
         }
     ) {
         SwipeRefresh(
+            modifier = Modifier.fillMaxSize(),
             state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
             onRefresh = { onEvent(PatientScreenEvent.FetchData) }
         ) {
