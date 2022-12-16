@@ -98,9 +98,9 @@ private fun PatientView(
     var chosenDateString by remember { mutableStateOf("") }
 
     val patientName = if (patient.patronymic != null) {
-        "${patient.surname} ${patient.name.first()}. ${patient.patronymic?.first()}."
+        "${patient.surname} ${patient.name}. ${patient.patronymic}."
     } else {
-        "${patient.surname} ${patient.name.first()}."
+        "${patient.surname} ${patient.name}."
     }
 
     Scaffold(

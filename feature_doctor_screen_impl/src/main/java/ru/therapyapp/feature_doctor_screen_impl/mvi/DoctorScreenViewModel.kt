@@ -6,6 +6,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.core_prefs.SharedPrefsRepository
+import ru.therapyapp.data_doctor.api.DoctorRepository
 import ru.therapyapp.data_doctor.api.entity.Doctor
 import ru.therapyapp.data_doctor.api.entity.DoctorRequestBody
 import ru.therapyapp.data_patient.api.PatientRepository
@@ -18,6 +19,7 @@ class DoctorScreenViewModel(
     private val doctor: Doctor?,
     private val requestRepository: RequestRepository,
     private val patientRepository: PatientRepository,
+    private val doctorRepository: DoctorRepository,
     private val questionnaireRepository: QuestionnaireRepository,
     private val sharedPrefsRepository: SharedPrefsRepository,
 ) : MviViewModel<DoctorScreenEvent, DoctorScreenState, DoctorScreenSideEffect>
@@ -93,6 +95,21 @@ class DoctorScreenViewModel(
                             isRefreshing = false
                         )
                     }
+                }
+            }
+
+            updateDoctor()
+        }
+    }
+
+    private fun updateDoctor() {
+        intent {
+            when (val result = doctorRepository.getDoctorByUserId(doctor?.userId ?: -1)) {
+                is RequestResult.Error -> {
+                    postSideEffect(DoctorScreenSideEffect.ShowToast(result.message ?: "Не получилось обновить данные доктора"))
+                }
+                is RequestResult.Success -> {
+                    reduce { state.copy(doctor = result.data) }
                 }
             }
         }

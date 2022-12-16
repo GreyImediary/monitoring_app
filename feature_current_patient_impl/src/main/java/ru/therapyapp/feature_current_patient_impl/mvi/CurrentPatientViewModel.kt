@@ -192,7 +192,7 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     bvasIndexes = result.data
-                    reduce { state.copy(bvasIndexes = result.data, selectedBvasIndex = result.data.last()) }
+                    reduce { state.copy(bvasIndexes = result.data, selectedBvasIndex = result.data.lastOrNull()) }
                 }
             }
         }
@@ -209,7 +209,7 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     basdaiIndexes = result.data
-                    reduce { state.copy(basdaiIndexes = result.data, selectedBasdaiIndex = result.data.last()) }
+                    reduce { state.copy(basdaiIndexes = result.data, selectedBasdaiIndex = result.data.lastOrNull()) }
                 }
             }
         }
@@ -226,7 +226,7 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     asdasIndexes = result.data
-                    reduce { state.copy(asdasIndexes = result.data, selectedAsdasIndex = result.data.last()) }
+                    reduce { state.copy(asdasIndexes = result.data, selectedAsdasIndex = result.data.lastOrNull()) }
                 }
             }
         }
