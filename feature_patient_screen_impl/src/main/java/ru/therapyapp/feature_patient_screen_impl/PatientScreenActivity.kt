@@ -39,7 +39,6 @@ class PatientScreenActivity : AppCompatActivity() {
         fun getIntent(activity: AppCompatActivity, patient: Patient): Intent {
             return Intent(activity, PatientScreenActivity::class.java).apply {
                 putExtra(KEY_PATIENT, patient)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
         }
     }

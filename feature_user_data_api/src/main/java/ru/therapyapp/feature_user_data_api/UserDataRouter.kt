@@ -5,4 +5,5 @@ import ru.therapyapp.data_core.entity.User
 
 interface UserDataRouter {
     fun openUserDataScreen(activity: AppCompatActivity, user: User)
+    fun openDataScreenForPatient(activity: AppCompatActivity, doctorId: Int)
 }

@@ -6,6 +6,7 @@ import ru.therapyapp.data_patient.api.entity.PatientRequestBody
 
 interface PatientRepository {
     suspend fun createPatient(patientRequestBody: PatientRequestBody): RequestResult<Patient>
+    suspend fun createPatientWithDoctor(doctorId: Int, patientRequestBody: PatientRequestBody): RequestResult<Patient>
     suspend fun getPatientByUserId(id: Int): RequestResult<Patient>
     suspend fun getPatients(): RequestResult<List<Patient>>
 }
