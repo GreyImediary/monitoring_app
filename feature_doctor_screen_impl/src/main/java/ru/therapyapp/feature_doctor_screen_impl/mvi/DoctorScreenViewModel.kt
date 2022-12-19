@@ -8,7 +8,6 @@ import ru.therapyapp.core_network.entity.RequestResult
 import ru.therapyapp.core_prefs.SharedPrefsRepository
 import ru.therapyapp.data_doctor.api.DoctorRepository
 import ru.therapyapp.data_doctor.api.entity.Doctor
-import ru.therapyapp.data_doctor.api.entity.DoctorRequestBody
 import ru.therapyapp.data_patient.api.PatientRepository
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.data_questionnaire.QuestionnaireRepository
@@ -36,6 +35,20 @@ class DoctorScreenViewModel(
             DoctorScreenEvent.OnQuestionnaireAddClick -> openQuestionnaireAddScreen()
             is DoctorScreenEvent.OnQuestionnaireClick -> openQuestionnaireAnsweredScreen(event.questionnaireId)
             DoctorScreenEvent.Logout -> logout()
+            is DoctorScreenEvent.OpenPatientCreateScreen -> openCreatePatientScreen(event.doctorId)
+            is DoctorScreenEvent.OnPatientAppScreenClick -> openPatientAppScreen(event.patient)
+        }
+    }
+
+    private fun openPatientAppScreen(patient: Patient) {
+        intent {
+            postSideEffect(DoctorScreenSideEffect.OpenPatientAppScreen(patient))
+        }
+    }
+
+    private fun openCreatePatientScreen(doctorId: Int) {
+        intent {
+            postSideEffect(DoctorScreenSideEffect.OpenPatientCreateScreen(doctorId))
         }
     }
 

@@ -4,11 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -24,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
@@ -63,9 +62,15 @@ fun PatientRoute(
                 horizontalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 items(patients) { patient ->
-                    PatientCard(patient = patient, onClick = {
-                        onEvent(DoctorScreenEvent.OnPatientClick(patient))
-                    })
+                    PatientCard(
+                        patient = patient,
+                        onClick = {
+                            onEvent(DoctorScreenEvent.OnPatientClick(patient))
+                        },
+                        onPatientScreenClick = {
+                            onEvent(DoctorScreenEvent.OnPatientAppScreenClick(patient))
+                        }
+                    )
                 }
             }
         }
@@ -73,7 +78,7 @@ fun PatientRoute(
 }
 
 @Composable
-fun PatientCard(patient: Patient, onClick: () -> Unit) {
+fun PatientCard(patient: Patient, onClick: () -> Unit, onPatientScreenClick: () -> Unit) {
     val name = if (patient.patronymic != null) {
         "${patient.surname} ${patient.name.first()}. ${patient.patronymic?.first()}."
     } else {
@@ -121,7 +126,18 @@ fun PatientCard(patient: Patient, onClick: () -> Unit) {
             modifier = Modifier.padding(start = 16.dp, top = 4.dp, bottom = 16.dp),
             text = "Номер телефона: ${patient.phoneNumber}",
         )
+
+        AppButton(
+            modifier = Modifier.padding(top = 20.dp, start = 16.dp, bottom = 16.dp),
+            onClick = {
+                onPatientScreenClick()
+            },
+        ) {
+            Text(text = "Индексы и анкеты", color = colorResource(id = R.color.color_white))
+        }
     }
+
+
 }
 
 @Composable
@@ -131,7 +147,6 @@ private fun patientsPreview() {
         patients = listOf(
             Patient(
                 123,
-                45,
                 "Василий",
                 "Петрович",
                 "Иванович",
@@ -144,7 +159,6 @@ private fun patientsPreview() {
             ),
             Patient(
                 123,
-                45,
                 "Василий",
                 "Петрович",
                 "Иванович",
@@ -157,7 +171,6 @@ private fun patientsPreview() {
             ),
             Patient(
                 123,
-                45,
                 "Василий",
                 "Петрович",
                 "Иванович",
@@ -170,7 +183,6 @@ private fun patientsPreview() {
             ),
             Patient(
                 123,
-                45,
                 "Василий",
                 "Петрович",
                 "Иванович",

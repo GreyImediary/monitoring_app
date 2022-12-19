@@ -452,7 +452,6 @@ fun PatientDataView(
                         ) {
                             onEvent(UserDataEvent.OnPatientDone(
                                 PatientRequestBody(
-                                    userId = userId,
                                     name = name.value.trim(),
                                     surname = surname.value.trim(),
                                     patronymic = patronymic.value.trim(),
@@ -884,7 +883,6 @@ fun PatientDataView(
                         ) {
                             onEvent(UserDataEvent.OnPatientDone(
                                 PatientRequestBody(
-                                    userId = userId,
                                     name = name.value.trim(),
                                     surname = surname.value.trim(),
                                     patronymic = patronymic.value.trim(),

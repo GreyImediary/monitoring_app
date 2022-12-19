@@ -4,7 +4,6 @@ import ru.therapyapp.data_core.entity.Sex
 import java.util.*
 
 data class PatientRequestBody(
-    val userId: Int,
     val name: String,
     val surname: String,
     val patronymic: String?,

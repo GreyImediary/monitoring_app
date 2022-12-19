@@ -10,4 +10,10 @@ class UserDataRouterImpl : UserDataRouter {
             UserDataActivity.getIntent(activity, user)
         )
     }
+
+    override fun openDataScreenForPatient(activity: AppCompatActivity, doctorId: Int) {
+        activity.startActivity(
+            UserDataActivity.getDoctorIntent(activity, doctorId)
+        )
+    }
 }

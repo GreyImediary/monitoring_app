@@ -19,6 +19,8 @@ dependencies {
     implementation project(":data_questionnaire")
     implementation project(":feature_auth_api")
 
+    implementation project(":feature_patient_screen_api")
+    implementation project(":feature_user_data_api")
     implementation project(":feature_doctor_screen_api")
     implementation project(":feature_current_patient_api")
     implementation project(":feature_questionnaire_add_api")
