@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
@@ -23,6 +24,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
+import ru.therapyapp.core_ui.getLargeHorizontalPadding
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.data_questionnaire.model.QuestionnaireRequestBody
 import ru.therapyapp.feature_questionnaire_add_impl.mvi.QuestionnaireAddEvent
@@ -71,6 +73,9 @@ fun QuestionnaireView(
     var expanded by remember { mutableStateOf(false) }
     val selectedPatientName = rememberSaveable { mutableStateOf("Для всех") }
 
+    val localConfigWidth = LocalConfiguration.current.screenWidthDp
+    val horizontalDp = getLargeHorizontalPadding(localConfigWidth.dp)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -85,7 +90,7 @@ fun QuestionnaireView(
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 120.dp, vertical = 30.dp)
+                .padding(horizontal = horizontalDp, vertical = 30.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -113,7 +118,19 @@ fun QuestionnaireView(
 
             if (questionnaire.questions.isNotEmpty()) {
                 questionnaire.questions.forEachIndexed { index, question ->
-                    QuestionView(question = question, questionIndex = index, onEvent = onEvent)
+                    if (horizontalDp < 600.dp) {
+                        QuestionPhoneView(
+                            question = question,
+                            questionIndex = index,
+                            onEvent = onEvent,
+                        )
+                    } else {
+                        QuestionView(
+                            question = question,
+                            questionIndex = index,
+                            onEvent = onEvent,
+                        )
+                    }
                     Spacer(modifier = Modifier.height(20.dp))
                 }
             }

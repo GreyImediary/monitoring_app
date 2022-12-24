@@ -22,12 +22,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.therapyapp.core_ui.R
+import ru.therapyapp.core_ui.getCellCountForQuestionnairesGrid
+import ru.therapyapp.core_ui.getMediumHorizontalPadding
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.data_questionnaire.model.Questionnaire
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
@@ -41,6 +44,10 @@ fun QuestionnairesRoute(
     onBackClick: () -> Unit,
     onEvent: (DoctorScreenEvent) -> Unit,
 ) {
+
+    val localConfigWidth = LocalConfiguration.current.screenWidthDp
+    val horizontalDp = getMediumHorizontalPadding(localConfigWidth.dp)
+    val cellCount = getCellCountForQuestionnairesGrid(localConfigWidth.dp)
 
     Scaffold(
         topBar = {
@@ -59,8 +66,8 @@ fun QuestionnairesRoute(
             onRefresh = { onEvent(DoctorScreenEvent.FetchData) }
         ) {
             LazyVerticalGrid(
-                columns = GridCells.Fixed(3),
-                contentPadding = PaddingValues(horizontal = 80.dp, vertical = 30.dp),
+                columns = GridCells.Fixed(cellCount),
+                contentPadding = PaddingValues(horizontal = horizontalDp, vertical = 30.dp),
                 verticalArrangement = Arrangement.spacedBy(25.dp),
                 horizontalArrangement = Arrangement.spacedBy(40.dp)
             ) {

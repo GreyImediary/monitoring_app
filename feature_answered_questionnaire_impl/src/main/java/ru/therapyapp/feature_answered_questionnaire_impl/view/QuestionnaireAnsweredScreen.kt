@@ -19,10 +19,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
+import ru.therapyapp.core_ui.getLargeHorizontalPadding
+import ru.therapyapp.core_ui.getMediumHorizontalPadding
 import ru.therapyapp.data_questionnaire_answered.model.QuestionnaireAnswered
 import ru.therapyapp.feature_answered_questionnaire_impl.mvi.QuestionnaireAnsweredEvent
 import ru.therapyapp.feature_answered_questionnaire_impl.mvi.QuestionnaireAnsweredSideEffect
@@ -65,6 +68,9 @@ fun QuestionnaireAnsweredView(
     questionnaires: List<QuestionnaireAnswered>,
     onEvent: (QuestionnaireAnsweredEvent) -> Unit,
 ) {
+    val localConfigWidth = LocalConfiguration.current.screenWidthDp
+    val horizontalDp = getMediumHorizontalPadding(localConfigWidth.dp)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -79,7 +85,7 @@ fun QuestionnaireAnsweredView(
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 80.dp, vertical = 30.dp)
+                .padding(horizontal = horizontalDp, vertical = 30.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
