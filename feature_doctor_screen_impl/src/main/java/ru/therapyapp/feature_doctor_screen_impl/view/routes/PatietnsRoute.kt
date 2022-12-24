@@ -1,5 +1,6 @@
 package ru.therapyapp.feature_doctor_screen_impl.view.routes
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -16,6 +17,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +26,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
+import ru.therapyapp.core_ui.getCellCountForGrid
+import ru.therapyapp.core_ui.getMediumHorizontalPadding
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
 import ru.therapyapp.data_patient.api.entity.Patient
@@ -38,6 +42,12 @@ fun PatientRoute(
     onBackClick: () -> Unit,
     onEvent: (DoctorScreenEvent) -> Unit,
 ) {
+
+    val localConfigWidth = LocalConfiguration.current.screenWidthDp
+    val horizontalDp = getMediumHorizontalPadding(localConfigWidth.dp)
+    val cellCount = getCellCountForGrid(localConfigWidth.dp)
+
+    Log.d("AAAAAAAAAAAAAA", localConfigWidth.toString())
 
     Scaffold(
         topBar = {
@@ -56,8 +66,8 @@ fun PatientRoute(
             onRefresh = { onEvent(DoctorScreenEvent.FetchData) }
         ) {
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(horizontal = 80.dp, vertical = 30.dp),
+                columns = GridCells.Fixed(cellCount),
+                contentPadding = PaddingValues(horizontal = horizontalDp, vertical = 30.dp),
                 verticalArrangement = Arrangement.spacedBy(25.dp),
                 horizontalArrangement = Arrangement.spacedBy(40.dp)
             ) {
