@@ -63,7 +63,7 @@ fun PatientView(
 
     var chosenDateString by remember { mutableStateOf("") }
 
-    val patientName = if (patient.patronymic != null) {
+    val patientName = if (!patient.patronymic.isNullOrBlank()) {
         "${patient.surname} ${patient.name}. ${patient.patronymic}."
     } else {
         "${patient.surname} ${patient.name}."

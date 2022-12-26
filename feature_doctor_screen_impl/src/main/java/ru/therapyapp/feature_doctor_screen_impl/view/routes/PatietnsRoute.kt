@@ -89,7 +89,7 @@ fun PatientRoute(
 
 @Composable
 fun PatientCard(patient: Patient, onClick: () -> Unit, onPatientScreenClick: () -> Unit) {
-    val name = if (patient.patronymic != null) {
+    val name = if (!patient.patronymic.isNullOrBlank()) {
         "${patient.surname} ${patient.name.first()}. ${patient.patronymic?.first()}."
     } else {
         "${patient.surname} ${patient.name.first()}."
