@@ -14,7 +14,6 @@ import ru.therapyapp.data_patient.api.entity.PatientRequestBody
 
 class UserDataViewModel(
     private val user: User?,
-    private val doctorId: Int?,
     private val patientRepository: PatientRepository,
     private val doctorRepository: DoctorRepository,
     private val prefsRepository: SharedPrefsRepository,
@@ -31,7 +30,7 @@ class UserDataViewModel(
     private fun fetchData() {
         intent {
             reduce {
-                state.copy(user = user, doctorId = doctorId)
+                state.copy(user = user)
             }
         }
     }
@@ -58,9 +57,14 @@ class UserDataViewModel(
     private fun onPatientDone(patientRequestBody: PatientRequestBody) {
 
         intent {
-            when (val patientResult = patientRepository.createPatientWithDoctor(doctorId ?: - 1, patientRequestBody)) {
+            when (val patientResult = patientRepository.createPatient(patientRequestBody)) {
                 is RequestResult.Success -> {
-                    postSideEffect(UserDataSideEffect.Finish)
+                    prefsRepository.apply {
+                        userId = user?.id ?: -1
+                        userType = user?.userType?.name ?: ""
+                        isLoggedIn = true
+                    }
+                    postSideEffect(UserDataSideEffect.OpenPatientScreen(patientResult.data))
                 }
                 is RequestResult.Error -> {
                     postSideEffect(UserDataSideEffect.ShowToastMessage(patientResult.message ?: ""))

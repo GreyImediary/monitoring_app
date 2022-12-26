@@ -36,9 +36,7 @@ import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenViewModel
 import ru.therapyapp.feature_doctor_screen_impl.view.routes.PatientRoute
 import ru.therapyapp.feature_doctor_screen_impl.view.routes.QuestionnairesRoute
 import ru.therapyapp.feature_doctor_screen_impl.view.routes.RequestsRoute
-import ru.therapyapp.feature_patient_screen_api.PatientScreenRouter
 import ru.therapyapp.feature_questionnaire_add_api.QuestionnaireAddScreenRouter
-import ru.therapyapp.feature_user_data_api.UserDataRouter
 
 @Composable
 fun DoctorScreen(
@@ -46,8 +44,6 @@ fun DoctorScreen(
     currentPatientRouter: CurrentPatientRouter = get(),
     questionnaireAddScreenRouter: QuestionnaireAddScreenRouter = get(),
     questionnaireAnsweredScreenRouter: QuestionnaireAnsweredScreenRouter = get(),
-    userDataRouter: UserDataRouter = get(),
-    patientScreenRouter: PatientScreenRouter = get(),
     authRouter: AuthRouter = get(),
 ) {
 
@@ -60,8 +56,6 @@ fun DoctorScreen(
             currentPatientRouter,
             questionnaireAddScreenRouter,
             questionnaireAnsweredScreenRouter,
-            userDataRouter,
-            patientScreenRouter,
             authRouter
         )
     })
@@ -82,7 +76,7 @@ fun DoctorScreen(
                 onClick = {
                     when (selectedItem) {
                         DoctorScreenViewRoute.PATIENTS -> {
-                            viewModel.dispatch(DoctorScreenEvent.OpenPatientCreateScreen(state.doctor?.id ?: -1))
+
                         }
                         DoctorScreenViewRoute.REQUESTS -> {
                             viewModel.dispatch(DoctorScreenEvent.OnRequestAddClick)
@@ -200,8 +194,6 @@ private fun handleSideEffects(
     currentPatientRouter: CurrentPatientRouter,
     questionnaireAddScreenRouter: QuestionnaireAddScreenRouter,
     questionnaireAnsweredScreenRouter: QuestionnaireAnsweredScreenRouter,
-    userDataRouter: UserDataRouter,
-    patientScreenRouter: PatientScreenRouter,
     authRouter: AuthRouter,
 ) {
     when (effect) {
@@ -226,12 +218,6 @@ private fun handleSideEffects(
         }
         DoctorScreenSideEffect.ShowAuthScreen -> {
             authRouter.showAuthScreen(activity)
-        }
-        is DoctorScreenSideEffect.OpenPatientCreateScreen -> {
-            userDataRouter.openDataScreenForPatient(activity, effect.doctorId)
-        }
-        is DoctorScreenSideEffect.OpenPatientAppScreen -> {
-            patientScreenRouter.openPatientScreen(activity, effect.patient)
         }
     }
 }

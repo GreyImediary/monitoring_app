@@ -236,8 +236,5 @@ private fun handleSideEffects(
         PatientScreenSideEffect.ShowStartScreen -> {
             authRouter.showAuthScreen(activity)
         }
-        PatientScreenSideEffect.Finish -> {
-            activity.finish()
-        }
     }
 }

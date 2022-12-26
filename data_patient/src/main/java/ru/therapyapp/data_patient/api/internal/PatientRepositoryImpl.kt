@@ -23,19 +23,6 @@ internal class PatientRepositoryImpl(
         }
     }
 
-    override suspend fun createPatientWithDoctor(
-        doctorId: Int,
-        patientRequestBody: PatientRequestBody,
-    ): RequestResult<Patient> {
-        return withContext(dispatcher) {
-            try {
-                RequestResult.Success(patientService.createPatientWithDoctor(doctorId, patientRequestBody))
-            } catch (e: Exception) {
-                RequestResult.Error(e.getErrorMessage())
-            }
-        }
-    }
-
     override suspend fun getPatientByUserId(id: Int): RequestResult<Patient> {
         return withContext(dispatcher) {
             try {

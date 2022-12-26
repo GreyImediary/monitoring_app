@@ -7,5 +7,4 @@ sealed class UserDataSideEffect {
     data class OpenPatientScreen(val patient: Patient) : UserDataSideEffect()
     data class OpenDoctorScreen(val doctor: Doctor) : UserDataSideEffect()
     data class ShowToastMessage(val message: String) : UserDataSideEffect()
-    object Finish : UserDataSideEffect()
 }

@@ -33,7 +33,8 @@ class PatientScreenViewModel(
 
     private fun logout() {
         intent {
-            postSideEffect(PatientScreenSideEffect.Finish)
+            sharedPrefRepository.clearAll()
+            postSideEffect(PatientScreenSideEffect.ShowStartScreen)
         }
     }
 

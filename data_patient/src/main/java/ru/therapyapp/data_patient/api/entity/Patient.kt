@@ -8,6 +8,7 @@ import java.util.*
 @Parcelize
 data class Patient(
     val id: Int,
+    val userId: Int,
     val name: String,
     val surname: String,
     val patronymic: String?,

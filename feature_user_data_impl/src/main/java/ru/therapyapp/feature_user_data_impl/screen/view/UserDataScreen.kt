@@ -37,13 +37,6 @@ fun UserDataScreen(
                 onEvent = { event -> viewModel.dispatch(event) })
         }
     }
-
-    state.doctorId?.let {
-        if (it != -1) {
-            PatientDataView(userId = -1,
-                onEvent = { event -> viewModel.dispatch(event) })
-        }
-    }
 }
 
 private fun handleSideEffect(
@@ -61,9 +54,6 @@ private fun handleSideEffect(
         }
         is UserDataSideEffect.ShowToastMessage -> {
             Toast.makeText(activity, effect.message, Toast.LENGTH_SHORT).show()
-        }
-        UserDataSideEffect.Finish -> {
-            activity.finish()
         }
     }
 }

@@ -1,6 +1,5 @@
 package ru.therapyapp.feature_current_patient_impl.mvi
 
-import android.util.Log
 import ru.therapyapp.data_asdas.model.AsdasIndex
 import ru.therapyapp.data_bvas.BvasRepository
 import ru.therapyapp.data_bvas.model.BvasIndex
@@ -95,32 +94,26 @@ class CurrentPatientViewModel(
     }
 
     private fun changeDataPeriod(startDate: Long, endDate: Long) {
-        val endHoursDate = Calendar.getInstance().apply {
-            timeInMillis = endDate
-            set(Calendar.HOUR_OF_DAY, 23)
-            set(Calendar.MINUTE, 59)
-            set(Calendar.SECOND, 59)
-        }
         intent {
             when (state.currentIndex) {
                 IndexType.BVAS -> {
                     reduce {
                         state.copy(
-                            bvasIndexes = bvasIndexes.filter { it.date.time in startDate..endHoursDate.timeInMillis }
+                            bvasIndexes = bvasIndexes.filter { it.date.time in startDate..endDate }
                         )
                     }
                 }
                 IndexType.BASDAI -> {
                     reduce {
                         state.copy(
-                            basdaiIndexes = basdaiIndexes.filter { it.date.time in startDate..endHoursDate.timeInMillis }
+                            basdaiIndexes = basdaiIndexes.filter { it.date.time in startDate..endDate }
                         )
                     }
                 }
                 IndexType.ASDAS -> {
                     reduce {
                         state.copy(
-                            asdasIndexes = asdasIndexes.filter { it.date.time in startDate..endHoursDate.timeInMillis }
+                            asdasIndexes = asdasIndexes.filter { it.date.time in startDate..endDate }
                         )
                     }
                 }

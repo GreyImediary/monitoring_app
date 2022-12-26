@@ -254,7 +254,7 @@ fun RegisterView(
                 }
             }
 
-/*            Row {
+            Row {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
@@ -302,7 +302,7 @@ fun RegisterView(
                         text = "Пациент",
                     )
                 }
-            }*/
+            }
 
             AppButton(
                 modifier = Modifier

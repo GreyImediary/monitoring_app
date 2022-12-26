@@ -11,9 +11,6 @@ internal interface PatientService {
     @POST("api/v1/patient")
     suspend fun createPatient(@Body patientRequestBody: PatientRequestBody): Patient
 
-    @POST("api/v1/patient/withDoctor/{doctorId}")
-    suspend fun createPatientWithDoctor(@Path("doctorId") doctorId: Int, @Body patientRequestBody: PatientRequestBody): Patient
-
     @GET("api/v1/patient")
     suspend fun getAllPatients(): List<Patient>
 

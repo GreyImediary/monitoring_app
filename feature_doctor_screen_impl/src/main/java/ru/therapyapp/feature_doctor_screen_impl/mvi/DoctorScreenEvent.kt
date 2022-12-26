@@ -12,7 +12,5 @@ sealed class DoctorScreenEvent {
     data class DeleteRequest(val requestId: Int) : DoctorScreenEvent()
     data class CreateRequest(val requestCreationBody: RequestCreationBody) : DoctorScreenEvent()
     data class OnPatientClick(val patient: Patient) : DoctorScreenEvent()
-    data class OnPatientAppScreenClick(val patient: Patient) : DoctorScreenEvent()
     object Logout : DoctorScreenEvent()
-    data class OpenPatientCreateScreen(val doctorId: Int) : DoctorScreenEvent()
 }

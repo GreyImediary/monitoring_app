@@ -8,10 +8,9 @@ import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataViewModel
 
 class UserDataModule {
     val module = module {
-        viewModel { (user: User?, doctorId: Int?) ->
+        viewModel { (user: User?) ->
             UserDataViewModel(
                 user = user,
-                doctorId = doctorId,
                 patientRepository = get(),
                 doctorRepository = get(),
                 prefsRepository = get(),

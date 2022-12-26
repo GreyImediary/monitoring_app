@@ -15,11 +15,7 @@ import ru.therapyapp.feature_user_data_impl.screen.view.UserDataScreen
 
 class UserDataActivity : AppCompatActivity(), KoinComponent {
     private val viewModel: UserDataViewModel by viewModel {
-        parametersOf(
-            intent?.getParcelableExtra<User>(KEY_USER),
-            intent?.getIntExtra(DOCTOR_ID, -1),
-        )
-
+        parametersOf(intent?.getParcelableExtra<User>(KEY_USER))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,17 +30,10 @@ class UserDataActivity : AppCompatActivity(), KoinComponent {
 
     companion object {
         private const val KEY_USER = "KEY_USER"
-        private const val DOCTOR_ID = "DOCTOR_ID"
 
         fun getIntent(activity: AppCompatActivity, user: User): Intent {
             return Intent(activity, UserDataActivity::class.java).apply {
                 putExtra(KEY_USER, user)
-            }
-        }
-
-        fun getDoctorIntent(activity: AppCompatActivity, doctorId: Int): Intent {
-            return Intent(activity, UserDataActivity::class.java).apply {
-                putExtra(DOCTOR_ID, doctorId)
             }
         }
     }
