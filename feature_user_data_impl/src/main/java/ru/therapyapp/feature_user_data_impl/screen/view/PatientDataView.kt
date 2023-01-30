@@ -24,11 +24,13 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
@@ -107,6 +109,18 @@ fun PatientDataView(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+
+                Text(
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    text = "Заполинте данные",
+                    style = TextStyle(
+                        color = colorResource(id = R.color.font_color),
+                        fontWeight = FontWeight.W700,
+                        fontSize = 36.sp
+                    )
+                )
+
+
                 //name
                 Column(modifier = Modifier.padding(bottom = 16.dp)) {
                     OutlinedTextField(
@@ -487,6 +501,16 @@ fun PatientDataView(
                     modifier = Modifier
                         .fillMaxWidth(),
                 ) {
+                    Text(
+                        modifier = Modifier.padding(bottom = 16.dp),
+                        text = "Заполните данные",
+                        style = TextStyle(
+                            color = colorResource(id = R.color.font_color),
+                            fontWeight = FontWeight.W700,
+                            fontSize = 36.sp
+                        )
+                    )
+
                     //name
                     Column(
                         modifier = Modifier

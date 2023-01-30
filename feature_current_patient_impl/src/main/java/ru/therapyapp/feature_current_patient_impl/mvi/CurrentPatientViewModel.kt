@@ -169,10 +169,14 @@ class CurrentPatientViewModel(
     }
 
     private fun fetchData() {
-        fetchBvasIndexes()
-        fetchAsdasIndexes()
-        fetchBasdaiIndexes()
-        fetchComments()
+        intent {
+            reduce { state.copy(isRefreshing = true) }
+            fetchBvasIndexes()
+            fetchAsdasIndexes()
+            fetchBasdaiIndexes()
+            fetchComments()
+            reduce { state.copy(isRefreshing = false) }
+        }
     }
 
     private fun fetchComments() {
@@ -198,8 +202,8 @@ class CurrentPatientViewModel(
                         ?: "Ошибка во время получения индексов BVAS"))
                 }
                 is RequestResult.Success -> {
-                    bvasIndexes = result.data
-                    reduce { state.copy(bvasIndexes = result.data, selectedBvasIndex = result.data.lastOrNull()) }
+                    bvasIndexes = result.data.sortedBy { it.date }
+                    reduce { state.copy(bvasIndexes = bvasIndexes, selectedBvasIndex = bvasIndexes.lastOrNull()) }
                 }
             }
         }
@@ -215,8 +219,8 @@ class CurrentPatientViewModel(
                         ?: "Ошибка во время получения индексов BASDAI"))
                 }
                 is RequestResult.Success -> {
-                    basdaiIndexes = result.data
-                    reduce { state.copy(basdaiIndexes = result.data, selectedBasdaiIndex = result.data.lastOrNull()) }
+                    basdaiIndexes = result.data.sortedBy { it.date }
+                    reduce { state.copy(basdaiIndexes = basdaiIndexes, selectedBasdaiIndex = basdaiIndexes.lastOrNull()) }
                 }
             }
         }
@@ -232,8 +236,8 @@ class CurrentPatientViewModel(
                         ?: "Ошибка во время получения индексов ASDAS"))
                 }
                 is RequestResult.Success -> {
-                    asdasIndexes = result.data
-                    reduce { state.copy(asdasIndexes = result.data, selectedAsdasIndex = result.data.lastOrNull()) }
+                    asdasIndexes = result.data.sortedBy { it.date }
+                    reduce { state.copy(asdasIndexes = asdasIndexes, selectedAsdasIndex = asdasIndexes.lastOrNull()) }
                 }
             }
         }

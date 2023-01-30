@@ -24,6 +24,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,6 +32,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.core_ui.textFieldColors
@@ -76,6 +78,15 @@ fun RegisterView(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                modifier = Modifier.padding(bottom = 16.dp),
+                text = "Регистрация",
+                style = TextStyle(
+                    color = colorResource(id = R.color.font_color),
+                    fontWeight = FontWeight.W700,
+                    fontSize = 36.sp
+                )
+            )
             //login
             Column(modifier = Modifier.padding(bottom = 16.dp)) {
                 OutlinedTextField(
