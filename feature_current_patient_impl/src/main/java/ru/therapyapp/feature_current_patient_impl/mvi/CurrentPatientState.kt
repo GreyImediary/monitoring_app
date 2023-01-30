@@ -15,7 +15,8 @@ data class CurrentPatientState(
     val asdasIndexes: List<AsdasIndex> = emptyList(),
     val selectedAsdasIndex: AsdasIndex? = null,
     val currentIndex: IndexType = IndexType.BVAS,
-)
+    val isRefreshing: Boolean = false,
+    )
 
 enum class IndexType {
     BVAS, BASDAI, ASDAS

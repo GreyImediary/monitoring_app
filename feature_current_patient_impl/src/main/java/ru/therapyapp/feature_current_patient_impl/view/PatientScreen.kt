@@ -38,6 +38,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.android.material.datepicker.MaterialDatePicker
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -64,23 +66,28 @@ fun PatientScreen(
 
     val localWidth = LocalConfiguration.current.screenWidthDp
 
-    state.patient?.let {
-        if (localWidth.dp < 600.dp) {
-            PatientPhoneView(
-                patient = it,
-                state,
-                context,
-                onEvent = onEvent
-            )
-        } else {
-            PatientView(
-                patient = it,
-                state,
-                context,
-                onEvent = onEvent
-            )
-        }
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing = state.isRefreshing),
+        onRefresh = { onEvent(CurrentPatientEvent.FetchData) }
+    ) {
+        state.patient?.let {
+            if (localWidth.dp < 600.dp) {
+                PatientPhoneView(
+                    patient = it,
+                    state,
+                    context,
+                    onEvent = onEvent
+                )
+            } else {
+                PatientView(
+                    patient = it,
+                    state,
+                    context,
+                    onEvent = onEvent
+                )
+            }
 
+        }
     }
 }
 
@@ -97,8 +104,6 @@ private fun handleSideEffects(
         }
     }
 }
-
-
 
 
 class MyXAxisFormatter : ValueFormatter() {

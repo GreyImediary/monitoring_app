@@ -3,13 +3,12 @@ package ru.therapyapp.feature_doctor_screen_impl.view.routes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -65,16 +64,26 @@ fun QuestionnairesRoute(
             state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
             onRefresh = { onEvent(DoctorScreenEvent.FetchData) }
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(cellCount),
-                contentPadding = PaddingValues(horizontal = horizontalDp, vertical = 30.dp),
-                verticalArrangement = Arrangement.spacedBy(25.dp),
-                horizontalArrangement = Arrangement.spacedBy(40.dp)
-            ) {
-                items(questionnaires) { questionnaire ->
-                    QuestionnaireCard(
-                        questionnaire = questionnaire,
-                        patients = patients, onClick = { onEvent(DoctorScreenEvent.OnQuestionnaireClick(questionnaire.id)) })
+            if (questionnaires.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .height(height = 1000.dp)
+                )
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(cellCount),
+                    contentPadding = PaddingValues(horizontal = horizontalDp, vertical = 30.dp),
+                    verticalArrangement = Arrangement.spacedBy(25.dp),
+                    horizontalArrangement = Arrangement.spacedBy(40.dp)
+                ) {
+                    items(questionnaires) { questionnaire ->
+                        QuestionnaireCard(
+                            questionnaire = questionnaire,
+                            patients = patients,
+                            onClick = { onEvent(DoctorScreenEvent.OnQuestionnaireClick(questionnaire.id)) })
+                    }
                 }
             }
         }

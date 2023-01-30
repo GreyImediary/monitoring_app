@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -48,8 +50,6 @@ fun PatientRoute(
     val horizontalDp = getMediumHorizontalPadding(localConfigWidth.dp)
     val cellCount = getCellCountForGrid(localConfigWidth.dp)
 
-    Log.d("AAAAAAAAAAAAAA", localConfigWidth.toString())
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -66,16 +66,25 @@ fun PatientRoute(
             state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
             onRefresh = { onEvent(DoctorScreenEvent.FetchData) }
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(cellCount),
-                contentPadding = PaddingValues(horizontal = horizontalDp, vertical = 30.dp),
-                verticalArrangement = Arrangement.spacedBy(25.dp),
-                horizontalArrangement = Arrangement.spacedBy(40.dp)
-            ) {
-                items(patients) { patient ->
-                    PatientCard(patient = patient, onClick = {
-                        onEvent(DoctorScreenEvent.OnPatientClick(patient))
-                    })
+            if (patients.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .height(height = 1000.dp)
+                )
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(cellCount),
+                    contentPadding = PaddingValues(horizontal = horizontalDp, vertical = 30.dp),
+                    verticalArrangement = Arrangement.spacedBy(25.dp),
+                    horizontalArrangement = Arrangement.spacedBy(40.dp)
+                ) {
+                    items(patients) { patient ->
+                        PatientCard(patient = patient, onClick = {
+                            onEvent(DoctorScreenEvent.OnPatientClick(patient))
+                        })
+                    }
                 }
             }
         }

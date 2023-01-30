@@ -1,11 +1,14 @@
 package ru.therapyapp.feature_patient_screen_impl.view.routes
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -32,38 +35,48 @@ fun QuestionnaireRoute(
     onMenuClick: () -> Unit,
     onEvent: (PatientScreenEvent) -> Unit,
 ) {
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Анкеты") },
-                navigationIcon = {
-                    IconButton(onClick = { onMenuClick() }) {
-                        Icon(Icons.Filled.Menu, contentDescription = null)
-                    }
-                }
-            )
-        }
+    SwipeRefresh(
+        modifier = Modifier.fillMaxSize(),
+        state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+        onRefresh = { onEvent(PatientScreenEvent.FetchData) }
     ) {
-        SwipeRefresh(
-            modifier = Modifier.fillMaxSize(),
-            state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-            onRefresh = { onEvent(PatientScreenEvent.FetchData) }
-        ) {
-            LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                items(questionnaires) { questionnaire ->
-                    QuestionnaireCard(
-                        questionnaire = questionnaire,
-                        onClick = { onEvent(PatientScreenEvent.OnQuestionnaireClick(questionnaire.id)) }
-                    )
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = "Анкеты") },
+                    navigationIcon = {
+                        IconButton(onClick = { onMenuClick() }) {
+                            Icon(Icons.Filled.Menu, contentDescription = null)
+                        }
+                    }
+                )
+            }
+        )
+        {
+            if (questionnaires.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .height(height = 1000.dp)
+                )
+            } else {
+                LazyColumn(
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(questionnaires) { questionnaire ->
+                        QuestionnaireCard(
+                            questionnaire = questionnaire,
+                            onClick = { onEvent(PatientScreenEvent.OnQuestionnaireClick(questionnaire.id)) }
+                        )
+                    }
                 }
             }
         }
     }
+
 }
 
 @Composable

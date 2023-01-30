@@ -1,5 +1,6 @@
 package ru.therapyapp.feature_patient_screen_impl.view.routes
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,22 +32,22 @@ fun RequestRoute(
     onEvent: (PatientScreenEvent) -> Unit,
 ) {
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Заявки") },
-                navigationIcon = {
-                    IconButton(onClick = { onMenuClick() }) {
-                        Icon(Icons.Filled.Menu, contentDescription = null)
-                    }
-                }
-            )
-        }
+    SwipeRefresh(
+        modifier = Modifier.fillMaxSize(),
+        state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+        onRefresh = { onEvent(PatientScreenEvent.FetchData) }
     ) {
-        SwipeRefresh(
-            modifier = Modifier.fillMaxSize(),
-            state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-            onRefresh = { onEvent(PatientScreenEvent.FetchData) }
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = "Заявки") },
+                    navigationIcon = {
+                        IconButton(onClick = { onMenuClick() }) {
+                            Icon(Icons.Filled.Menu, contentDescription = null)
+                        }
+                    }
+                )
+            }
         ) {
             LazyColumn(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),

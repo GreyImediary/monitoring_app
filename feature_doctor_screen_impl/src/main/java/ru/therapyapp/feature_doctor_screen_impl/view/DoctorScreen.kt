@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Article
@@ -71,67 +73,73 @@ fun DoctorScreen(
             backgroundColor = colorResource(id = R.color.main_50),
             elevation = 0.dp,
         ) {
-            FloatingActionButton(
-                modifier = Modifier.padding(top = 100.dp, bottom = 40.dp),
-                onClick = {
-                    when (selectedItem) {
-                        DoctorScreenViewRoute.PATIENTS -> {
-
-                        }
-                        DoctorScreenViewRoute.REQUESTS -> {
-                            viewModel.dispatch(DoctorScreenEvent.OnRequestAddClick)
-                        }
-                        DoctorScreenViewRoute.QUESTIONNAIRES -> {
-                            viewModel.dispatch(DoctorScreenEvent.OnQuestionnaireAddClick)
-                        }
-                    }
-                },
-                backgroundColor = colorResource(id = R.color.secondary),
-                contentColor = colorResource(id = R.color.color_white),
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(
-                    Icons.Rounded.Add,
-                    contentDescription = null,
-                )
-            }
 
-            DoctorScreenViewRoute.values().forEachIndexed { index, item ->
-                val isSelected = selectedItem.ordinal == index
-                val backColor = if (isSelected) {
-                    colorResource(id = R.color.main)
-                } else {
-                    colorResource(id = R.color.main_50)
-                }
-                NavigationRailItem(
-                    modifier = Modifier
-                        .background(color = backColor),
-                    selected = isSelected,
+                FloatingActionButton(
+                    modifier = Modifier.padding(top = 100.dp, bottom = 40.dp),
                     onClick = {
-                        if (selectedItem != item) {
-                            selectedItem = item
-                            navController.navigate(item.title)
+                        when (selectedItem) {
+                            DoctorScreenViewRoute.PATIENTS -> {
+
+                            }
+                            DoctorScreenViewRoute.REQUESTS -> {
+                                viewModel.dispatch(DoctorScreenEvent.OnRequestAddClick)
+                            }
+                            DoctorScreenViewRoute.QUESTIONNAIRES -> {
+                                viewModel.dispatch(DoctorScreenEvent.OnQuestionnaireAddClick)
+                            }
                         }
                     },
-                    icon = { Icon(icons[index], contentDescription = item.title) },
-                    label = { Text(text = item.title) },
-                    selectedContentColor = colorResource(id = R.color.color_white),
-                    unselectedContentColor = colorResource(id = R.color.icon_color)
-                )
-            }
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                IconButton(
-                    modifier = Modifier.padding(top = 40.dp),
-                    onClick = {
-                        viewModel.dispatch(DoctorScreenEvent.Logout)
-                    }) {
+                    backgroundColor = colorResource(id = R.color.secondary),
+                    contentColor = colorResource(id = R.color.color_white),
+                ) {
                     Icon(
-                        imageVector = Icons.Filled.ExitToApp,
+                        Icons.Rounded.Add,
                         contentDescription = null,
-                        tint = colorResource(id = R.color.icon_color),
                     )
                 }
-                Text(text = "Выйти", color = colorResource(id = R.color.icon_color))
+
+                DoctorScreenViewRoute.values().forEachIndexed { index, item ->
+                    val isSelected = selectedItem.ordinal == index
+                    val backColor = if (isSelected) {
+                        colorResource(id = R.color.main)
+                    } else {
+                        colorResource(id = R.color.main_50)
+                    }
+                    NavigationRailItem(
+                        modifier = Modifier
+                            .background(color = backColor),
+                        selected = isSelected,
+                        onClick = {
+                            if (selectedItem != item) {
+                                selectedItem = item
+                                navController.navigate(item.title)
+                            }
+                        },
+                        icon = { Icon(icons[index], contentDescription = item.title) },
+                        label = { Text(text = item.title) },
+                        selectedContentColor = colorResource(id = R.color.color_white),
+                        unselectedContentColor = colorResource(id = R.color.icon_color)
+                    )
+                }
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    IconButton(
+                        modifier = Modifier.padding(top = 40.dp),
+                        onClick = {
+                            viewModel.dispatch(DoctorScreenEvent.Logout)
+                        }) {
+                        Icon(
+                            imageVector = Icons.Filled.ExitToApp,
+                            contentDescription = null,
+                            tint = colorResource(id = R.color.icon_color),
+                        )
+                    }
+                    Text(text = "Выйти", color = colorResource(id = R.color.icon_color))
+                }
             }
         }
         NavHost(
