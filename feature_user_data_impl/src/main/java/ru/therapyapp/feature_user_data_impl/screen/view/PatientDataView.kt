@@ -14,9 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +37,7 @@ import ru.therapyapp.core_ui.MaskVisualTransformation
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.core_ui.textFieldColors
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.data_mkb.model.Mkb
 import ru.therapyapp.data_patient.api.entity.PatientRequestBody
 import ru.therapyapp.feature_user_data_impl.screen.config.NumberMask.INPUT_LENGTH
 import ru.therapyapp.feature_user_data_impl.screen.config.NumberMask.MASK
@@ -53,6 +52,7 @@ import java.util.*
 @Composable
 fun PatientDataView(
     userId: Int,
+    mkbs: List<Mkb>,
     onEvent: (UserDataEvent) -> Unit,
 ) {
     val name = rememberSaveable { mutableStateOf("") }
@@ -75,6 +75,90 @@ fun PatientDataView(
 
     var birthDate = Date()
     val dialogState = rememberMaterialDialogState()
+
+    var mkbExpanded by remember { mutableStateOf(false) }
+    val selectedMkbText = rememberSaveable { mutableStateOf("Выбрать") }
+    val selectedMkb: MutableState<Mkb?> = rememberSaveable { mutableStateOf(null) }
+
+    var isDialogOpened by remember { mutableStateOf(false) }
+    var mkbCode by remember { mutableStateOf("") }
+    var mkbName by remember { mutableStateOf("") }
+
+
+    if (isDialogOpened) {
+        AlertDialog(
+            onDismissRequest = { isDialogOpened = false },
+            title = { Text(text = "Добавить комментарий") },
+            text = {
+                   Column {
+                       OutlinedTextField(
+                           modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
+                           value = mkbCode,
+                           label = { Text("МКБ-код") },
+                           onValueChange = { mkbCode = it },
+                           colors = TextFieldDefaults.textFieldColors(
+                               backgroundColor = colorResource(id = R.color.main_50),
+                               trailingIconColor = colorResource(id = R.color.icon_color),
+                               focusedLabelColor = colorResource(id = R.color.font_color),
+                               unfocusedLabelColor = colorResource(id = R.color.font_color),
+                               cursorColor = colorResource(id = R.color.font_color),
+                               focusedIndicatorColor = colorResource(id = R.color.main),
+                               unfocusedIndicatorColor = colorResource(id = R.color.main),
+                               disabledTrailingIconColor = colorResource(id = R.color.icon_color),
+                               disabledTextColor = colorResource(id = R.color.font_color),
+                               disabledIndicatorColor = colorResource(id = R.color.main),
+                               disabledLabelColor = colorResource(id = R.color.font_color)
+                           ),
+                       )
+
+                       OutlinedTextField(
+                           modifier = Modifier.fillMaxWidth(),
+                           value = mkbName,
+                           label = { Text("Название") },
+                           onValueChange = { mkbName = it },
+                           colors = TextFieldDefaults.textFieldColors(
+                               backgroundColor = colorResource(id = R.color.main_50),
+                               trailingIconColor = colorResource(id = R.color.icon_color),
+                               focusedLabelColor = colorResource(id = R.color.font_color),
+                               unfocusedLabelColor = colorResource(id = R.color.font_color),
+                               cursorColor = colorResource(id = R.color.font_color),
+                               focusedIndicatorColor = colorResource(id = R.color.main),
+                               unfocusedIndicatorColor = colorResource(id = R.color.main),
+                               disabledTrailingIconColor = colorResource(id = R.color.icon_color),
+                               disabledTextColor = colorResource(id = R.color.font_color),
+                               disabledIndicatorColor = colorResource(id = R.color.main),
+                               disabledLabelColor = colorResource(id = R.color.font_color)
+                           ),
+                       )
+                   }
+            },
+            confirmButton = {
+                AppButton(
+                    onClick = {
+                        if (mkbCode.isBlank() && mkbName.isBlank()) {
+                            onEvent(UserDataEvent.OnMessageShow("Введите текст. Поле не может быть пустым"))
+                        } else {
+                            onEvent(UserDataEvent.OnAddMkb(mkbName.trim(), mkbCode.trim()))
+                            isDialogOpened = false
+                        }
+                    },
+                ) {
+                    Text("Добавить", color = colorResource(id = R.color.color_white))
+                }
+            },
+            dismissButton = {
+                AppButton(
+                    onClick = {
+                        isDialogOpened = false
+                    },
+                ) {
+                    Text("Отменить", color = colorResource(id = R.color.color_white))
+                }
+            }
+        )
+    }
+
+
 
     MaterialDialog(
         dialogState = dialogState,
@@ -448,6 +532,74 @@ fun PatientDataView(
                     )
                 }
 
+                ExposedDropdownMenuBox(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    expanded = mkbExpanded,
+                    onExpandedChange = {
+                        mkbExpanded = !mkbExpanded
+                    }
+                ) {
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        readOnly = true,
+                        value = selectedMkbText.value,
+                        onValueChange = { },
+                        label = { Text("МКБ-код*") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                expanded = mkbExpanded
+                            )
+                        },
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(
+                            backgroundColor = colorResource(id = R.color.main_50),
+                            trailingIconColor = colorResource(id = R.color.icon_color),
+                            focusedLabelColor = colorResource(id = R.color.font_color),
+                            unfocusedLabelColor = colorResource(id = R.color.font_color),
+                            focusedTrailingIconColor = colorResource(id = R.color.icon_color),
+                            focusedIndicatorColor = colorResource(id = R.color.main),
+                            unfocusedIndicatorColor = colorResource(id = R.color.main)
+
+                        ),
+                    )
+                    ExposedDropdownMenu(
+                        modifier = Modifier
+                            .background(color = colorResource(id = R.color.main_50))
+                            .fillMaxWidth(),
+                        expanded = mkbExpanded,
+                        onDismissRequest = {
+                            mkbExpanded = false
+                        }
+                    ) {
+                        DropdownMenuItem(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            onClick = {
+                                isDialogOpened = true
+                                mkbExpanded = false
+                            }
+                        ) {
+                            Text(text = "Добавить МКБ")
+                        }
+                        mkbs.forEach { mkb ->
+                            val mkbNameText = "Код: ${mkb.code}. Название: ${mkb.name}"
+                            DropdownMenuItem(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                onClick = {
+                                    selectedMkbText.value = mkbNameText
+                                    selectedMkb.value = mkb
+                                    mkbExpanded = false
+                                }
+                            ) {
+                                Text(text = mkbNameText)
+                            }
+                        }
+                    }
+                }
+
                 AppButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -462,6 +614,7 @@ fun PatientDataView(
                                 isPhoneNumberError = isPhoneNumberError,
                                 date = birthDateString.value,
                                 isDateError = isDateError,
+                                isMkbEmpty = selectedMkb.value == null
                             )
                         ) {
                             onEvent(UserDataEvent.OnPatientDone(
@@ -474,9 +627,12 @@ fun PatientDataView(
                                     additionalPhoneNumber = additionalPhoneNumber.value.trim(),
                                     email = email.value.trim(),
                                     birthDate = birthDate,
-                                    patientCardNumber = cardNumber.value.trim()
+                                    patientCardNumber = cardNumber.value.trim(),
+                                    mkb = selectedMkb.value ?: Mkb("", "")
                                 )
                             ))
+                        } else {
+                            onEvent(UserDataEvent.OnMessageShow("Заполните все обязательные поля"))
                         }
                     }
                 ) {
@@ -889,6 +1045,74 @@ fun PatientDataView(
                         .weight(0.4f))
                 }
 
+                ExposedDropdownMenuBox(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    expanded = mkbExpanded,
+                    onExpandedChange = {
+                        mkbExpanded = !mkbExpanded
+                    }
+                ) {
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        readOnly = true,
+                        value = selectedMkbText.value,
+                        onValueChange = { },
+                        label = { Text("МКБ-код*") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                expanded = mkbExpanded
+                            )
+                        },
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(
+                            backgroundColor = colorResource(id = R.color.main_50),
+                            trailingIconColor = colorResource(id = R.color.icon_color),
+                            focusedLabelColor = colorResource(id = R.color.font_color),
+                            unfocusedLabelColor = colorResource(id = R.color.font_color),
+                            focusedTrailingIconColor = colorResource(id = R.color.icon_color),
+                            focusedIndicatorColor = colorResource(id = R.color.main),
+                            unfocusedIndicatorColor = colorResource(id = R.color.main)
+
+                        ),
+                    )
+                    ExposedDropdownMenu(
+                        modifier = Modifier
+                            .background(color = colorResource(id = R.color.main_50))
+                            .fillMaxWidth(),
+                        expanded = mkbExpanded,
+                        onDismissRequest = {
+                            mkbExpanded = false
+                        }
+                    ) {
+                        DropdownMenuItem(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            onClick = {
+                                isDialogOpened = true
+                                mkbExpanded = false
+                            }
+                        ) {
+                            Text(text = "Добавить МКБ")
+                        }
+                        mkbs.forEach { mkb ->
+                            val mkbNameText = "Код: ${mkb.code}. Название: ${mkb.name}"
+                            DropdownMenuItem(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                onClick = {
+                                    selectedMkbText.value = mkbNameText
+                                    selectedMkb.value = mkb
+                                    mkbExpanded = false
+                                }
+                            ) {
+                                Text(text = mkbNameText)
+                            }
+                        }
+                    }
+                }
+
                 AppButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -903,6 +1127,7 @@ fun PatientDataView(
                                 isPhoneNumberError = isPhoneNumberError,
                                 date = birthDateString.value,
                                 isDateError = isDateError,
+                                isMkbEmpty = selectedMkb.value == null
                             )
                         ) {
                             onEvent(UserDataEvent.OnPatientDone(
@@ -915,9 +1140,12 @@ fun PatientDataView(
                                     additionalPhoneNumber = additionalPhoneNumber.value.trim(),
                                     email = email.value.trim(),
                                     birthDate = birthDate,
-                                    patientCardNumber = cardNumber.value.trim()
+                                    patientCardNumber = cardNumber.value.trim(),
+                                            mkb = selectedMkb.value ?: Mkb("", "")
                                 )
                             ))
+                        } else {
+                            onEvent(UserDataEvent.OnMessageShow("Заполните все обязательные поля"))
                         }
                     }
                 ) {
@@ -941,6 +1169,7 @@ private fun isFieldValid(
     isPhoneNumberError: MutableState<Boolean>,
     date: String,
     isDateError: MutableState<Boolean>,
+    isMkbEmpty: Boolean,
 ): Boolean {
     isNameError.value = name.isEmpty()
     isSurnameError.value = surname.isEmpty()
@@ -948,17 +1177,17 @@ private fun isFieldValid(
     isDateError.value = date.isEmpty()
 
     return !isNameError.value && !isSurnameError.value &&
-            !isSurnameError.value && !isDateError.value
+            !isSurnameError.value && !isDateError.value && !isMkbEmpty
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun PhonePreview() {
-    PatientDataView(userId = -1, onEvent = {})
+    PatientDataView(userId = -1, onEvent = {}, mkbs = emptyList())
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.TABLET)
 @Composable
 private fun TabletPreview() {
-    PatientDataView(userId = -1, onEvent = {})
+    PatientDataView(userId = -1, onEvent = {}, mkbs = emptyList())
 }

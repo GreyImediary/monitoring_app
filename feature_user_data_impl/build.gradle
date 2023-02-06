@@ -16,6 +16,7 @@ dependencies {
     implementation project(":data_patient")
     implementation project(":data_doctor")
     implementation project(":core_prefs")
+    implementation project(":data_mkb")
 
 
     implementation project(":feature_doctor_screen_api")

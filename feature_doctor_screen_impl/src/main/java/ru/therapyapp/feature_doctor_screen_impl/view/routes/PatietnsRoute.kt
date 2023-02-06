@@ -1,6 +1,5 @@
 package ru.therapyapp.feature_doctor_screen_impl.view.routes
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -33,6 +31,7 @@ import ru.therapyapp.core_ui.getCellCountForGrid
 import ru.therapyapp.core_ui.getMediumHorizontalPadding
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.data_mkb.model.Mkb
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
 import java.util.*
@@ -175,7 +174,8 @@ private fun patientsPreview() {
                 null,
                 null,
                 Date(),
-                patientCardNumber = "GV45431264"
+                patientCardNumber = "GV45431264",
+                mkb = Mkb("", "")
             ),
             Patient(
                 123,
@@ -187,7 +187,8 @@ private fun patientsPreview() {
                 null,
                 null,
                 Date(),
-                patientCardNumber = "GV45431264"
+                patientCardNumber = "GV45431264",
+                mkb = Mkb("", "")
             ),
             Patient(
                 123,
@@ -199,7 +200,8 @@ private fun patientsPreview() {
                 null,
                 null,
                 Date(),
-                patientCardNumber = "GV45431264"
+                patientCardNumber = "GV45431264",
+                mkb = Mkb("", "")
             ),
             Patient(
                 123,
@@ -211,7 +213,8 @@ private fun patientsPreview() {
                 null,
                 null,
                 Date(),
-                patientCardNumber = "GV45431264"
+                patientCardNumber = "GV45431264",
+                mkb = Mkb("", "")
             ),
         ),
         isRefreshing = false,

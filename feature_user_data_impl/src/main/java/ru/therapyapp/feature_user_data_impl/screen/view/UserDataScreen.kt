@@ -33,14 +33,14 @@ fun UserDataScreen(
         when (it.userType) {
             UserType.DOCTOR -> DoctorDataView(userId = user.id,
                 onEvent = { event -> viewModel.dispatch(event) })
-            UserType.PATIENT -> PatientDataView(userId = user.id,
+            UserType.PATIENT -> PatientDataView(userId = user.id, mkbs = state.mkbs,
                 onEvent = { event -> viewModel.dispatch(event) })
         }
     }
 
     state.doctorId?.let {
         if (it != -1) {
-            PatientDataView(userId = -1,
+            PatientDataView(userId = -1, mkbs = state.mkbs,
                 onEvent = { event -> viewModel.dispatch(event) })
         }
     }

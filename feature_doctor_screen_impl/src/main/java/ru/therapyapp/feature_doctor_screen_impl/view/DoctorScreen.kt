@@ -214,7 +214,7 @@ private fun handleSideEffects(
 ) {
     when (effect) {
         is DoctorScreenSideEffect.OpenPatientDataScreen -> {
-            currentPatientRouter.openCurrentPatientScreen(activity, effect.patient)
+            currentPatientRouter.openCurrentPatientScreen(activity, effect.patient, effect.doctorId)
         }
         is DoctorScreenSideEffect.ShowToast -> {
             Toast.makeText(activity, effect.message, Toast.LENGTH_SHORT).show()

@@ -1,0 +1,20 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+
+}
+
+apply from: rootProject.file('gradle/common-module-setup.gradle')
+
+dependencies {
+    implementation project(":core_network")
+    implementation project(":data_core")
+
+    implementation androidx_base
+    implementation koin
+    implementation orbit
+    implementation coroutines
+    implementation retrofit
+    implementation okhttp3
+}

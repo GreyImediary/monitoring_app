@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/data_comments" />
             <option value="$PROJECT_DIR$/data_core" />
             <option value="$PROJECT_DIR$/data_doctor" />
+            <option value="$PROJECT_DIR$/data_mkb" />
             <option value="$PROJECT_DIR$/data_patient" />
             <option value="$PROJECT_DIR$/data_questionnaire" />
             <option value="$PROJECT_DIR$/data_questionnaire_answered" />

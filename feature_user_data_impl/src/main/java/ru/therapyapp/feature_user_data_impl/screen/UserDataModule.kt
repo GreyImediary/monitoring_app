@@ -15,6 +15,7 @@ class UserDataModule {
                 patientRepository = get(),
                 doctorRepository = get(),
                 prefsRepository = get(),
+                mkbRepository = get()
             )
         }
 

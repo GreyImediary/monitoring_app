@@ -13,7 +13,10 @@ import ru.therapyapp.feature_current_patient_impl.view.PatientScreen
 
 class CurrentPatientActivity : AppCompatActivity() {
     private val viewModel: CurrentPatientViewModel by viewModel {
-        parametersOf(intent?.getParcelableExtra(KEY_PATIENT))
+        parametersOf(
+            intent?.getParcelableExtra(KEY_PATIENT),
+            intent?.getIntExtra(KEY_DOCTOR_ID, -1) ?: -1
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +30,16 @@ class CurrentPatientActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_PATIENT = "KEY_PATIENT"
+        private const val KEY_DOCTOR_ID = "KEY_DOCTOR_ID"
 
-        fun getIntent(activity: AppCompatActivity, patient: Patient): Intent {
+        fun getIntent(
+            activity: AppCompatActivity,
+            patient: Patient,
+            doctorId: Int
+        ): Intent {
             return Intent(activity, CurrentPatientActivity::class.java).apply {
                 putExtra(KEY_PATIENT, patient)
+                putExtra(KEY_DOCTOR_ID, doctorId)
             }
         }
     }

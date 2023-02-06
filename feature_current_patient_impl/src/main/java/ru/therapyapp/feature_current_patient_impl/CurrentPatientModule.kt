@@ -12,8 +12,10 @@ class CurrentPatientModule() {
             CurrentPatientRouterImpl()
         }
 
-        viewModel { (patient: Patient?) ->
-            CurrentPatientViewModel(patient = patient,
+        viewModel { (patient: Patient?, doctorId: Int) ->
+            CurrentPatientViewModel(
+                patient = patient,
+                doctorId = doctorId,
                 bvasRepository = get(),
                 basdaiRepository = get(),
                 asdasRepository = get(),

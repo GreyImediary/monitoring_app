@@ -18,6 +18,7 @@ import java.util.*
 
 class CurrentPatientViewModel(
     patient: Patient?,
+    private val doctorId: Int,
     private val bvasRepository: BvasRepository,
     private val basdaiRepository: BasdaiRepository,
     private val asdasRepository: ru.therapyapp.data_asdas.AsdasRepository,
@@ -79,12 +80,18 @@ class CurrentPatientViewModel(
 
     private fun addComment(comment: String) {
         intent {
-            when (val result = commentRepository.createComment(state.patient?.id ?: -1, comment)) {
+            when (
+                val result = commentRepository.createComment(
+                    patientId = state.patient?.id ?: -1,
+                    doctorId = doctorId,
+                    comment = comment,
+                )
+            ) {
                 is RequestResult.Error -> {
                     postSideEffect(CurrentPatientSideEffect.ShowMessage(result.message ?: "Не удалось добавить комментарий"))
                 }
                 is RequestResult.Success -> {
-                    reduce { state.copy(comments = result.data.map { it.comment }) }
+                    reduce { state.copy(comments = result.data) }
                 }
             }
         }
@@ -187,7 +194,7 @@ class CurrentPatientViewModel(
                         ?: "Невозможно получить комментарии"))
                 }
                 is RequestResult.Success -> {
-                    reduce { state.copy(comments = result.data.map { it.comment }) }
+                    reduce { state.copy(comments = result.data) }
                 }
             }
         }

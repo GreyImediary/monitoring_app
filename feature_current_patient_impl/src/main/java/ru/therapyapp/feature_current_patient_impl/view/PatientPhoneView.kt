@@ -39,6 +39,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import ru.therapyapp.core_ui.AppButton
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.core_ui.getPatientScreenHorizontalPadding
+import ru.therapyapp.data_comments.model.Comment
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_core.utils.getStringDateFromLong
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
@@ -98,7 +99,7 @@ fun PatientPhoneView(
                 patient = patient
             )
 
-            CommentsView(
+            CommentsPhoneView(
                 modifier = Modifier
                     .height(viewHeight)
                     .fillMaxWidth(),
@@ -382,9 +383,15 @@ private fun PatientDataView(
         Divider(color = colorResource(id = R.color.main))
 
         Text(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
+            text = "МКБ-код: ${patient.mkb.code}. МКБ: ${patient.mkb.name}"
+        )
+
+        Text(
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
             text = "Пол: $sex"
         )
+
         Text(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
             text = "Дата рождения: ${patient.birthDate.getStringDateRepresentation()}"
@@ -410,9 +417,9 @@ private fun PatientDataView(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun CommentsView(
+private fun CommentsPhoneView(
     modifier: Modifier = Modifier,
-    comments: List<String>,
+    comments: List<Comment>,
     onEvent: (CurrentPatientEvent) -> Unit,
 ) {
     var isDialogOpened by remember { mutableStateOf(false) }
@@ -521,15 +528,27 @@ private fun CommentsView(
 @Composable
 private fun CommentView(
     modifier: Modifier = Modifier,
-    comment: String,
+    comment: Comment,
 ) {
-    Text(
+    val doctor = comment.doctor
+    val doctorName = if (doctor.patronymic != null) {
+        "${doctor.surname} ${doctor.name} ${doctor.patronymic}"
+    } else {
+        "${doctor.surname} ${doctor.name}"
+    }
+
+    Column(
         modifier = modifier
             .background(
                 color = colorResource(id = R.color.color_white),
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        text = comment
-    )
+            .padding(vertical = 8.dp, horizontal = 16.dp)
+    ) {
+        Text(text = "Дата: ${comment.date.getStringDateRepresentation()}")
+        Spacer(modifier = modifier.height(4.dp))
+        Text(text = "Врач: $doctorName")
+        Spacer(modifier = modifier.height(4.dp))
+        Text(text = "Кооментарий: ${comment.comment}")
+    }
 }

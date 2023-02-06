@@ -13,6 +13,7 @@ dependencies {
     implementation project(":core_network")
     implementation project(":core_prefs")
     implementation project(":data_core")
+    implementation project(":data_mkb")
     implementation project(":data_patient")
     implementation project(":data_doctor")
     implementation project(":data_request")

@@ -75,6 +75,7 @@ dependencies {
     implementation project(":data_basdai")
     implementation project(":data_asdas")
     implementation project(":data_bvas")
+    implementation project(":data_mkb")
     implementation project(":data_comments")
     implementation project(":data_questionnaire")
     implementation project(":data_questionnaire_answered")

@@ -1,6 +1,7 @@
 package ru.therapyapp.data_patient.api.entity
 
 import ru.therapyapp.data_core.entity.Sex
+import ru.therapyapp.data_mkb.model.Mkb
 import java.util.*
 
 data class PatientRequestBody(
@@ -13,4 +14,5 @@ data class PatientRequestBody(
     val email: String?,
     val birthDate: Date,
     val patientCardNumber: String,
+    val mkb: Mkb
 )

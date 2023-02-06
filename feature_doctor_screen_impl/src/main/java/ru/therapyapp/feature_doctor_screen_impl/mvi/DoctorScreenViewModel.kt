@@ -163,7 +163,7 @@ class DoctorScreenViewModel(
 
     private fun openPatientScreen(patient: Patient) {
         intent {
-            postSideEffect(DoctorScreenSideEffect.OpenPatientDataScreen(patient))
+            postSideEffect(DoctorScreenSideEffect.OpenPatientDataScreen(patient, doctor?.id ?: -1))
         }
     }
 

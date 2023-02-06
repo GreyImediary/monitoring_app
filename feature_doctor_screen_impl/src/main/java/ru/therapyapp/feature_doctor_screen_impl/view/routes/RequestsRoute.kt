@@ -32,6 +32,7 @@ import ru.therapyapp.core_ui.getCellCountForGrid
 import ru.therapyapp.core_ui.getMediumHorizontalPadding
 import ru.therapyapp.data_core.entity.Sex
 import ru.therapyapp.data_doctor.api.entity.Doctor
+import ru.therapyapp.data_mkb.model.Mkb
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.data_request.api.entity.Request
 import ru.therapyapp.data_request.api.entity.RequestCreationBody
@@ -317,7 +318,8 @@ private fun preview() {
                     null,
                     null,
                     Date(),
-                    patientCardNumber = "GV45431264"
+                    patientCardNumber = "GV45431264",
+                    mkb = Mkb("", "")
                 ),
                 status = RequestStatus.ACCEPTED
             ),
@@ -344,7 +346,8 @@ private fun preview() {
                     null,
                     null,
                     Date(),
-                    patientCardNumber = "GV45431264"
+                    patientCardNumber = "GV45431264",
+                    mkb = Mkb("", "")
                 ),
                 status = RequestStatus.ACCEPTED
             ),
@@ -371,7 +374,8 @@ private fun preview() {
                     null,
                     null,
                     Date(),
-                    patientCardNumber = "GV45431264"
+                    patientCardNumber = "GV45431264",
+                    mkb = Mkb("", "")
                 ),
                 status = RequestStatus.PENDING
             )

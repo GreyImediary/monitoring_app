@@ -4,7 +4,7 @@ import ru.therapyapp.data_patient.api.entity.Patient
 
 sealed class DoctorScreenSideEffect {
     data class ShowToast(val message: String) : DoctorScreenSideEffect()
-    data class OpenPatientDataScreen(val patient: Patient) : DoctorScreenSideEffect()
+    data class OpenPatientDataScreen(val patient: Patient, val doctorId: Int) : DoctorScreenSideEffect()
     data class OpenPatientAppScreen(val patient: Patient) : DoctorScreenSideEffect()
     data class OpenQuestionnaireAddScreen(val patients: List<Patient>, val doctorId: Int) : DoctorScreenSideEffect()
     data class OpenAnsweredQuestionnaireScreen(val questionnaireId: Int) : DoctorScreenSideEffect()

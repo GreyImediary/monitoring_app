@@ -4,5 +4,5 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.therapyapp.data_patient.api.entity.Patient
 
 interface CurrentPatientRouter {
-    fun openCurrentPatientScreen(activity: AppCompatActivity, patient: Patient)
+    fun openCurrentPatientScreen(activity: AppCompatActivity, patient: Patient, doctorId: Int)
 }
