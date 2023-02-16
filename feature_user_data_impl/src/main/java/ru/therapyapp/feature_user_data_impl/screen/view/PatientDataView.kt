@@ -90,47 +90,49 @@ fun PatientDataView(
             onDismissRequest = { isDialogOpened = false },
             title = { Text(text = "Добавить комментарий") },
             text = {
-                   Column {
-                       OutlinedTextField(
-                           modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
-                           value = mkbCode,
-                           label = { Text("МКБ-код") },
-                           onValueChange = { mkbCode = it },
-                           colors = TextFieldDefaults.textFieldColors(
-                               backgroundColor = colorResource(id = R.color.main_50),
-                               trailingIconColor = colorResource(id = R.color.icon_color),
-                               focusedLabelColor = colorResource(id = R.color.font_color),
-                               unfocusedLabelColor = colorResource(id = R.color.font_color),
-                               cursorColor = colorResource(id = R.color.font_color),
-                               focusedIndicatorColor = colorResource(id = R.color.main),
-                               unfocusedIndicatorColor = colorResource(id = R.color.main),
-                               disabledTrailingIconColor = colorResource(id = R.color.icon_color),
-                               disabledTextColor = colorResource(id = R.color.font_color),
-                               disabledIndicatorColor = colorResource(id = R.color.main),
-                               disabledLabelColor = colorResource(id = R.color.font_color)
-                           ),
-                       )
+                Column {
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 4.dp),
+                        value = mkbCode,
+                        label = { Text("МКБ-код") },
+                        onValueChange = { mkbCode = it },
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = colorResource(id = R.color.main_50),
+                            trailingIconColor = colorResource(id = R.color.icon_color),
+                            focusedLabelColor = colorResource(id = R.color.font_color),
+                            unfocusedLabelColor = colorResource(id = R.color.font_color),
+                            cursorColor = colorResource(id = R.color.font_color),
+                            focusedIndicatorColor = colorResource(id = R.color.main),
+                            unfocusedIndicatorColor = colorResource(id = R.color.main),
+                            disabledTrailingIconColor = colorResource(id = R.color.icon_color),
+                            disabledTextColor = colorResource(id = R.color.font_color),
+                            disabledIndicatorColor = colorResource(id = R.color.main),
+                            disabledLabelColor = colorResource(id = R.color.font_color)
+                        ),
+                    )
 
-                       OutlinedTextField(
-                           modifier = Modifier.fillMaxWidth(),
-                           value = mkbName,
-                           label = { Text("Название") },
-                           onValueChange = { mkbName = it },
-                           colors = TextFieldDefaults.textFieldColors(
-                               backgroundColor = colorResource(id = R.color.main_50),
-                               trailingIconColor = colorResource(id = R.color.icon_color),
-                               focusedLabelColor = colorResource(id = R.color.font_color),
-                               unfocusedLabelColor = colorResource(id = R.color.font_color),
-                               cursorColor = colorResource(id = R.color.font_color),
-                               focusedIndicatorColor = colorResource(id = R.color.main),
-                               unfocusedIndicatorColor = colorResource(id = R.color.main),
-                               disabledTrailingIconColor = colorResource(id = R.color.icon_color),
-                               disabledTextColor = colorResource(id = R.color.font_color),
-                               disabledIndicatorColor = colorResource(id = R.color.main),
-                               disabledLabelColor = colorResource(id = R.color.font_color)
-                           ),
-                       )
-                   }
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = mkbName,
+                        label = { Text("Название") },
+                        onValueChange = { mkbName = it },
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = colorResource(id = R.color.main_50),
+                            trailingIconColor = colorResource(id = R.color.icon_color),
+                            focusedLabelColor = colorResource(id = R.color.font_color),
+                            unfocusedLabelColor = colorResource(id = R.color.font_color),
+                            cursorColor = colorResource(id = R.color.font_color),
+                            focusedIndicatorColor = colorResource(id = R.color.main),
+                            unfocusedIndicatorColor = colorResource(id = R.color.main),
+                            disabledTrailingIconColor = colorResource(id = R.color.icon_color),
+                            disabledTextColor = colorResource(id = R.color.font_color),
+                            disabledIndicatorColor = colorResource(id = R.color.main),
+                            disabledLabelColor = colorResource(id = R.color.font_color)
+                        ),
+                    )
+                }
             },
             confirmButton = {
                 AppButton(
@@ -666,7 +668,13 @@ fun PatientDataView(
                             fontSize = 36.sp
                         )
                     )
+                }
 
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     //name
                     Column(
                         modifier = Modifier
@@ -1141,7 +1149,7 @@ fun PatientDataView(
                                     email = email.value.trim(),
                                     birthDate = birthDate,
                                     patientCardNumber = cardNumber.value.trim(),
-                                            mkb = selectedMkb.value ?: Mkb("", "")
+                                    mkb = selectedMkb.value ?: Mkb("", "")
                                 )
                             ))
                         } else {

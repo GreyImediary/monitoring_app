@@ -326,7 +326,8 @@ fun DoctorDataView(
                                 isSurnameError = isSurnameError,
                                 phone = phoneNumber.value,
                                 isPhoneNumberError = isPhoneNumberError
-                            )) {
+                            )
+                        ) {
                             onEvent(
                                 UserDataEvent.OnDoctorDone(
                                     DoctorRequestBody(
@@ -374,7 +375,12 @@ fun DoctorDataView(
                             fontSize = 36.sp
                         )
                     )
+                }
 
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
                     //name
                     Column(
                         modifier = Modifier
@@ -637,7 +643,8 @@ fun DoctorDataView(
                                 isSurnameError = isSurnameError,
                                 phone = phoneNumber.value,
                                 isPhoneNumberError = isPhoneNumberError
-                        )) {
+                            )
+                        ) {
                             onEvent(
                                 UserDataEvent.OnDoctorDone(
                                     DoctorRequestBody(
