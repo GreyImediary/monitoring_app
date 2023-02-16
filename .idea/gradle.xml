@@ -27,6 +27,7 @@
             <option value="$PROJECT_DIR$/data_questionnaire" />
             <option value="$PROJECT_DIR$/data_questionnaire_answered" />
             <option value="$PROJECT_DIR$/data_request" />
+            <option value="$PROJECT_DIR$/data_sledai" />
             <option value="$PROJECT_DIR$/feature_answered_questionnaire_api" />
             <option value="$PROJECT_DIR$/feature_answered_questionnaire_impl" />
             <option value="$PROJECT_DIR$/feature_asdas_api" />
@@ -47,6 +48,8 @@
             <option value="$PROJECT_DIR$/feature_questionnaire_add_impl" />
             <option value="$PROJECT_DIR$/feature_questionnaire_api" />
             <option value="$PROJECT_DIR$/feature_questionnaire_impl" />
+            <option value="$PROJECT_DIR$/feature_sledai_api" />
+            <option value="$PROJECT_DIR$/feature_sledai_impl" />
             <option value="$PROJECT_DIR$/feature_user_data_api" />
             <option value="$PROJECT_DIR$/feature_user_data_impl" />
           </set>

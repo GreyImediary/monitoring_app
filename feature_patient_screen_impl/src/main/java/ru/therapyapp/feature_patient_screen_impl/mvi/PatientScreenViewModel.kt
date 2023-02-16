@@ -28,6 +28,7 @@ class PatientScreenViewModel(
             PatientScreenEvent.OnBvasClick -> openBvas()
             is PatientScreenEvent.OnQuestionnaireClick -> openQuestionnaire(event.questionnaireId)
             PatientScreenEvent.Logout -> logout()
+            PatientScreenEvent.OnSledaiClick -> openSledai()
         }
     }
 
@@ -88,6 +89,12 @@ class PatientScreenViewModel(
                     }, isRefreshing = false) }
                 }
             }
+        }
+    }
+
+    private fun openSledai() {
+        intent {
+            postSideEffect(PatientScreenSideEffect.OpenSelenaSledaiScreen)
         }
     }
 

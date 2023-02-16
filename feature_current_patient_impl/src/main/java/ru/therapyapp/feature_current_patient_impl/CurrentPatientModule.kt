@@ -19,6 +19,7 @@ class CurrentPatientModule() {
                 bvasRepository = get(),
                 basdaiRepository = get(),
                 asdasRepository = get(),
+                selenaSledaiRepository = get(),
                 commentRepository = get()
             )
         }

@@ -5,6 +5,7 @@ sealed class PatientScreenSideEffect {
     object OpenBasdaiScreen : PatientScreenSideEffect()
     object OpenAsdasScreen : PatientScreenSideEffect()
     object OpenBvasScreen : PatientScreenSideEffect()
+    object OpenSelenaSledaiScreen : PatientScreenSideEffect()
     data class OpenQuestionnaire(val questionnaireId: Int, val patientId: Int) : PatientScreenSideEffect()
     object ShowStartScreen : PatientScreenSideEffect()
     object Finish : PatientScreenSideEffect()

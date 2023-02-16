@@ -42,6 +42,7 @@
         <activity android:name="ru.therapyapp.feature_questionnaire_add_impl.QuestionnaireAddActivity" />
         <activity android:name="ru.therapyapp.feature_answered_questionnaire_impl.QuestionnaireAnsweredActivity" />
         <activity android:name="ru.therapyapp.feature_questionnaire_impl.QuestionnaireActivity" />
+        <activity android:name="ru.therapyapp.feature_sledai_impl.SelenaSledaiActivity" />
     </application>
 
 </manifest>

@@ -260,6 +260,14 @@ fun PatientPhoneView(
                                     )
                                 }
                             }
+                            IndexType.SELENA_SLEDAI -> {
+                                state.sledaiIndexes.map {
+                                    Entry(
+                                        it.date.time.toFloat(),
+                                        it.sumValue.toFloat()
+                                    )
+                                }
+                            }
                         }
 
                         val dataset = LineDataSet(entries, state.currentIndex.name)
@@ -313,6 +321,14 @@ fun PatientPhoneView(
                                     )
                                 }
                             }
+                            IndexType.SELENA_SLEDAI -> {
+                                state.sledaiIndexes.map {
+                                    Entry(
+                                        it.date.time.toFloat(),
+                                        it.sumValue.toFloat()
+                                    )
+                                }
+                            }
                         }
 
                         val dataset = LineDataSet(entries, state.currentIndex.name)
@@ -345,6 +361,11 @@ fun PatientPhoneView(
                         IndexType.ASDAS -> {
                             state.selectedAsdasIndex?.let {
                                 AsdasIndexData(asdasIndex = it)
+                            }
+                        }
+                        IndexType.SELENA_SLEDAI -> {
+                            state.selectedSledaiIndex?.let {
+                                SledaiIndexData(sledaiIndex = it)
                             }
                         }
                     }
@@ -549,6 +570,6 @@ private fun CommentView(
         Spacer(modifier = modifier.height(4.dp))
         Text(text = "Врач: $doctorName")
         Spacer(modifier = modifier.height(4.dp))
-        Text(text = "Кооментарий: ${comment.comment}")
+        Text(text = "Коментарий: ${comment.comment}")
     }
 }

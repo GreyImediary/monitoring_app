@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -17,12 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.therapyapp.core_ui.R
-import ru.therapyapp.data_request.api.entity.Request
-import ru.therapyapp.data_request.api.entity.RequestStatus
-import ru.therapyapp.data_request.api.entity.RequestUpdateBody
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,6 +74,17 @@ fun IndexesRoute(
                     questionCount = 9,
                     onClick = {
                         onEvent(PatientScreenEvent.OnBvasClick)
+                    }
+                )
+
+                IndexCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    title = "SELENA SLEDAI",
+                    questionCount = 24,
+                    onClick = {
+                        onEvent(PatientScreenEvent.OnSledaiClick)
                     }
                 )
             }

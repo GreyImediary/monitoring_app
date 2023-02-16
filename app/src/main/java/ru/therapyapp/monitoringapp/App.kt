@@ -17,6 +17,7 @@ import ru.therapyapp.data_patient.DataPatientModule
 import ru.therapyapp.data_questionnaire.QuestionnaireModule
 import ru.therapyapp.data_questionnaire_answered.QuestionnaireAnsweredModule
 import ru.therapyapp.data_request.DataRequestModule
+import ru.therapyapp.data_sledai.SelenaSledaiModule
 import ru.therapyapp.feature_answered_questionnaire_impl.QuestionnaireAnsweredScreenModule
 import ru.therapyapp.feature_auth_impl.AuthModule
 import ru.therapyapp.feature_basdai_impl.BasdaiModule
@@ -25,6 +26,7 @@ import ru.therapyapp.feature_doctor_screen_impl.DoctorScreenModule
 import ru.therapyapp.feature_patient_screen_impl.PatientScreenModule
 import ru.therapyapp.feature_questionnaire_add_impl.QuestionnaireAddModule
 import ru.therapyapp.feature_questionnaire_impl.QuestionnaireScreenModule
+import ru.therapyapp.feature_sledai_impl.SelenaSledaiScreenModule
 import ru.therapyapp.feature_user_data_impl.screen.UserDataModule
 
 class App : Application() {
@@ -54,6 +56,8 @@ class App : Application() {
             QuestionnaireAnsweredScreenModule().module,
             QuestionnaireScreenModule().module,
             MkbModule().module,
+            SelenaSledaiModule().module,
+            SelenaSledaiScreenModule().module,
         )
     }
     override fun onCreate() {

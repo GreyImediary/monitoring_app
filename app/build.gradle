@@ -76,6 +76,7 @@ dependencies {
     implementation project(":data_asdas")
     implementation project(":data_bvas")
     implementation project(":data_mkb")
+    implementation project(":data_sledai")
     implementation project(":data_comments")
     implementation project(":data_questionnaire")
     implementation project(":data_questionnaire_answered")
@@ -101,6 +102,8 @@ dependencies {
     implementation project(":feature_answered_questionnaire_impl")
     implementation project(":feature_questionnaire_api")
     implementation project(":feature_questionnaire_impl")
+    implementation project(":feature_sledai_api")
+    implementation project(":feature_sledai_impl")
 
 
     implementation androidx_base

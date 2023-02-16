@@ -17,6 +17,7 @@ import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_basdai.model.BasdaiIndex
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
 import ru.therapyapp.data_core.utils.getStringDateWithTime
+import ru.therapyapp.data_sledai.model.SelenaSledaiIndex
 
 @Composable
 fun BvasIndexData(bvasIndex: BvasIndex) {
@@ -329,6 +330,41 @@ fun BasdaiIndexData(basdaiIndex: BasdaiIndex) {
     Text(
         modifier = Modifier.padding(bottom = 10.dp),
         text = "Ответ: ${basdaiIndex.question6Value}",
+        fontWeight = FontWeight.Normal,
+        color = colorResource(id = R.color.color_white)
+    )
+}
+
+
+@Composable
+fun SledaiIndexData(sledaiIndex: SelenaSledaiIndex) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            modifier = Modifier.padding(end = 20.dp),
+            text = sledaiIndex.date.getStringDateWithTime(),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.color_white)
+        )
+
+        Text(
+            text = "Значение: ${sledaiIndex.sumValue}",
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.color_white)
+        )
+    }
+
+    Divider(modifier = Modifier.padding(bottom = 10.dp, top = 10.dp))
+
+    Text(
+        text = "Ответ пациента",
+        fontWeight = FontWeight.Bold,
+        color = colorResource(id = R.color.color_white)
+    )
+    Text(
+        modifier = Modifier.padding(bottom = 10.dp),
+        text = sledaiIndex.answer,
         fontWeight = FontWeight.Normal,
         color = colorResource(id = R.color.color_white)
     )

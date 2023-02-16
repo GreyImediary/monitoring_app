@@ -99,7 +99,7 @@ fun QuestionnaireView(
                     .fillMaxWidth()
                     .padding(bottom = 20.dp),
                 value = questionnaire.name,
-                label = { Text("Название анкета") },
+                label = { Text("Название анкеты") },
                 onValueChange = {  onEvent(QuestionnaireAddEvent.ChangeName(it)) },
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = colorResource(id = R.color.main_50),

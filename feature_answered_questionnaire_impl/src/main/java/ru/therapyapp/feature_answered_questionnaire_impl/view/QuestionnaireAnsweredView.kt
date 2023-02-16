@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,9 @@ fun QuestionnaireAnsweredView(
     } else {
         "${patient.surname} ${patient.name}"
     }
+
+    val localWidth = LocalConfiguration.current.screenWidthDp
+
 
     Column(
         modifier = Modifier
@@ -48,16 +52,30 @@ fun QuestionnaireAnsweredView(
             color = colorResource(id = R.color.main)
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+        if (localWidth < 600) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
 
-            Text(text = "Пациент: $patientName", fontWeight = FontWeight.Bold)
-            Text(text = "Дата: ${questionnaireAnswered.date.getStringDateRepresentation()}")
+                Text(text = "Пациент: $patientName", fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = "Дата: ${questionnaireAnswered.date.getStringDateRepresentation()}")
+            }
+        } else {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Пациент: $patientName", fontWeight = FontWeight.Bold)
+                Text(text = "Дата: ${questionnaireAnswered.date.getStringDateRepresentation()}")
+            }
         }
 
         questionnaireAnswered.answers.forEach {

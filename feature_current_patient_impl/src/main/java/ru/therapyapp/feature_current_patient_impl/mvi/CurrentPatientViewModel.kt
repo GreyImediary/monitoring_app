@@ -1,19 +1,20 @@
 package ru.therapyapp.feature_current_patient_impl.mvi
 
-import android.util.Log
-import ru.therapyapp.data_asdas.model.AsdasIndex
-import ru.therapyapp.data_bvas.BvasRepository
-import ru.therapyapp.data_bvas.model.BvasIndex
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.therapyapp.core_android.MviViewModel
 import ru.therapyapp.core_network.entity.RequestResult
+import ru.therapyapp.data_asdas.model.AsdasIndex
 import ru.therapyapp.data_basdai.BasdaiRepository
 import ru.therapyapp.data_basdai.model.BasdaiIndex
+import ru.therapyapp.data_bvas.BvasRepository
+import ru.therapyapp.data_bvas.model.BvasIndex
 import ru.therapyapp.data_comments.CommentRepository
 import ru.therapyapp.data_core.utils.getStringDateWithHour
 import ru.therapyapp.data_patient.api.entity.Patient
+import ru.therapyapp.data_sledai.SelenaSledaiRepository
+import ru.therapyapp.data_sledai.model.SelenaSledaiIndex
 import java.util.*
 
 class CurrentPatientViewModel(
@@ -22,6 +23,7 @@ class CurrentPatientViewModel(
     private val bvasRepository: BvasRepository,
     private val basdaiRepository: BasdaiRepository,
     private val asdasRepository: ru.therapyapp.data_asdas.AsdasRepository,
+    private val selenaSledaiRepository: SelenaSledaiRepository,
     private val commentRepository: CommentRepository,
 ) : MviViewModel<CurrentPatientEvent, CurrentPatientState, CurrentPatientSideEffect>(
     initialState = CurrentPatientState(patient = patient)
@@ -29,6 +31,7 @@ class CurrentPatientViewModel(
     private var basdaiIndexes: List<BasdaiIndex> = emptyList()
     private var bvasIndexes: List<BvasIndex> = emptyList()
     private var asdasIndexes: List<AsdasIndex> = emptyList()
+    private var sledaiIndexes: List<SelenaSledaiIndex> = emptyList()
 
     override fun dispatch(event: CurrentPatientEvent) {
         when (event) {
@@ -73,6 +76,15 @@ class CurrentPatientViewModel(
                         reduce { state.copy(selectedAsdasIndex = it) }
                     } ?: reduce { state.copy(selectedAsdasIndex = asdasIndexes.last()) }
 
+                }
+                IndexType.SELENA_SLEDAI -> {
+                    val indexData = sledaiIndexes.find {
+                        it.date.getStringDateWithHour() == date?.getStringDateWithHour()
+                    }
+
+                    indexData?.let {
+                        reduce { state.copy(selectedSledaiIndex = it) }
+                    } ?: reduce { state.copy(selectedSledaiIndex = sledaiIndexes.last()) }
                 }
             }
         }
@@ -131,6 +143,13 @@ class CurrentPatientViewModel(
                         )
                     }
                 }
+                IndexType.SELENA_SLEDAI -> {
+                    reduce {
+                        state.copy(
+                            sledaiIndexes = sledaiIndexes.filter { it.date.time in startDate..endHoursDate.timeInMillis }
+                        )
+                    }
+                }
             }
         }
     }
@@ -159,6 +178,13 @@ class CurrentPatientViewModel(
                         )
                     }
                 }
+                IndexType.SELENA_SLEDAI -> {
+                    reduce {
+                        state.copy(
+                            sledaiIndexes = sledaiIndexes
+                        )
+                    }
+                }
             }
         }
     }
@@ -181,6 +207,7 @@ class CurrentPatientViewModel(
             fetchBvasIndexes()
             fetchAsdasIndexes()
             fetchBasdaiIndexes()
+            fetchSledaiIndexes()
             fetchComments()
             reduce { state.copy(isRefreshing = false) }
         }
@@ -195,6 +222,22 @@ class CurrentPatientViewModel(
                 }
                 is RequestResult.Success -> {
                     reduce { state.copy(comments = result.data) }
+                }
+            }
+        }
+    }
+
+    private fun fetchSledaiIndexes() {
+        intent {
+
+            when (val result = selenaSledaiRepository.getPatientIndexes(patientId = state.patient?.id ?: -1)) {
+                is RequestResult.Error -> {
+                    postSideEffect(CurrentPatientSideEffect.ShowMessage(result.message
+                        ?: "Ошибка во время получения индексов SELENA SLEDAI"))
+                }
+                is RequestResult.Success -> {
+                    sledaiIndexes = result.data.sortedBy { it.date }
+                    reduce { state.copy(sledaiIndexes = sledaiIndexes, selectedSledaiIndex = sledaiIndexes.lastOrNull()) }
                 }
             }
         }

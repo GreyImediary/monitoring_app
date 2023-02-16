@@ -1,6 +1,5 @@
 package ru.therapyapp.feature_patient_screen_impl.view
 
-import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -19,16 +18,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ru.therapyapp.feature_asdas_api.AsdasRouter
-import ru.therapyapp.feature_bvas_api.BvasRouter
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.therapyapp.core_ui.R
 import ru.therapyapp.data_core.utils.getStringDateRepresentation
+import ru.therapyapp.feature_asdas_api.AsdasRouter
 import ru.therapyapp.feature_auth_api.AuthRouter
 import ru.therapyapp.feature_basdai_api.BasdaiRouter
+import ru.therapyapp.feature_bvas_api.BvasRouter
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenEvent
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenSideEffect
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenViewModel
@@ -36,6 +35,7 @@ import ru.therapyapp.feature_patient_screen_impl.view.routes.IndexesRoute
 import ru.therapyapp.feature_patient_screen_impl.view.routes.QuestionnaireRoute
 import ru.therapyapp.feature_patient_screen_impl.view.routes.RequestRoute
 import ru.therapyapp.feature_questionnaire_api.QuestionnaireScreenRouter
+import ru.therapyapp.feature_sledai_api.SelenaSledaiRouter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,6 +45,7 @@ fun PatientScreen(
     asdasRouter: AsdasRouter = get(),
     bvasRouter: BvasRouter = get(),
     questionnaireScreenRouter: QuestionnaireScreenRouter = get(),
+    selenaSledaiRouter: SelenaSledaiRouter = get(),
     authRouter: AuthRouter = get()
 ) {
     val context = LocalContext.current as AppCompatActivity
@@ -56,6 +57,7 @@ fun PatientScreen(
             basdaiRouter,
             asdasRouter,
             bvasRouter,
+            selenaSledaiRouter,
             questionnaireScreenRouter,
             authRouter,
             it
@@ -209,6 +211,7 @@ private fun handleSideEffects(
     basdaiRouter: BasdaiRouter,
     asdasRouter: AsdasRouter,
     bvasRouter: BvasRouter,
+    selenaSledaiRouter: SelenaSledaiRouter,
     questionnaireScreenRouter: QuestionnaireScreenRouter,
     authRouter: AuthRouter,
     effect: PatientScreenSideEffect,
@@ -238,6 +241,9 @@ private fun handleSideEffects(
         }
         PatientScreenSideEffect.Finish -> {
             activity.finish()
+        }
+        PatientScreenSideEffect.OpenSelenaSledaiScreen -> {
+            selenaSledaiRouter.openSelenaSledaiScreen(activity, patientId)
         }
     }
 }
