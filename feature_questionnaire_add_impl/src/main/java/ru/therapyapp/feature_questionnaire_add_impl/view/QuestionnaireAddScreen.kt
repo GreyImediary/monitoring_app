@@ -53,7 +53,7 @@ fun QuestionnaireAddScreen(
 }
 
 fun handleSideEffect(effect: QuestionnaireAddSideEffect, activity: AppCompatActivity) {
-    when(effect) {
+    when (effect) {
         QuestionnaireAddSideEffect.Finish -> {
             activity.finish()
         }
@@ -75,6 +75,8 @@ fun QuestionnaireView(
 
     val localConfigWidth = LocalConfiguration.current.screenWidthDp
     val horizontalDp = getLargeHorizontalPadding(localConfigWidth.dp)
+
+    val questionnaireTitle = rememberSaveable { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -98,9 +100,12 @@ fun QuestionnaireView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp),
-                value = questionnaire.name,
+                value = questionnaireTitle.value,
                 label = { Text("Название анкеты") },
-                onValueChange = {  onEvent(QuestionnaireAddEvent.ChangeName(it)) },
+                onValueChange = {
+                    questionnaireTitle.value = it
+                    onEvent(QuestionnaireAddEvent.ChangeName(it))
+                },
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = colorResource(id = R.color.main_50),
                     trailingIconColor = colorResource(id = R.color.icon_color),

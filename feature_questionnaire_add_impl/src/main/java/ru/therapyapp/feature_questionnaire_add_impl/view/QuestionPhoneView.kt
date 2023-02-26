@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -32,6 +33,7 @@ fun QuestionPhoneView(
     onEvent: (QuestionnaireAddEvent) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val questionTitle = rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -123,9 +125,12 @@ fun QuestionPhoneView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 20.dp),
-            value = question.title,
+            value = questionTitle.value,
             label = { Text("Заголовок вопроса") },
-            onValueChange = { onEvent(QuestionnaireAddEvent.ChangeQuestionTitle(it, questionIndex)) },
+            onValueChange = {
+                questionTitle.value = it
+                onEvent(QuestionnaireAddEvent.ChangeQuestionTitle(it, questionIndex))
+            },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = colorResource(id = R.color.main_50),
                 trailingIconColor = colorResource(id = R.color.icon_color),
@@ -148,15 +153,21 @@ fun QuestionPhoneView(
                 .padding(bottom = 20.dp, top = 8.dp)
             ) {
                 question.options.forEachIndexed { index, option ->
+                    val optionTitle = rememberSaveable { mutableStateOf("") }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         OutlinedTextField(
                             modifier = Modifier
                                 .padding(bottom = 8.dp, end = 8.dp)
                                 .weight(0.9f),
-                            value = option.description,
+                            value = optionTitle.value,
                             label = { Text("Заголовок опции ") },
                             onValueChange = {
-                                onEvent(QuestionnaireAddEvent.ChangeOptionDescription(it, questionIndex, index))
+                                optionTitle.value = it
+                                onEvent(
+                                    QuestionnaireAddEvent.ChangeOptionDescription(it,
+                                        questionIndex,
+                                        index)
+                                )
                             },
                             colors = TextFieldDefaults.textFieldColors(
                                 backgroundColor = colorResource(id = R.color.main_50),

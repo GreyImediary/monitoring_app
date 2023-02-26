@@ -13,7 +13,6 @@ dependencies {
     implementation project(":data_core")
     implementation project(":data_patient")
     implementation project(":data_doctor")
-    implementation project(":data_request")
     implementation project(":data_basdai")
     implementation project(":feature_basdai_api")
 
