@@ -153,7 +153,7 @@ fun DoctorScreen(
             startDestination = DoctorScreenViewRoute.PATIENTS.title) {
             composable(DoctorScreenViewRoute.PATIENTS.title) {
                 PatientRoute(
-                    patients = state.doctor?.patients ?: listOf(),
+                    patients = state.allPatients,
                     onBackClick = {
                         navController.popBackStack(
                             DoctorScreenViewRoute.PATIENTS.title,
