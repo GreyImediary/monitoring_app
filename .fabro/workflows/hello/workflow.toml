@@ -1,0 +1,10 @@
+_version = 1
+
+[workflow]
+graph = "workflow.fabro"
+
+# Auto-create pull requests on successful workflow runs.
+[run.pull_request]
+enabled = true
+draft = true
+# auto_merge = true
