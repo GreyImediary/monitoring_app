@@ -263,7 +263,7 @@ fun RequestCard(
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(id = R.color.secondary),
-                            contentColor = colorResource(id = R.color.color_white)
+                            contentColor = colorResource(id = R.color.font_color)
                         ),
                     ) {
                         Text("Да")
@@ -276,7 +276,7 @@ fun RequestCard(
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(id = R.color.secondary),
-                            contentColor = colorResource(id = R.color.color_white)
+                            contentColor = colorResource(id = R.color.font_color)
                         ),
                     ) {
                         Text("Нет")

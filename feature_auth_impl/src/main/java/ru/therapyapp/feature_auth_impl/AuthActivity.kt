@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.feature_auth_impl.mvi.AuthEvent
 import ru.therapyapp.feature_auth_impl.mvi.AuthViewModel
 import ru.therapyapp.feature_auth_impl.screen.views.AuthScreen
@@ -19,12 +20,14 @@ class AuthActivity : AppCompatActivity(), KoinComponent {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setContent {
-            AuthScreen(
-                viewModel = viewModel,
-                onEvent = {
-                    viewModel.dispatch(it)
-                }
-            )
+            MonitoringTheme {
+                AuthScreen(
+                    viewModel = viewModel,
+                    onEvent = {
+                        viewModel.dispatch(it)
+                    }
+                )
+            }
         }
 
         viewModel.dispatch(AuthEvent.CheckLogin)

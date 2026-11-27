@@ -94,7 +94,7 @@ fun DoctorScreen(
                         }
                     },
                     backgroundColor = colorResource(id = R.color.secondary),
-                    contentColor = colorResource(id = R.color.color_white),
+                    contentColor = colorResource(id = R.color.font_color),
                 ) {
                     Icon(
                         Icons.Rounded.Add,
@@ -121,7 +121,7 @@ fun DoctorScreen(
                         },
                         icon = { Icon(icons[index], contentDescription = item.title) },
                         label = { Text(text = item.title) },
-                        selectedContentColor = colorResource(id = R.color.color_white),
+                        selectedContentColor = colorResource(id = R.color.font_color),
                         unselectedContentColor = colorResource(id = R.color.icon_color)
                     )
                 }

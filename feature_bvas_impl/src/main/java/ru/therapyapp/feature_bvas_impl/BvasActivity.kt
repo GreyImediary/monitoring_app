@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.feature_bvas_impl.mvi.BvasViewModel
 import ru.therapyapp.feature_bvas_impl.screen.BvasScreen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,7 +19,9 @@ class BvasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            BvasScreen(viewModel = viewModel)
+            MonitoringTheme {
+                BvasScreen(viewModel = viewModel)
+            }
         }
     }
 

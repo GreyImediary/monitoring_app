@@ -109,7 +109,7 @@ fun AsdasView(state: AsdasState, onEvent: (AsdasEvent) -> Unit) {
                         selected = state.srbSoeType == SrbSoeType.SRB,
                         onClick = null,
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.secondary)
+                            selectedColor = colorResource(id = R.color.main_dark)
                         )
                     )
                     Text(
@@ -137,7 +137,7 @@ fun AsdasView(state: AsdasState, onEvent: (AsdasEvent) -> Unit) {
                         selected = state.srbSoeType == SrbSoeType.SOE,
                         onClick = null,
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.secondary)
+                            selectedColor = colorResource(id = R.color.main_dark)
                         )
                     )
                     Text(
@@ -206,7 +206,7 @@ fun AsdasView(state: AsdasState, onEvent: (AsdasEvent) -> Unit) {
             ) {
                 Text(
                     text = "Отправить",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
         }

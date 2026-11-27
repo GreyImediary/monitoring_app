@@ -218,7 +218,7 @@ fun QuestionnaireView(
             ) {
                 Text(
                     text = "Добавить вопрос",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
 
@@ -232,7 +232,7 @@ fun QuestionnaireView(
             ) {
                 Text(
                     text = "Создать анкету",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
         }

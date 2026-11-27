@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.orbitmvi.orbit.syntax.simple.intent
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenEvent
 import ru.therapyapp.feature_patient_screen_impl.mvi.PatientScreenViewModel
@@ -27,7 +28,9 @@ class PatientScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            PatientScreen(viewModel = viewModel)
+            MonitoringTheme {
+                PatientScreen(viewModel = viewModel)
+            }
         }
 
         viewModel.dispatch(PatientScreenEvent.FetchData)

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -86,6 +87,10 @@ private fun CheckBoxAnswerOption(
         horizontalArrangement = Arrangement.Start,
     ) {
         Checkbox(
+            colors = CheckboxDefaults.colors(
+                checkedColor = colorResource(id = R.color.main_dark),
+                checkmarkColor = colorResource(id = R.color.color_white),
+            ),
             modifier = Modifier.padding(end = 10.dp),
             checked = isChecked.value,
             onCheckedChange = {

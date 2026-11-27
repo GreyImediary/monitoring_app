@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.data_questionnaire_answered.model.QuestionnaireAnswered
 import ru.therapyapp.feature_answered_questionnaire_impl.mvi.QuestionnaireAnsweredEvent
@@ -26,7 +27,9 @@ class QuestionnaireAnsweredActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setContent {
-            QuestionnaireAnsweredScreen(viewModel = viewModel)
+            MonitoringTheme {
+                QuestionnaireAnsweredScreen(viewModel = viewModel)
+            }
         }
 
         viewModel.dispatch(QuestionnaireAnsweredEvent.FetchData)

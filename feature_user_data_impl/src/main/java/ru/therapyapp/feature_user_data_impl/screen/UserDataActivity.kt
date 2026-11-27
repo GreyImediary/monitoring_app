@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.parameter.parametersOf
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.data_core.entity.User
 import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataEvent
 import ru.therapyapp.feature_user_data_impl.screen.mvi.UserDataViewModel
@@ -23,7 +24,9 @@ class UserDataActivity : AppCompatActivity(), KoinComponent {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setContent {
-            UserDataScreen(viewModel = viewModel)
+            MonitoringTheme {
+                UserDataScreen(viewModel = viewModel)
+            }
         }
         viewModel.dispatch(UserDataEvent.FetchData)
     }

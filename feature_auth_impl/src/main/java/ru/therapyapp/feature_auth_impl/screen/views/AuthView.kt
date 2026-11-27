@@ -272,7 +272,7 @@ fun AuthView(
             ) {
                 Text(
                     text = "Войти",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
 
@@ -285,7 +285,7 @@ fun AuthView(
             ) {
                 Text(
                     text = "Регистрация",
-                    style = TextStyle(color = colorResource(id = R.color.secondary))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
         }

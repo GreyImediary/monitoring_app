@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.feature_questionnaire_add_impl.mvi.QuestionnaireAddViewModel
 import ru.therapyapp.feature_questionnaire_add_impl.view.QuestionnaireAddScreen
@@ -25,7 +26,9 @@ class QuestionnaireAddActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setContent {
-            QuestionnaireAddScreen(viewModel = viewModel)
+            MonitoringTheme {
+                QuestionnaireAddScreen(viewModel = viewModel)
+            }
         }
     }
 
