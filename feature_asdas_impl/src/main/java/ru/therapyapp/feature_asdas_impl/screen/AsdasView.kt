@@ -109,7 +109,7 @@ fun AsdasView(state: AsdasState, onEvent: (AsdasEvent) -> Unit) {
                         selected = state.srbSoeType == SrbSoeType.SRB,
                         onClick = null,
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.main_dark)
+                            selectedColor = colorResource(id = R.color.secondary)
                         )
                     )
                     Text(
@@ -137,7 +137,7 @@ fun AsdasView(state: AsdasState, onEvent: (AsdasEvent) -> Unit) {
                         selected = state.srbSoeType == SrbSoeType.SOE,
                         onClick = null,
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colorResource(id = R.color.main_dark)
+                            selectedColor = colorResource(id = R.color.secondary)
                         )
                     )
                     Text(
