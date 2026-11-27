@@ -130,6 +130,11 @@ fun PatientScreen(
                 PatientScreenViewRoute.values().forEachIndexed { index, patientScreenViewRoute ->
                     if (index != PatientScreenViewRoute.values().size - 1) {
                         val selected = selectedItem == patientScreenViewRoute
+                        val foreground = if (selected) {
+                            MaterialTheme.colorScheme.onSecondaryContainer
+                        } else {
+                            colorResource(id = R.color.font_color)
+                        }
                         NavigationDrawerItem(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
                             label = {
@@ -140,11 +145,11 @@ fun PatientScreen(
                                         modifier = Modifier.padding(end = 8.dp),
                                         imageVector = icons[index],
                                         contentDescription = null,
-                                        tint = colorResource(id = R.color.color_white)
+                                        tint = foreground
                                     )
                                     Text(
                                         text = patientScreenViewRoute.title,
-                                        color = colorResource(id = R.color.color_white)
+                                        color = foreground
                                     )
                                 }
                             },
@@ -155,7 +160,7 @@ fun PatientScreen(
                                 scope.launch { drawerState.close() }
                             },
                             colors = NavigationDrawerItemDefaults.colors(
-                                selectedContainerColor = colorResource(id = R.color.main_dark),
+                                selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                                 unselectedContainerColor = colorResource(id = R.color.main)
                             )
                         )

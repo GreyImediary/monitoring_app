@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.feature_asdas_impl.mvi.AsdasViewModel
 import ru.therapyapp.feature_asdas_impl.screen.AsdasScreen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,7 +19,9 @@ class AsdasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AsdasScreen(viewModel = viewModel)
+            MonitoringTheme {
+                AsdasScreen(viewModel = viewModel)
+            }
         }
     }
 

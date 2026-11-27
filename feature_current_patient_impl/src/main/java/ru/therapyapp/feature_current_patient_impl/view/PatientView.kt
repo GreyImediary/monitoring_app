@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
@@ -138,7 +139,7 @@ fun PatientView(
                             Text(
                                 modifier = Modifier.padding(end = 8.dp),
                                 text = state.currentIndex.name,
-                                color = colorResource(id = R.color.color_white)
+                                color = colorResource(id = R.color.font_color)
                             )
                             Icon(
                                 imageVector = if (expanded)
@@ -146,7 +147,7 @@ fun PatientView(
                                 else
                                     Icons.Filled.ArrowDropDown,
                                 contentDescription = "",
-                                tint = colorResource(id = R.color.color_white)
+                                tint = colorResource(id = R.color.font_color)
                             )
                         }
 
@@ -201,7 +202,7 @@ fun PatientView(
                             text = chosenDateString.ifEmpty {
                                 "Выбрать дату"
                             },
-                            color = colorResource(id = R.color.color_white)
+                            color = colorResource(id = R.color.font_color)
                         )
                         Icon(
                             imageVector = if (expanded)
@@ -209,7 +210,7 @@ fun PatientView(
                             else
                                 Icons.Filled.ArrowDropDown,
                             contentDescription = "",
-                            tint = colorResource(id = R.color.color_white)
+                            tint = colorResource(id = R.color.font_color)
                         )
 
                         if (chosenDateString.isNotEmpty()) {
@@ -225,7 +226,7 @@ fun PatientView(
                                     ),
                                 imageVector = Icons.Filled.Cancel,
                                 contentDescription = "",
-                                tint = colorResource(id = R.color.color_white)
+                                tint = colorResource(id = R.color.font_color)
                             )
                         }
                     }
@@ -266,8 +267,10 @@ fun PatientView(
                             }
 
                             val dataset = LineDataSet(entries, state.currentIndex.name)
-                            dataset.color = R.color.font_color
-                            dataset.valueTextColor = R.color.font_color
+                            val foreground = ContextCompat.getColor(chart.context, R.color.font_color)
+                            dataset.color = foreground
+                            dataset.setCircleColor(foreground)
+                            dataset.valueTextColor = foreground
                             chart.data = LineData(dataset)
                             chart.xAxis.valueFormatter = MyXAxisFormatter()
 
@@ -318,8 +321,10 @@ fun PatientView(
                             }
 
                             val dataset = LineDataSet(entries, state.currentIndex.name)
-                            dataset.color = R.color.font_color
-                            dataset.valueTextColor = R.color.font_color
+                            val foreground = ContextCompat.getColor(view.context, R.color.font_color)
+                            dataset.color = foreground
+                            dataset.setCircleColor(foreground)
+                            dataset.valueTextColor = foreground
                             view.data = LineData(dataset)
                             view.invalidate()
                         }
@@ -459,7 +464,7 @@ private fun CommentsView(
                         }
                     },
                 ) {
-                    Text("Добавить", color = colorResource(id = R.color.color_white))
+                    Text("Добавить", color = colorResource(id = R.color.font_color))
                 }
             },
             dismissButton = {
@@ -468,7 +473,7 @@ private fun CommentsView(
                         isDialogOpened = false
                     },
                 ) {
-                    Text("Отменить", color = colorResource(id = R.color.color_white))
+                    Text("Отменить", color = colorResource(id = R.color.font_color))
                 }
             }
         )

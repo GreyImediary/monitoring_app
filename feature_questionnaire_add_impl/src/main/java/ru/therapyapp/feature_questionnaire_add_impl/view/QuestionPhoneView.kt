@@ -59,7 +59,7 @@ fun QuestionPhoneView(
             Text(
                 modifier = Modifier.padding(end = 8.dp),
                 text = "Тип вопроса: ${question.questionType.questionTypeName}",
-                color = colorResource(id = R.color.color_white)
+                color = colorResource(id = R.color.font_color)
             )
             Icon(
                 imageVector = if (expanded)
@@ -67,7 +67,7 @@ fun QuestionPhoneView(
                 else
                     Icons.Filled.ArrowDropDown,
                 contentDescription = "",
-                tint = colorResource(id = R.color.color_white)
+                tint = colorResource(id = R.color.font_color)
             )
         }
 
@@ -107,12 +107,12 @@ fun QuestionPhoneView(
                 Text(
                     modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                     text = "Добавить опцию",
-                    color = colorResource(id = R.color.color_white)
+                    color = colorResource(id = R.color.font_color)
                 )
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "",
-                    tint = colorResource(id = R.color.color_white)
+                    tint = colorResource(id = R.color.font_color)
                 )
             }
         }

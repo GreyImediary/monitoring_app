@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.feature_basdai_impl.mvi.BasdaiViewModel
 import ru.therapyapp.feature_basdai_impl.screen.BasdaiScreen
 
@@ -18,7 +19,9 @@ class BasdaiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            BasdaiScreen(viewModel = viewModel)
+            MonitoringTheme {
+                BasdaiScreen(viewModel = viewModel)
+            }
         }
     }
 

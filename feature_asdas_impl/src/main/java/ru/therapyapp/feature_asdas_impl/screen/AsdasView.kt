@@ -206,7 +206,7 @@ fun AsdasView(state: AsdasState, onEvent: (AsdasEvent) -> Unit) {
             ) {
                 Text(
                     text = "Отправить",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
         }

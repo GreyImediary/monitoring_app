@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.data_doctor.api.entity.Doctor
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenEvent
 import ru.therapyapp.feature_doctor_screen_impl.mvi.DoctorScreenViewModel
@@ -20,7 +21,9 @@ class DoctorScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            DoctorScreen(viewModel = viewModel)
+            MonitoringTheme {
+                DoctorScreen(viewModel = viewModel)
+            }
         }
 
         viewModel.dispatch(DoctorScreenEvent.FetchData)

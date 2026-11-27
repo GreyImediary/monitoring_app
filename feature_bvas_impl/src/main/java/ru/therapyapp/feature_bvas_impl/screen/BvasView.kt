@@ -581,7 +581,7 @@ fun BvasView(state: BvasState, onEvent: (BvasEvent) -> Unit) {
             ) {
                 Text(
                     text = "Отправить",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
         }
@@ -629,6 +629,7 @@ private fun QuestionView(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
+            colors = CheckboxDefaults.colors(checkedColor = colorResource(id = R.color.main_dark)),
             modifier = Modifier.padding(end = 6.dp),
             checked = isChecked.value,
             onCheckedChange = {

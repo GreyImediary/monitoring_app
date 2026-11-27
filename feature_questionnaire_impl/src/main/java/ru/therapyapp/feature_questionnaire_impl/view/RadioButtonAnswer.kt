@@ -11,6 +11,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -72,6 +73,7 @@ fun RadioButtonAnswer(
                 horizontalArrangement = Arrangement.Start,
             ) {
                 RadioButton(
+                    colors = RadioButtonDefaults.colors(selectedColor = colorResource(id = R.color.main_dark)),
                     modifier = Modifier.padding(end = 8.dp),
                     selected = isSelectedItem(option.description),
                     onClick = { onChangeState(option.description) },

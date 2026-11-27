@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.therapyapp.core_ui.MonitoringTheme
 import ru.therapyapp.data_patient.api.entity.Patient
 import ru.therapyapp.feature_current_patient_impl.mvi.CurrentPatientEvent
 import ru.therapyapp.feature_current_patient_impl.mvi.CurrentPatientViewModel
@@ -19,7 +20,9 @@ class CurrentPatientActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PatientScreen(viewModel, onEvent = { viewModel.dispatch(it) })
+            MonitoringTheme {
+                PatientScreen(viewModel, onEvent = { viewModel.dispatch(it) })
+            }
         }
 
         viewModel.dispatch(CurrentPatientEvent.FetchData)

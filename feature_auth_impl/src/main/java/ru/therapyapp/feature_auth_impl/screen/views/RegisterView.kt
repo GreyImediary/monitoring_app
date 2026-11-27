@@ -341,7 +341,7 @@ fun RegisterView(
             ) {
                 Text(
                     text = "Зарегистрироваться",
-                    style = TextStyle(color = colorResource(id = R.color.color_white))
+                    style = TextStyle(color = colorResource(id = R.color.font_color))
                 )
             }
         }

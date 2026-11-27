@@ -108,7 +108,7 @@ fun BasdaiView(state: BasdaiState, onEvent: (BasdaiEvent) -> Unit) {
             ) {
                 Text(
                     text = "Отправить",
-                    style = TextStyle(color = colorResource(id = ru.therapyapp.core_ui.R.color.color_white))
+                    style = TextStyle(color = colorResource(id = ru.therapyapp.core_ui.R.color.font_color))
                 )
             }
         }

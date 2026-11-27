@@ -345,7 +345,7 @@ fun DoctorDataView(
                 ) {
                     Text(
                         text = "Завершить",
-                        style = TextStyle(color = colorResource(id = R.color.color_white))
+                        style = TextStyle(color = colorResource(id = R.color.font_color))
                     )
                 }
             }
@@ -656,7 +656,7 @@ fun DoctorDataView(
                 ) {
                     Text(
                         text = "Завершить",
-                        style = TextStyle(color = colorResource(id = R.color.color_white))
+                        style = TextStyle(color = colorResource(id = R.color.font_color))
                     )
                 }
             }

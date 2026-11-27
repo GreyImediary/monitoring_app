@@ -131,7 +131,7 @@ fun QuestionnaireView(
                     .padding(top = 6.dp),
                 onClick = { onEvent(QuestionnaireEvent.SendQuestionnaire) }
             ) {
-                Text(text = "Отправить анкету", color = colorResource(id = R.color.color_white))
+                Text(text = "Отправить анкету", color = colorResource(id = R.color.font_color))
             }
         }
     }
