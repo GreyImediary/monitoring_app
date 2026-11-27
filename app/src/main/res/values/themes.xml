@@ -4,6 +4,11 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:statusBarColor">@color/main</item>
+        <item name="colorPrimary">@color/main</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorOnPrimary">@color/font_color</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/font_color</item>
+        <item name="colorAccent">@color/icon_color</item>
     </style>
 </resources>
